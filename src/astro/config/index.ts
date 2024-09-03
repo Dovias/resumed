@@ -1,0 +1,1 @@
+export {getResolvedAstroConfig} from "./integration.ts";

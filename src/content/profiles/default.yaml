@@ -1,0 +1,36 @@
+contacts:
+  picturePath: /profile.png
+  names:
+  - First Name
+  - Last Name
+  telephoneNumber: "+000000000"
+  emailAddress: contact@example.com
+  links:
+    entries:
+      example:
+        path: https://example.com/
+        iconPath: /icons/example.svg
+aspects:
+  technologies:
+    entries:
+      example:
+        path: https://example.com/
+        iconPath: /icons/example.svg
+  communication:
+    entries:
+      lithuanian:
+        iconPath: /icons/lithuania.svg
+      english:
+        iconPath: /icons/united-kingdom.svg
+timelines:
+  experience:
+    entries:
+      example:
+        timespan:
+          from: 2023-09-03
+          to: 2024-09-03
+  education:
+    entries:
+      example:
+        timespan:
+          from: 2024-09-03

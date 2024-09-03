@@ -1,0 +1,21 @@
+{
+  "name": "resumed",
+  "version": "1.0.0",
+  "description": "configuration based resume template",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "author": "Dovias",
+  "license": "MIT",
+  "dependencies": {
+    "astro": "^4.15.2",
+    "astro-integration-kit": "^0.16.1",
+    "typescript": "^5.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.1"
+  }
+}

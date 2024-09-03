@@ -1,0 +1,31 @@
+contacts:
+  role: Role name
+aspects:
+  technologies:
+    name: Technologies
+    entries:
+      example:
+        name: Example
+  communication:
+    name: Communication
+    entries:
+      lithuanian:
+        name: Lithuanian
+      english:
+        name: English
+timelines:
+  experience:
+    name: Professional Experience
+    entries:
+      example:
+        name: Entry Name
+        type: Entry Type
+        location: Entry Location
+        description: Entry Description
+  education:
+    name: Education
+    entries:
+      example:
+        name: Entry Name
+        type: Entry Type
+        location: Entry Location

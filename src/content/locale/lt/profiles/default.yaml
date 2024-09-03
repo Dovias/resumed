@@ -1,0 +1,31 @@
+contacts:
+  role: Pareigos
+aspects:
+  technologies:
+    name: Technologijos
+    entries:
+      example:
+        name: Pavyzdys
+  communication:
+    name: Komunikacija
+    entries:
+      lithuanian:
+        name: Lietuvių k.
+      english:
+        name: Anglų k.
+timelines:
+  experience:
+    name: Profesinė patirtis
+    entries:
+      example:
+        name: Įrašo pavadinimas
+        type: Įrašo tipas
+        location: Įrašo vieta
+        description: Įrašo aprašymas
+  education:
+    name: Išsilavinimas
+    entries:
+      example:
+        name: Įrašo pavadinimas
+        type: Įrašo tipas
+        location: Įrašo vieta

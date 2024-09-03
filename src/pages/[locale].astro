@@ -1,0 +1,49 @@
+---
+import type {GetStaticPaths} from "astro";
+import {AstroError} from "astro/errors";
+
+import {loadProfile, type ProfileName} from "../profile";
+
+import Layout from "../layouts/Layout.astro";
+import {getRegisteredLocales, loadLocaleMetadata} from "../locale";
+
+export const getStaticPaths = (async () => {
+  const locales = getRegisteredLocales();
+  if (!locales) {
+    return [];
+  }
+
+  const localeCodes = locales.flatMap((locale) => typeof locale === "string" ? locale : locale.codes);
+  const localeMetadatas = await Promise.all(localeCodes.map(async locale => await loadLocaleMetadata(locale)));
+
+  return await Promise.all(localeCodes.map(async (locale) => {
+    try {
+      return {
+        params: { locale },
+        props: {
+          "profile": await loadProfile(locale, import.meta.env.PROFILE as ProfileName | undefined),
+          localeMetadatas
+        }
+      };
+    } catch (error) {
+      /* For some reason Astro doesnt invoke Vite's Error UI when
+         error is being thrown from async function, so we need to
+         do such weird forwarding things here: */
+      if (error instanceof AstroError) {
+        throw new AstroError(error.message, error.hint);
+      }
+      if (error instanceof Error) {
+        throw new AstroError(error.message);
+      }
+      throw error;
+    }
+  }));
+}) satisfies GetStaticPaths;
+
+const { profile, localeMetadatas } = Astro.props;
+---
+
+<Layout locale={Astro.params.locale} title={`${profile.contacts.names.join(" ")}`}>
+  {JSON.stringify(profile)}
+  {JSON.stringify(localeMetadatas)}
+</Layout>
