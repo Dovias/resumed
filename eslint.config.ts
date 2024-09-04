@@ -49,5 +49,8 @@ export default [
       "stylistic/space-infix-ops": ["error"],
       "stylistic/type-annotation-spacing": ["error"]
     }
+  },
+  {
+    "ignores": [".astro/*"]
   }
 ] satisfies Linter.Config[];
