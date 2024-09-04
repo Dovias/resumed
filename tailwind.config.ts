@@ -4,6 +4,9 @@ export default {
   "content": ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   "theme": {
     "extend": {
+      "fontFamily": {
+        "sans": ["Kanit", "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"]
+      },
       "borderWidth": {
         "2": "0.178rem",
         "4": "0.2rem"
