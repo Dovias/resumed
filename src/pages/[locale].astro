@@ -19,8 +19,8 @@ export const getStaticPaths = (async () => {
   return await Promise.all(localeCodes.map(async (locale) => {
     try {
       return {
-        params: { locale },
-        props: {
+        "params": {locale},
+        "props": {
           "profile": await loadProfile(locale, import.meta.env.PROFILE as ProfileName | undefined),
           localeMetadatas
         }
@@ -40,7 +40,7 @@ export const getStaticPaths = (async () => {
   }));
 }) satisfies GetStaticPaths;
 
-const { profile, localeMetadatas } = Astro.props;
+const {profile, localeMetadatas} = Astro.props;
 ---
 
 <Layout locale={Astro.params.locale} title={`${profile.contacts.names.join(" ")}`}>

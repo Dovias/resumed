@@ -42,12 +42,12 @@ const profileSchema = z.object({
       }).readonly()
     })).readonly()
   }))
-}).readonly()
+}).readonly();
 
 export type Profile = z.infer<typeof profileSchema>;
 export type ProfileName = string;
 
-export async function loadProfile(locale?: LocaleName, profile: ProfileName = "default") {
+export async function loadProfile (locale?: LocaleName, profile: ProfileName = "default") {
   const profileEntry = await getEntry("profiles", profile);
   try {
     if (!profileEntry) {

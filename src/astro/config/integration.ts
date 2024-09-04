@@ -1,12 +1,12 @@
-import type {AstroConfig, AstroIntegration } from "astro";
-import { AstroError } from "astro/errors";
+import type {AstroConfig, AstroIntegration} from "astro";
+import {AstroError} from "astro/errors";
 
 const store = globalThis as typeof globalThis & {
-  _resolvedAstroConfig: AstroConfig
-}
+  "_resolvedAstroConfig": AstroConfig;
+};
 
 const integrationName = "resolved-config";
-export function resolvedAstroConfig(): AstroIntegration {
+export function resolvedAstroConfig (): AstroIntegration {
   return {
     "name": integrationName,
     "hooks": {
@@ -14,10 +14,10 @@ export function resolvedAstroConfig(): AstroIntegration {
         store._resolvedAstroConfig = config;
       }
     }
-  }
+  };
 }
 
-export function getResolvedAstroConfig() {
+export function getResolvedAstroConfig () {
   const config = store._resolvedAstroConfig;
   if (config == undefined) {
     throw new AstroError(

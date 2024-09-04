@@ -12,7 +12,7 @@ const localeMetadataSchema = z.object({
   "iconPath": z.string().min(1)
 }).readonly();
 
-export function getRegisteredLocales({i18n}: AstroConfig = getResolvedAstroConfig()) {
+export function getRegisteredLocales ({i18n}: AstroConfig = getResolvedAstroConfig()) {
   if (!i18n) {
     throw new AstroError(
       "Failed to retrieve all registered locale",
@@ -23,11 +23,11 @@ export function getRegisteredLocales({i18n}: AstroConfig = getResolvedAstroConfi
   return i18n.locales;
 }
 
-export function getLocaleEntry(locale: LocaleName, id: string) {
+export function getLocaleEntry (locale: LocaleName, id: string) {
   return getEntry("locale", `${locale}/${id}`);
 }
 
-export async function loadLocaleMetadata(locale: LocaleName) {
+export async function loadLocaleMetadata (locale: LocaleName) {
   const metadataEntry = await getLocaleEntry(locale, "metadata");
   try {
     if (!metadataEntry) {

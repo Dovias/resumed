@@ -6,16 +6,22 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "lint": "eslint --flag unstable_ts_config"
   },
   "author": "Dovias",
   "license": "MIT",
   "dependencies": {
     "astro": "^4.15.2",
-    "astro-integration-kit": "^0.16.1",
     "typescript": "^5.5.4"
   },
   "devDependencies": {
-    "@types/node": "^22.5.1"
+    "@stylistic/eslint-plugin-ts": "^2.7.2",
+    "@types/eslint": "^9.6.1",
+    "@types/node": "^22.5.1",
+    "eslint": "^9.9.1",
+    "eslint-plugin-astro": "^1.2.3",
+    "jiti": "^2.0.0-beta.3",
+    "typescript-eslint": "^8.4.0"
   }
 }

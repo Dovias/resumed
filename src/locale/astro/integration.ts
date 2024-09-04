@@ -12,12 +12,12 @@ type AstroUpdateConfig = Parameters<Parameters<Required<AstroIntegration["hooks"
 export type LocaleName = string;
 
 interface IntegrationOptions {
-  collectionName?: LocaleName;
-  i18n?: AstroUpdateConfig["i18n"];
-};
+  "collectionName"?: LocaleName;
+  "i18n"?: AstroUpdateConfig["i18n"];
+}
 
-const integrationName = "content-collection-locales"
-export function contentCollectionLocales({i18n, collectionName}: IntegrationOptions): AstroIntegration {
+const integrationName = "content-collection-locales";
+export function contentCollectionLocales ({i18n, collectionName}: IntegrationOptions): AstroIntegration {
   return {
     "name": integrationName,
     "hooks": {
@@ -27,7 +27,7 @@ export function contentCollectionLocales({i18n, collectionName}: IntegrationOpti
             resolvedAstroConfig()
           ],
           "i18n": {
-            locales: getContentLocaleCodes(options.config, collectionName)
+            "locales": getContentLocaleCodes(options.config, collectionName)
           } 
         });
 
@@ -36,16 +36,16 @@ export function contentCollectionLocales({i18n, collectionName}: IntegrationOpti
         }
       }
     }
-  }
+  };
 }
 
-function getContentLocaleCodes(config: AstroConfig, name: LocaleName = "locale") {
+function getContentLocaleCodes (config: AstroConfig, name: LocaleName = "locale") {
   const localePath = join(fileURLToPath(config.srcDir), "content", name);
   let files;
   try {
     files = readdirSync(localePath);
-  } catch (error) {
-    throw new AstroError(`Failed to load locale collection '${name}'`, `Ensure that such locale collection exists within '${localePath}' path`)
+  } catch {
+    throw new AstroError(`Failed to load locale collection '${name}'`, `Ensure that such locale collection exists within '${localePath}' path`);
   }
   return files.filter(file => lstatSync(join(localePath, file)).isDirectory());
 }
