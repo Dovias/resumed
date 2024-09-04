@@ -3,8 +3,8 @@ import "../styles/colors.css";
 import "../styles/print.css";
 
 interface Props {
-    "locale": string;
-    "title": string;
+  "locale": string;
+  "title": string;
 }
 
 const {locale, title} = Astro.props;
@@ -12,12 +12,12 @@ const {locale, title} = Astro.props;
 
 <!DOCTYPE html>
 <html lang={locale}>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{title}</title>
-    </head>
-    <body>
-        <slot />
-    </body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>

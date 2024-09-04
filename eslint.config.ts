@@ -1,6 +1,6 @@
 import eslintPluginAstro from "eslint-plugin-astro";
 import eslintPluginTypeScript from "typescript-eslint";
-import eslintPluginStylisticTypeScript from "@stylistic/eslint-plugin-ts";
+import eslintPluginStylistic from "@stylistic/eslint-plugin";
 
 import {Linter} from "eslint";
 
@@ -16,9 +16,12 @@ export default [
   },
   {
     "plugins": {
-      "stylistic": eslintPluginStylisticTypeScript
+      "stylistic": eslintPluginStylistic
     },
     "rules": {
+      "stylistic/indent": ["error", 2],
+      "stylistic/multiline-comment-style": ["error"],
+      "stylistic/spaced-comment": ["error"],
       "stylistic/block-spacing": ["error"],
       "stylistic/brace-style": ["error", "1tbs"],
       "stylistic/comma-dangle": ["error"],

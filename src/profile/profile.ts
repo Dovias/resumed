@@ -70,7 +70,7 @@ export async function loadProfile (locale?: LocaleName, profile: ProfileName = "
         `Failed to parse profile data! (profile: '${profile}')`,
         error.errors.map(issue => `${issue.message} (path: '${issue.path.join(".")}')`).join(EOL));
     } else if (error instanceof Error) {
-        throw new AstroError(`Failed to load profile data!`, error.message);
+      throw new AstroError(`Failed to load profile data!`, error.message);
     }
     throw error;
   }

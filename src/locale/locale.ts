@@ -40,7 +40,7 @@ export async function loadLocaleMetadata (locale: LocaleName) {
         `Failed to parse locale metadata! (locale: '${locale}')`,
         error.errors.map(issue => `${issue.message} (path: '${issue.path.join(".")}')`).join(EOL));
     } else if (error instanceof Error) {
-        throw new AstroError(`Failed to load locale data!`, error.message);
+      throw new AstroError(`Failed to load locale data!`, error.message);
     }
     throw error;
   }

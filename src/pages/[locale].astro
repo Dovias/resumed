@@ -26,9 +26,11 @@ export const getStaticPaths = (async () => {
         }
       };
     } catch (error) {
-      /* For some reason Astro doesnt invoke Vite's Error UI when
-         error is being thrown from async function, so we need to
-         do such weird forwarding things here: */
+      /*
+       * For some reason Astro doesnt invoke Vite's Error UI when
+       * error is being thrown from async function, so we need to
+       * do such weird forwarding things here: 
+       */
       if (error instanceof AstroError) {
         throw new AstroError(error.message, error.hint);
       }
