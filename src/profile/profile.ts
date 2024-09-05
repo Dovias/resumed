@@ -8,6 +8,11 @@ import {deepMerge} from "../utilities/object";
 
 import {type LocaleName, getLocaleEntry} from "../locale";
 
+const iconSchema = z.object({
+  "path": z.string().min(1),
+  "description": z.string().nullish()
+});
+
 const profileSchema = z.object({
   "contacts": z.object({
     "names": z.string().array().nonempty(),
@@ -21,10 +26,7 @@ const profileSchema = z.object({
     "links": z.object({
       "entries": z.record(z.object({
         "path": z.string().min(1),
-        "icon": z.object({
-          "path": z.string().min(1),
-          "description": z.string().nullish()
-        }).readonly()
+        "icon": iconSchema.readonly()
       })).readonly()
     }).readonly()
   }),
@@ -32,10 +34,7 @@ const profileSchema = z.object({
     "name": z.string().min(1),
     "entries": z.record(z.object({
       "name": z.string().min(1),
-      "icon": z.object({
-        "path": z.string().min(1),
-        "description": z.string().nullish()
-      }).readonly()
+      "icon": iconSchema.readonly()
     })).readonly()
   })),
   "timelines": z.record(z.object({
