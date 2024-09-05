@@ -11,7 +11,7 @@ const {names, ...props} = Astro.props;
 <Layout title={names.join(" ")} {...props}>
   <div class="grid md:grid-cols-[1fr_auto] print:grid-cols-[1fr_auto] md:grid-rows-[min-content_min-content] print:grid-rows-[min-content_min-content] gap-4 justify-center max-w-screen-xl mx-auto p-8 overflow-auto">
     <aside class="md:order-2 print:order-2 mb-6 justify-self-center">
-      <slot name="aside top" />
+      <slot name="aside-top" />
     </aside>
     <main class="md:row-span-3 print:row-span-3">
       <header>
