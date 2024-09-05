@@ -5,7 +5,8 @@ import {AstroError} from "astro/errors";
 import {loadProfile, type ProfileName} from "../profile";
 
 import {getRegisteredLocales, loadLocaleMetadata} from "../locale";
-import ResumeLayout from "../layouts/ResumeLayout.astro";
+import ProfileLayout from "../layouts/ProfileLayout.astro";
+import ProfileInformationHeading from "../components/profile/ProfileInformationHeading.astro";
 
 export const getStaticPaths = (async () => {
   const locales = getRegisteredLocales();
@@ -45,7 +46,6 @@ export const getStaticPaths = (async () => {
 const {profile, localeMetadatas} = Astro.props;
 ---
 
-<ResumeLayout locale={Astro.params.locale} title={`${profile.contacts.names.join(" ")}`}>
-  {JSON.stringify(profile)}
-  {JSON.stringify(localeMetadatas)}
-</ResumeLayout>
+<ProfileLayout locale={Astro.params.locale} names={profile.contacts.names}>
+  <ProfileInformationHeading slot="header" names={profile.contacts.names} role={profile.contacts.role} />
+</ProfileLayout>

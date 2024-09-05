@@ -1,12 +1,15 @@
 ---
 import Layout from "./Layout.astro";
 import type {Props as LayoutProps} from "./Layout.astro";
+import type {Profile} from "../profile";
 
-interface Props extends LayoutProps {}
+interface Props extends Pick<LayoutProps, "locale">, Pick<Profile["contacts"], "names"> {}
+
+const {names, ...props} = Astro.props;
 ---
 
-<Layout {...Astro.props}>
-  <div class="grid md:grid-cols-[1fr_auto] print:grid-cols-[1fr_auto] md:grid-rows-[min-content_min-content] print:grid-rows-[min-content_min-content] gap-4 justify-center max-w-screen-xl mx-auto p-8">
+<Layout title={names.join(" ")} {...props}>
+  <div class="grid md:grid-cols-[1fr_auto] print:grid-cols-[1fr_auto] md:grid-rows-[min-content_min-content] print:grid-rows-[min-content_min-content] gap-4 justify-center max-w-screen-xl mx-auto p-8 overflow-auto">
     <aside class="md:order-2 print:order-2 mb-6 justify-self-center">
       <slot name="aside top" />
     </aside>
