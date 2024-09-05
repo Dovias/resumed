@@ -15,6 +15,11 @@ export default [
     }
   },
   {
+    "rules": {
+      "@typescript-eslint/no-empty-object-type": ["error", {"allowInterfaces": "with-single-extends"}]
+    }
+  },
+  {
     "plugins": {
       "stylistic": eslintPluginStylistic
     },
