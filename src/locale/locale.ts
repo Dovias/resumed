@@ -5,7 +5,8 @@ import {AstroError} from "astro/errors";
 import type {AstroConfig} from "astro";
 
 import {getResolvedAstroConfig} from "../astro/config";
-import type {LocaleName} from "./astro/integration";
+
+export type LocaleName = string;
 
 const localeMetadataSchema = z.object({
   "name": z.string().min(1),

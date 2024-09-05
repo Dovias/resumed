@@ -8,8 +8,10 @@ import "@fontsource/kanit/800.css";
 import "../styles/colors.css";
 import "../styles/print.css";
 
-interface Props {
-  "locale": string;
+import type {LocaleName} from "../locale";
+
+export interface Props {
+  "locale": LocaleName;
   "title": string;
 }
 
@@ -24,6 +26,8 @@ const {locale, title} = Astro.props;
     <title>{title}</title>
   </head>
   <body>
-    <slot />
+    <div class="bg-background bg-[url('/images/background-tile.svg')] min-w-screen min-h-screen">
+      <slot />
+    </div>
   </body>
 </html>

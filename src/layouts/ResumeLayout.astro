@@ -1,0 +1,24 @@
+---
+import Layout from "./Layout.astro";
+import type {Props as LayoutProps} from "./Layout.astro";
+
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface Props extends LayoutProps {}
+---
+
+<Layout {...Astro.props}>
+  <div class="grid md:grid-cols-[1fr_auto] print:grid-cols-[1fr_auto] md:grid-rows-[min-content_min-content] print:grid-rows-[min-content_min-content] gap-4 justify-center max-w-screen-xl mx-auto p-8">
+    <aside class="md:order-2 print:order-2 mb-6 justify-self-center">
+      <slot name="aside top" />
+    </aside>
+    <main class="md:row-span-3 print:row-span-3">
+      <header>
+        <slot name="header" />
+      </header>
+      <slot />    
+    </main>
+    <aside class="md:order-3 print:order-3 grid gap-6 md:max-w-72">
+      <slot name="aside" />
+    </aside>
+  </div>
+</Layout>

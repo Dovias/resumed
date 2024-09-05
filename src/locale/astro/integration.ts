@@ -6,10 +6,10 @@ import type {AstroConfig, AstroIntegration} from "astro";
 import {AstroError} from "astro/errors";
 
 import {resolvedAstroConfig} from "../../astro/config/integration";
+import type {LocaleName} from "../locale";
 
 type AstroUpdateConfig = Parameters<Parameters<Required<AstroIntegration["hooks"]>["astro:config:setup"]>[0]["updateConfig"]>[0];
 
-export type LocaleName = string;
 
 interface IntegrationOptions {
   "collectionName"?: LocaleName;
