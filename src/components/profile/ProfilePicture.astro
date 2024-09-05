@@ -1,0 +1,15 @@
+---
+import type {Profile} from "../../profile";
+
+type ProfilePictureProps = Profile["contacts"]["picture"];
+
+export interface Props extends ProfilePictureProps {}
+
+const {path, description = "profile picture"} = Astro.props;
+---
+
+
+<picture class="block w-full">
+  <source srcset={path} />
+  <img class="flex justify-center border-4 border-primary rounded-full outline outline-4 outline-contour shadow-[0.4em_0.4em_0] shadow-contour" width="256" height="256" alt={description} />
+</picture>

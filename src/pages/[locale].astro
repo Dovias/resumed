@@ -7,6 +7,7 @@ import {loadProfile, type ProfileName} from "../profile";
 import {getRegisteredLocales, loadLocaleMetadata} from "../locale";
 import ProfileLayout from "../layouts/ProfileLayout.astro";
 import ProfileInformationHeading from "../components/profile/ProfileInformationHeading.astro";
+import ProfilePicture from "../components/profile/ProfilePicture.astro";
 
 export const getStaticPaths = (async () => {
   const locales = getRegisteredLocales();
@@ -43,9 +44,10 @@ export const getStaticPaths = (async () => {
   }));
 }) satisfies GetStaticPaths;
 
-const {profile, localeMetadatas} = Astro.props;
+const {profile} = Astro.props;
 ---
 
 <ProfileLayout locale={Astro.params.locale} names={profile.contacts.names}>
   <ProfileInformationHeading slot="header" names={profile.contacts.names} role={profile.contacts.role} />
+  <ProfilePicture slot="aside-top" path={profile.contacts.picture.path} description={profile.contacts.picture.description} />
 </ProfileLayout>

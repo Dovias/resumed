@@ -1,6 +1,6 @@
 contacts:
   picture:
-    path: /profile.png
+    path: /images/profile.png
   names:
   - First Name
   - Last Name
