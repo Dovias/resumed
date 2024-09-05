@@ -1,5 +1,6 @@
 contacts:
-  picturePath: /profile.png
+  picture:
+    path: /profile.png
   names:
   - First Name
   - Last Name
@@ -9,19 +10,23 @@ contacts:
     entries:
       example:
         path: https://example.com/
-        iconPath: /icons/example.svg
+        icon:
+          path: /icons/example.svg
 aspects:
   technologies:
     entries:
       example:
         path: https://example.com/
-        iconPath: /icons/example.svg
+        icon:
+          path: /icons/example.svg
   communication:
     entries:
       lithuanian:
-        iconPath: /icons/lithuania.svg
+        icon:
+          path: /icons/lithuania.svg
       english:
-        iconPath: /icons/united-kingdom.svg
+        icon:
+          path: /icons/united-kingdom.svg
 timelines:
   experience:
     entries:

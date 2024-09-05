@@ -6,20 +6,25 @@ import {z} from "astro/zod";
 
 import {deepMerge} from "../utilities/object";
 
-import {getLocaleEntry} from "../locale";
-import type {LocaleName} from "../locale/astro/integration";
+import {type LocaleName, getLocaleEntry} from "../locale";
 
 const profileSchema = z.object({
   "contacts": z.object({
     "names": z.string().array().nonempty(),
     "role": z.string().min(1),
-    "picturePath": z.string().min(1),
+    "picture": z.object({
+      "path": z.string().min(1),
+      "description": z.string().nullish()
+    }).readonly(),
     "telephoneNumber": z.string().regex(/^\+?[0-9]{1,15}$/g),
     "emailAddress": z.string().email(),
     "links": z.object({
       "entries": z.record(z.object({
         "path": z.string().min(1),
-        "iconPath": z.string().min(1)
+        "icon": z.object({
+          "path": z.string().min(1),
+          "description": z.string().nullish()
+        }).readonly()
       })).readonly()
     }).readonly()
   }),
@@ -27,7 +32,10 @@ const profileSchema = z.object({
     "name": z.string().min(1),
     "entries": z.record(z.object({
       "name": z.string().min(1),
-      "iconPath": z.string().min(1)
+      "icon": z.object({
+        "path": z.string().min(1),
+        "description": z.string().nullish()
+      }).readonly()
     })).readonly()
   })),
   "timelines": z.record(z.object({
