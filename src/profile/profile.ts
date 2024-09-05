@@ -12,6 +12,7 @@ import type {LocaleName} from "../locale/astro/integration";
 const profileSchema = z.object({
   "contacts": z.object({
     "names": z.string().array().nonempty(),
+    "role": z.string().min(1),
     "picturePath": z.string().min(1),
     "telephoneNumber": z.string().regex(/^\+?[0-9]{1,15}$/g),
     "emailAddress": z.string().email(),
