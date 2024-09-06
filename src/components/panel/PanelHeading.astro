@@ -1,0 +1,9 @@
+---
+import Panel, {type Props} from "./Panel.astro";
+
+const {color = "primary", ...props} = Astro.props;
+---
+
+<Panel color={color} {...props}>
+  <h3 class="text-xl lg:text-2xl font-semibold"><slot /></h3>
+</Panel>
