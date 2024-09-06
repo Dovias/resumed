@@ -1,0 +1,21 @@
+---
+import type {AccentColor} from "../../types/colors";
+
+export interface Props {
+  "color"?: AccentColor;
+  "significance"?: 100 | 200;
+}
+
+const {color, significance = 100} = Astro.props;
+---
+
+<div class:list={["p-2", "border-4", "border-contour", "rounded-lg", "text-foreground", {
+  "bg-primary": color === "primary",
+  "bg-secondary": color === "secondary",
+  "bg-foreground": !color
+}, {
+  "shadow-[0.2em_0.2em_0] shadow-contour/20": significance === 100,
+  "shadow-[0.4em_0.4em_0] shadow-contour": significance === 200
+}]}>
+  <slot />
+</div>
