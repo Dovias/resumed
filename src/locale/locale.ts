@@ -8,7 +8,12 @@ import {getResolvedAstroConfig} from "../astro/config";
 
 export type LocaleName = string;
 
-const localeMetadataSchema = z.object({
+export const iconSchema = z.object({
+  "path": z.string().min(1),
+  "description": z.string().nullish()
+});
+
+export const localeSchema = z.object({
   "name": z.string().min(1),
   "iconPath": z.string().min(1)
 }).readonly();
@@ -34,7 +39,7 @@ export async function loadLocaleMetadata (locale: LocaleName) {
     if (!metadataEntry) {
       throw new Error(`'${locale}' locale metadata was not found`);
     }
-    return localeMetadataSchema.parse(metadataEntry.data);
+    return localeSchema.parse(metadataEntry.data);
   } catch (error) {
     if (error instanceof z.ZodError) {
       throw new AstroError(

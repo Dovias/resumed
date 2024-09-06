@@ -6,14 +6,9 @@ import {z} from "astro/zod";
 
 import {deepMerge} from "../utilities/object";
 
-import {type LocaleName, getLocaleEntry} from "../locale";
+import {type LocaleName, iconSchema, getLocaleEntry} from "../locale";
 
-const iconSchema = z.object({
-  "path": z.string().min(1),
-  "description": z.string().nullish()
-});
-
-const profileSchema = z.object({
+export const profileSchema = z.object({
   "contacts": z.object({
     "names": z.string().array().nonempty(),
     "role": z.string().min(1),
