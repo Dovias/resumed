@@ -13,7 +13,7 @@ export const iconSchema = z.object({
   "description": z.string().nullish()
 });
 
-export const localeSchema = z.object({
+export const localeMetadataSchema = z.object({
   "name": z.string().min(1),
   "iconPath": z.string().min(1)
 }).readonly();
@@ -39,7 +39,7 @@ export async function loadLocaleMetadata (locale: LocaleName) {
     if (!metadataEntry) {
       throw new Error(`'${locale}' locale metadata was not found`);
     }
-    return localeSchema.parse(metadataEntry.data);
+    return localeMetadataSchema.parse(metadataEntry.data);
   } catch (error) {
     if (error instanceof z.ZodError) {
       throw new AstroError(
