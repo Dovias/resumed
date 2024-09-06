@@ -15,7 +15,7 @@ export const iconSchema = z.object({
 
 export const localeMetadataSchema = z.object({
   "name": z.string().min(1),
-  "iconPath": z.string().min(1)
+  "icon": iconSchema
 }).readonly();
 
 export function getRegisteredLocales ({i18n}: AstroConfig = getResolvedAstroConfig()) {

@@ -1,2 +1,4 @@
 name: English
-iconPath: /icons/united-kingdom.svg
+icon: 
+  path: /icons/united-kingdom.svg
+  description: Flag of the United Kingdom

@@ -1,2 +1,4 @@
 name: Lietuvių k.
-iconPath: /icons/lithuania.svg
+icon:
+  path: /icons/lithuania.svg
+  description: Flag of the Republic of Lithuania
