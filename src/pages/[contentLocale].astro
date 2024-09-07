@@ -18,10 +18,10 @@ export const getStaticPaths = (async () => {
     return Promise.resolve([]);
   }
 
-  const localeMetadatas = await Promise.all(contentLocales.map(async locale => await loadContentLocaleMetadata(locale)));
+  try {
+    const localeMetadatas = await Promise.all(contentLocales.map(async locale => await loadContentLocaleMetadata(locale)));
 
-  return await Promise.all(contentLocales.map(async (contentLocale) => {
-    try {
+    return await Promise.all(contentLocales.map(async (contentLocale) => {
       return {
         "params": {contentLocale},
         "props": {
@@ -29,21 +29,21 @@ export const getStaticPaths = (async () => {
           localeMetadatas
         }
       };
-    } catch (error) {
-      /*
-       * For some reason Astro doesnt invoke Vite's Error UI when
-       * error is being thrown from async function, so we need to
-       * do such weird forwarding things here: 
-       */
-      if (error instanceof AstroError) {
-        throw new AstroError(error.message, error.hint);
-      }
-      if (error instanceof Error) {
-        throw new AstroError(error.message);
-      }
-      throw error;
+    }));
+  } catch (error) {
+    /*
+     * For some reason Astro doesnt invoke Vite's Error UI when
+     * error is being thrown from async function, so we need to
+     * do such weird forwarding things here: 
+     */
+    if (error instanceof AstroError) {
+      throw new AstroError(error.message, error.hint);
     }
-  }));
+    if (error instanceof Error) {
+      throw new AstroError(error.message);
+    }
+    throw error;
+  }
 }) satisfies GetStaticPaths;
 
 const {profile} = Astro.props;
