@@ -7,13 +7,11 @@ export default defineConfig({
   "integrations": [
     tailwind(),
     contentCollectionLocales({
-      "i18n": {
-        "defaultLocale": "en",
-        "routing": {
-          "redirectToDefaultLocale": true,
-          "prefixDefaultLocale": true,
-          "fallbackType": "redirect"
-        }
+      "defaultLocale": "en",
+      "routing": {
+        "redirectToDefaultLocale": true,
+        "prefixDefaultLocale": true,
+        "fallbackType": "redirect"
       }
     })
   ]

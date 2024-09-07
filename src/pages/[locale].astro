@@ -4,7 +4,7 @@ import {AstroError} from "astro/errors";
 
 import {loadProfile, type ProfileName} from "../profile";
 
-import {getRegisteredLocales, loadLocaleMetadata} from "../locale";
+import {getContentLocales, loadLocaleMetadata} from "../locale";
 
 import ProfileLayout from "../layouts/ProfileLayout.astro";
 import ProfileInformationHeading from "../components/profile/ProfileInformationHeading.astro";
@@ -14,12 +14,7 @@ import Panel from "../components/panel/Panel.astro";
 import PanelHeading from "../components/panel/PanelHeading.astro";
 
 export const getStaticPaths = (async () => {
-  const locales = getRegisteredLocales();
-  if (!locales) {
-    return [];
-  }
-
-  const localeCodes = locales.flatMap((locale) => typeof locale === "string" ? locale : locale.codes);
+  const localeCodes = getContentLocales();
   const localeMetadatas = await Promise.all(localeCodes.map(async locale => await loadLocaleMetadata(locale)));
 
   return await Promise.all(localeCodes.map(async (locale) => {
