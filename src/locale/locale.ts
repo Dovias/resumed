@@ -17,17 +17,19 @@ export const localeMetadataSchema = z.object({
   "icon": iconSchema
 }).readonly();
 
-export function getContentLocaleEntry (...ids: ContentLocalePath) {
-  return getEntry(localeContentCollection, ids.join("/"));
+export type LocaleMetadata = z.infer<typeof localeMetadataSchema>;
+
+export async function getContentLocaleData (...ids: ContentLocalePath) {
+  return (await getEntry(localeContentCollection, ids.join("/")))?.data;
 }
 
 export async function loadContentLocaleMetadata (locale: ContentLocaleName) {
-  const metadataEntry = await getContentLocaleEntry(locale, "metadata");
+  const metadataEntry = await getContentLocaleData(locale, "metadata");
   try {
     if (!metadataEntry) {
       throw new Error(`'${locale}' locale metadata was not found`);
     }
-    return localeMetadataSchema.parse(metadataEntry.data);
+    return localeMetadataSchema.parse(metadataEntry);
   } catch (error) {
     if (error instanceof z.ZodError) {
       throw new AstroError(

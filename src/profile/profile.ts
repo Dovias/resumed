@@ -5,13 +5,12 @@ import {getEntry, type DataEntryMap} from "astro:content";
 import {z} from "astro/zod";
 
 import {deepMerge} from "../utilities/object";
-import {type ContentLocaleName, iconSchema, getContentLocaleEntry} from "../locale";
+import {type ContentLocaleName, iconSchema, getContentLocaleData} from "../locale";
 import type {localeContentCollection} from "../locale/astro/integration";
 
 export const profilesContentCollection = "profiles" as const satisfies keyof DataEntryMap;
 
-export type Profile = z.infer<typeof profileSchema>;
-export type ProfileName = keyof DataEntryMap["profiles"];
+export type ContentProfilePath = Split<keyof DataEntryMap[typeof profilesContentCollection], "/">;
 
 export const profileSchema = z.object({
   "contacts": z.object({
@@ -52,6 +51,8 @@ export const profileSchema = z.object({
   }))
 }).readonly();
 
+export type Profile = z.infer<typeof profileSchema>;
+
 export type ContentLocaleProfileName<
   L extends ContentLocaleName,
   S = keyof DataEntryMap[typeof localeContentCollection]
@@ -62,23 +63,27 @@ export type ContentLocalizedProfileName<
   V = keyof DataEntryMap[typeof profilesContentCollection]
 > = V extends ContentLocaleProfileName<L> ? ContentLocaleProfileName<L> : never;
 
+export async function getContentProfileData (...ids: ContentProfilePath) {
+  return (await getEntry(profilesContentCollection, ids.join("/")))?.data;
+}
+
 export async function loadContentLocalizedProfile<T extends ContentLocaleName> (locale?: T, profile: ContentLocalizedProfileName<T> = "default" as ContentLocalizedProfileName<T>) {
-  const profileEntry = await getEntry(profilesContentCollection, profile);
+  const profileEntry = await getContentProfileData(profile as ContentLocalizedProfileName<ContentLocaleName>);
   try {
     if (!profileEntry) {
       throw new Error(`Profile '${profile}' was not found`);
     }
 
     if (locale) {
-      const localeEntry = await getContentLocaleEntry(locale, profilesContentCollection, profile as ContentLocalizedProfileName<ContentLocaleName>);
+      const localeEntry = await getContentLocaleData(locale, profilesContentCollection, profile as ContentLocalizedProfileName<ContentLocaleName>);
       if (!localeEntry) {
         throw new Error(`Locale '${locale}' for profile '${profile}' was not found`);
       }
 
-      deepMerge(profileEntry.data, localeEntry.data);
+      deepMerge(profileEntry, localeEntry);
     }
 
-    return profileSchema.parse(profileEntry.data);
+    return profileSchema.parse(profileEntry);
   } catch (error) {
     if (error instanceof z.ZodError) {
       throw new AstroError(
