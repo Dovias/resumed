@@ -6,7 +6,7 @@ import {z} from "astro/zod";
 
 import {deepMerge} from "../utilities/object";
 
-import {type LocaleName, iconSchema, getLocaleEntry} from "../locale";
+import {type ContentLocaleName, iconSchema, getContentLocaleEntry} from "../locale";
 
 export const profileSchema = z.object({
   "contacts": z.object({
@@ -50,7 +50,7 @@ export const profileSchema = z.object({
 export type Profile = z.infer<typeof profileSchema>;
 export type ProfileName = string;
 
-export async function loadProfile (locale?: LocaleName, profile: ProfileName = "default") {
+export async function loadContentLocalizedProfile (locale?: ContentLocaleName, profile: ProfileName = "default") {
   const profileEntry = await getEntry("profiles", profile);
   try {
     if (!profileEntry) {
@@ -58,7 +58,7 @@ export async function loadProfile (locale?: LocaleName, profile: ProfileName = "
     }
 
     if (locale) {
-      const localeEntry = await getLocaleEntry(locale, "profiles", profile);
+      const localeEntry = await getContentLocaleEntry(locale, "profiles", profile);
       if (!localeEntry) {
         throw new Error(`Locale '${locale}' for profile '${profile}' was not found`);
       }

@@ -2,9 +2,10 @@ import {EOL} from "os";
 
 import {z, getEntry} from "astro:content";
 import {AstroError} from "astro/errors";
+import {getContentLocaleCollection} from "./astro/integration";
 
-export type LocaleName = string;
-export type LocaleEntryId = string;
+export type ContentLocaleName = string;
+export type ContentLocaleEntryId = string;
 
 export const iconSchema = z.object({
   "path": z.string().min(1),
@@ -16,12 +17,12 @@ export const localeMetadataSchema = z.object({
   "icon": iconSchema
 }).readonly();
 
-export function getLocaleEntry (locale: LocaleName, id: LocaleEntryId, ...ids: LocaleEntryId[]) {
-  return getEntry("locale", [locale, id, ...ids].join("/"));
+export function getContentLocaleEntry (locale: ContentLocaleName, id: ContentLocaleEntryId, ...ids: ContentLocaleEntryId[]) {
+  return getEntry(getContentLocaleCollection(), [locale, id, ...ids].join("/"));
 }
 
-export async function loadLocaleMetadata (locale: LocaleName) {
-  const metadataEntry = await getLocaleEntry(locale, "metadata");
+export async function loadContentLocaleMetadata (locale: ContentLocaleName) {
+  const metadataEntry = await getContentLocaleEntry(locale, "metadata");
   try {
     if (!metadataEntry) {
       throw new Error(`'${locale}' locale metadata was not found`);

@@ -2,9 +2,8 @@
 import type {GetStaticPaths} from "astro";
 import {AstroError} from "astro/errors";
 
-import {loadProfile, type ProfileName} from "../profile";
-
-import {getContentLocales, loadLocaleMetadata} from "../locale";
+import {loadContentLocalizedProfile, type ProfileName} from "../profile";
+import {getContentLocales, loadContentLocaleMetadata} from "../locale";
 
 import ProfileLayout from "../layouts/ProfileLayout.astro";
 import ProfileInformationHeading from "../components/profile/ProfileInformationHeading.astro";
@@ -14,15 +13,15 @@ import Panel from "../components/panel/Panel.astro";
 import PanelHeading from "../components/panel/PanelHeading.astro";
 
 export const getStaticPaths = (async () => {
-  const localeCodes = getContentLocales();
-  const localeMetadatas = await Promise.all(localeCodes.map(async locale => await loadLocaleMetadata(locale)));
+  const contentLocales = getContentLocales();
+  const localeMetadatas = await Promise.all(contentLocales.map(async locale => await loadContentLocaleMetadata(locale)));
 
-  return await Promise.all(localeCodes.map(async (locale) => {
+  return await Promise.all(contentLocales.map(async (contentLocale) => {
     try {
       return {
-        "params": {locale},
+        "params": {contentLocale},
         "props": {
-          "profile": await loadProfile(locale, import.meta.env.PROFILE as ProfileName | undefined),
+          "profile": await loadContentLocalizedProfile(contentLocale, import.meta.env.PROFILE as ProfileName | undefined),
           localeMetadatas
         }
       };
@@ -46,7 +45,7 @@ export const getStaticPaths = (async () => {
 const {profile} = Astro.props;
 ---
 
-<ProfileLayout locale={Astro.params.locale} names={profile.contacts.names}>
+<ProfileLayout locale={Astro.params.contentLocale} names={profile.contacts.names}>
   <ProfileInformationHeading slot="header" names={profile.contacts.names} role={profile.contacts.role} />
   <ProfilePicture slot="aside-top" path={profile.contacts.picture.path} description={profile.contacts.picture.description} />
   <Panel significance={200}>

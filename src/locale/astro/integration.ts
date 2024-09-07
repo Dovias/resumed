@@ -7,6 +7,9 @@ import {AstroError} from "astro/errors";
 
 import {resolvedAstroConfig, getResolvedAstroConfig} from "../../astro/config/integration";
 
+export type LocaleName = string;
+export type LocaleEntryId = string;
+
 type AstroUpdateConfig = Parameters<Parameters<Required<AstroIntegration["hooks"]>["astro:config:setup"]>[0]["updateConfig"]>[0];
 
 const integrationName = "content-collection-locales";
@@ -32,8 +35,12 @@ export function contentCollectionLocales (options?: AstroUpdateConfig["i18n"]): 
   };
 }
 
+export function getContentLocaleCollection () {
+  return "locale" as const;
+}
+
 export function getContentLocales (config: AstroConfig = getResolvedAstroConfig()) {
-  const localePath = join(fileURLToPath(config.srcDir), "content", "locale");
+  const localePath = join(fileURLToPath(config.srcDir), "content", getContentLocaleCollection());
   let files;
   try {
     files = readdirSync(localePath);
