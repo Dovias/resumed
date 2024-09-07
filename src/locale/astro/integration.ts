@@ -6,9 +6,7 @@ import type {AstroConfig, AstroIntegration} from "astro";
 import {AstroError} from "astro/errors";
 
 import {resolvedAstroConfig, getResolvedAstroConfig} from "../../astro/config/integration";
-
-export type LocaleName = string;
-export type LocaleEntryId = string;
+import type {DataEntryMap} from "astro:content";
 
 type AstroUpdateConfig = Parameters<Parameters<Required<AstroIntegration["hooks"]>["astro:config:setup"]>[0]["updateConfig"]>[0];
 
