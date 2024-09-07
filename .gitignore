@@ -91,7 +91,7 @@ out
 .nuxt
 dist
 
-# Astro build output
+# Astro build metadata output
 .astro
 
 # Gatsby files
