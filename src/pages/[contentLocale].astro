@@ -14,6 +14,10 @@ import PanelHeading from "../components/panel/PanelHeading.astro";
 
 export const getStaticPaths = (async () => {
   const contentLocales = getContentLocales();
+  if (!contentLocales) {
+    return Promise.resolve([]);
+  }
+
   const localeMetadatas = await Promise.all(contentLocales.map(async locale => await loadContentLocaleMetadata(locale)));
 
   return await Promise.all(contentLocales.map(async (contentLocale) => {

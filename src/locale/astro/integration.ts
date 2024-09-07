@@ -10,23 +10,32 @@ import type {DataEntryMap} from "astro:content";
 
 type AstroUpdateConfig = Parameters<Parameters<Required<AstroIntegration["hooks"]>["astro:config:setup"]>[0]["updateConfig"]>[0];
 
+export interface IntegrationOptions extends Pick<AstroUpdateConfig, "i18n"> {
+  "collection"?: keyof DataEntryMap;
+}
+
+const store = global as typeof global & {
+  "_resolvedLocaleCollection": IntegrationOptions["collection"];
+};
+
 const integrationName = "content-collection-locales";
-export function contentCollectionLocales (options?: AstroUpdateConfig["i18n"]): AstroIntegration {
+export function contentCollectionLocales ({collection = "locale", i18n}: IntegrationOptions): AstroIntegration {
+  store._resolvedLocaleCollection = collection;
   return {
     "name": integrationName,
     "hooks": {
-      "astro:config:setup": (hookOptions) => {
-        hookOptions.updateConfig({
+      "astro:config:setup": (options) => {
+        options.updateConfig({
           "integrations": [
             resolvedAstroConfig()
           ],
           "i18n": {
-            "locales": getContentLocales(hookOptions.config)
+            "locales": getContentLocales(options.config)!
           } 
         });
 
-        if (options) {
-          hookOptions.updateConfig({"i18n": options});
+        if (i18n) {
+          options.updateConfig({i18n});
         }
       }
     }
@@ -34,11 +43,16 @@ export function contentCollectionLocales (options?: AstroUpdateConfig["i18n"]): 
 }
 
 export function getContentLocaleCollection () {
-  return "locale" as const;
+  return store._resolvedLocaleCollection;
 }
 
 export function getContentLocales (config: AstroConfig = getResolvedAstroConfig()) {
-  const localePath = join(fileURLToPath(config.srcDir), "content", getContentLocaleCollection());
+  const localeCollection = getContentLocaleCollection();
+  if (!localeCollection) {
+    return;
+  }
+
+  const localePath = join(fileURLToPath(config.srcDir), "content", localeCollection);
   let files;
   try {
     files = readdirSync(localePath);

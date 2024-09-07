@@ -18,7 +18,12 @@ export const localeMetadataSchema = z.object({
 }).readonly();
 
 export function getContentLocaleEntry (locale: ContentLocaleName, id: ContentLocaleEntryId, ...ids: ContentLocaleEntryId[]) {
-  return getEntry(getContentLocaleCollection(), [locale, id, ...ids].join("/"));
+  const localeCollection = getContentLocaleCollection();
+  if (!localeCollection) {
+    return;
+  }
+  
+  return getEntry(localeCollection, [locale, id, ...ids].join("/"));
 }
 
 export async function loadContentLocaleMetadata (locale: ContentLocaleName) {
