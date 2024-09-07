@@ -20,7 +20,7 @@ export function contentCollectionLocales (options?: AstroUpdateConfig["i18n"]): 
             resolvedAstroConfig()
           ],
           "i18n": {
-            "locales": getContentLocaleEntries(hookOptions.config)
+            "locales": getContentLocales(hookOptions.config)
           } 
         });
 
@@ -32,7 +32,7 @@ export function contentCollectionLocales (options?: AstroUpdateConfig["i18n"]): 
   };
 }
 
-export function getContentLocaleEntries (config: AstroConfig = getResolvedAstroConfig()) {
+export function getContentLocales (config: AstroConfig = getResolvedAstroConfig()) {
   const localePath = join(fileURLToPath(config.srcDir), "content", "locale");
   let files;
   try {
