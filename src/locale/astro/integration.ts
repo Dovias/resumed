@@ -3,10 +3,10 @@ import {fileURLToPath} from "url";
 import {join} from "path";
 
 import type {AstroConfig, AstroIntegration} from "astro";
+import type {getEntry} from "astro:content";
 import {AstroError} from "astro/errors";
 
 import {resolvedAstroConfig} from "../../astro/config/integration";
-import type {getEntry} from "astro:content";
 
 type AstroUpdateConfig = Parameters<Parameters<Required<AstroIntegration["hooks"]>["astro:config:setup"]>[0]["updateConfig"]>[0];
 
