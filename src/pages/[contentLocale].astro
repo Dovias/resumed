@@ -2,7 +2,7 @@
 import type {GetStaticPaths} from "astro";
 import {AstroError} from "astro/errors";
 
-import {loadContentLocalizedProfile, type ProfileName} from "../profile";
+import {loadContentLocalizedProfile} from "../profile";
 import {getContentLocales, loadContentLocaleMetadata} from "../locale";
 
 import ProfileLayout from "../layouts/ProfileLayout.astro";
@@ -25,7 +25,7 @@ export const getStaticPaths = (async () => {
       return {
         "params": {contentLocale},
         "props": {
-          "profile": await loadContentLocalizedProfile(contentLocale, import.meta.env.PROFILE as ProfileName | undefined),
+          "profile": await loadContentLocalizedProfile(contentLocale, import.meta.env.PROFILE),
           localeMetadatas
         }
       };

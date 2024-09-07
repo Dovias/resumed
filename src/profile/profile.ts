@@ -1,12 +1,17 @@
 import {EOL} from "os";
 
 import {AstroError} from "astro/errors";
-import {getEntry} from "astro:content";
+import {getEntry, type DataEntryMap} from "astro:content";
 import {z} from "astro/zod";
 
 import {deepMerge} from "../utilities/object";
-
 import {type ContentLocaleName, iconSchema, getContentLocaleEntry} from "../locale";
+import type {localeContentCollection} from "../locale/astro/integration";
+
+export const profilesContentCollection = "profiles" as const satisfies keyof DataEntryMap;
+
+export type Profile = z.infer<typeof profileSchema>;
+export type ProfileName = keyof DataEntryMap["profiles"];
 
 export const profileSchema = z.object({
   "contacts": z.object({
@@ -47,18 +52,25 @@ export const profileSchema = z.object({
   }))
 }).readonly();
 
-export type Profile = z.infer<typeof profileSchema>;
-export type ProfileName = string;
+export type ContentLocaleProfileName<
+  L extends ContentLocaleName,
+  S = keyof DataEntryMap[typeof localeContentCollection]
+> = S extends `${L}/${typeof profilesContentCollection}/${infer N}` ? N : never;
+ 
+export type ContentLocalizedProfileName<
+  L extends ContentLocaleName,
+  V = keyof DataEntryMap[typeof profilesContentCollection]
+> = V extends ContentLocaleProfileName<L> ? ContentLocaleProfileName<L> : never;
 
-export async function loadContentLocalizedProfile (locale?: ContentLocaleName, profile: ProfileName = "default") {
-  const profileEntry = await getEntry("profiles", profile);
+export async function loadContentLocalizedProfile<T extends ContentLocaleName> (locale?: T, profile: ContentLocalizedProfileName<T> = "default" as ContentLocalizedProfileName<T>) {
+  const profileEntry = await getEntry(profilesContentCollection, profile);
   try {
     if (!profileEntry) {
       throw new Error(`Profile '${profile}' was not found`);
     }
 
     if (locale) {
-      const localeEntry = await getContentLocaleEntry(locale, "profiles", profile);
+      const localeEntry = await getContentLocaleEntry(locale, profilesContentCollection, profile as ContentLocalizedProfileName<ContentLocaleName>);
       if (!localeEntry) {
         throw new Error(`Locale '${locale}' for profile '${profile}' was not found`);
       }

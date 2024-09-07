@@ -1,11 +1,11 @@
 import {EOL} from "os";
 
-import {z, getEntry} from "astro:content";
+import {type DataEntryMap, z, getEntry} from "astro:content";
 import {AstroError} from "astro/errors";
-import {getContentLocaleCollection} from "./astro/integration";
+import {localeContentCollection} from "./astro/integration";
 
-export type ContentLocaleName = string;
-export type ContentLocaleEntryId = string;
+export type ContentLocalePath = Split<keyof DataEntryMap[typeof localeContentCollection], "/">;
+export type ContentLocaleName = ContentLocalePath[0];
 
 export const iconSchema = z.object({
   "path": z.string().min(1),
@@ -17,13 +17,8 @@ export const localeMetadataSchema = z.object({
   "icon": iconSchema
 }).readonly();
 
-export function getContentLocaleEntry (locale: ContentLocaleName, id: ContentLocaleEntryId, ...ids: ContentLocaleEntryId[]) {
-  const localeCollection = getContentLocaleCollection();
-  if (!localeCollection) {
-    return;
-  }
-  
-  return getEntry(localeCollection, [locale, id, ...ids].join("/"));
+export function getContentLocaleEntry (...ids: ContentLocalePath) {
+  return getEntry(localeContentCollection, ids.join("/"));
 }
 
 export async function loadContentLocaleMetadata (locale: ContentLocaleName) {
