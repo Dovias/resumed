@@ -42,7 +42,7 @@ export function getContentLocales (config: AstroConfig = getResolvedAstroConfig(
   try {
     files = readdirSync(localePath);
   } catch {
-    throw new AstroError(`Failed to load locale collection '${name}'`, `Ensure that such locale collection exists within '${localePath}' path`);
+    throw new AstroError(`Failed to load locale collection`, `Ensure that such locale collection exists within '${localePath}' path`);
   }
   return files.filter(file => lstatSync(join(localePath, file)).isDirectory()) as ContentLocaleName[];
 }
