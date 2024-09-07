@@ -5,7 +5,7 @@ import {join} from "path";
 import type {AstroConfig, AstroIntegration} from "astro";
 import {AstroError} from "astro/errors";
 
-import {resolvedAstroConfig} from "../../astro/config/integration";
+import {resolvedAstroConfig, getResolvedAstroConfig} from "../../astro/config/integration";
 
 type AstroUpdateConfig = Parameters<Parameters<Required<AstroIntegration["hooks"]>["astro:config:setup"]>[0]["updateConfig"]>[0];
 
@@ -32,7 +32,7 @@ export function contentCollectionLocales (options?: AstroUpdateConfig["i18n"]): 
   };
 }
 
-export function getContentLocaleEntries (config: AstroConfig) {
+export function getContentLocaleEntries (config: AstroConfig = getResolvedAstroConfig()) {
   const localePath = join(fileURLToPath(config.srcDir), "content", "locale");
   let files;
   try {
