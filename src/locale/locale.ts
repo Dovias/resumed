@@ -7,6 +7,7 @@ import type {AstroConfig} from "astro";
 import {getResolvedAstroConfig} from "../astro/config";
 
 export type LocaleName = string;
+export type LocaleEntryId = string;
 
 export const iconSchema = z.object({
   "path": z.string().min(1),
@@ -29,8 +30,8 @@ export function getRegisteredLocales ({i18n}: AstroConfig = getResolvedAstroConf
   return i18n.locales;
 }
 
-export function getLocaleEntry (locale: LocaleName, id: string) {
-  return getEntry("locale", `${locale}/${id}`);
+export function getLocaleEntry (locale: LocaleName, id: LocaleEntryId, ...ids: LocaleEntryId[]) {
+  return getEntry("locale", [locale, id, ...ids].join("/"));
 }
 
 export async function loadLocaleMetadata (locale: LocaleName) {

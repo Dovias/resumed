@@ -58,7 +58,7 @@ export async function loadProfile (locale?: LocaleName, profile: ProfileName = "
     }
 
     if (locale) {
-      const localeEntry = await getLocaleEntry(locale, `profiles/${profile}`);
+      const localeEntry = await getLocaleEntry(locale, "profiles", profile);
       if (!localeEntry) {
         throw new Error(`Locale '${locale}' for profile '${profile}' was not found`);
       }
