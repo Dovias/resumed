@@ -2,9 +2,6 @@ import {EOL} from "os";
 
 import {z, getEntry} from "astro:content";
 import {AstroError} from "astro/errors";
-import type {AstroConfig} from "astro";
-
-import {getResolvedAstroConfig} from "../astro/config";
 
 export type LocaleName = string;
 export type LocaleEntryId = string;
@@ -18,17 +15,6 @@ export const localeMetadataSchema = z.object({
   "name": z.string().min(1),
   "icon": iconSchema
 }).readonly();
-
-export function getRegisteredLocales ({i18n}: AstroConfig = getResolvedAstroConfig()) {
-  if (!i18n) {
-    throw new AstroError(
-      "Failed to retrieve all registered locale",
-      "Missing i18n astro configuration section in the provided Astro configuration object"
-    );
-  }
-
-  return i18n.locales;
-}
 
 export function getLocaleEntry (locale: LocaleName, id: LocaleEntryId, ...ids: LocaleEntryId[]) {
   return getEntry("locale", [locale, id, ...ids].join("/"));
