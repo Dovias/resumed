@@ -20,7 +20,7 @@ export interface Props {
 
 const {profile, locale} = Astro.props;
 
-const {names, role, picture, ...contacts} = profile.contacts;
+const {names, picture, ...contacts} = profile.contacts;
 ---
 
 
@@ -31,7 +31,7 @@ const {names, role, picture, ...contacts} = profile.contacts;
     </aside>
     <main class="md:row-span-3 print:row-span-3">
       <header>
-        <ProfileInformationHeading slot="header" {names} {role} />
+        <ProfileInformationHeading slot="header" {names} role={contacts.role} />
       </header>
       
       <Panel significance={200}>
