@@ -15,8 +15,6 @@ contact:
       newInstance: false
       icon:
         path: /icons/envelope.svg
-  qr:
-    enabled: true
 aspects:
   technologies:
     entries:
