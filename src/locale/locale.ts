@@ -14,6 +14,8 @@ export const iconSchema = z.object({
   "description": z.string().nullish()
 });
 
+export type Icon = z.infer<typeof iconSchema>;
+
 export const localeMetadataSchema = z.object({
   "label": z.string().min(1),
   "icon": iconSchema
