@@ -10,6 +10,19 @@ export interface Props {
 
 const {names, phoneNumbers, emailAddresses, urls = []} = Astro.props;
 
+urls.filter((url) => {
+  const {protocol} = url;
+  if (protocol === "tel:") {
+    phoneNumbers.push(url.toString().substring(protocol.length));
+    return false;
+  } else if (protocol === "mailto:") {
+    emailAddresses.push(url.toString().substring(protocol.length));
+    return false;
+  }
+
+  return true;
+});
+
 const vCardData = [
   "BEGIN:VCARD",
   "VERSION:4.0",
