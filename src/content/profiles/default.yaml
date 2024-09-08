@@ -4,15 +4,17 @@ names:
 picture:
   path: /images/profile.png
 contact:
-  telephoneNumber: "+000000000"
-  emailAddress: contact@example.com
-  links:
-    entries:
-      example:
-        path: https://example.com/
-        newInstance: true
-        icon:
-          path: /icons/example.svg
+  entries:
+    phoneNumber:
+      path: "tel:+000000000"
+      newInstance: false
+      icon:
+        path: /icons/phone.svg
+    emailAddress:
+      path: "mailto:contact@example.com"
+      newInstance: false
+      icon:
+        path: /icons/envelope.svg
   qr:
     enabled: true
 aspects:

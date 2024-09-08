@@ -1,0 +1,50 @@
+---
+import type {Profile} from "../../../profile";
+
+import Panel from "../../panel/Panel.astro";
+import PanelHeading from "../../panel/PanelHeading.astro";
+import VCardQRCode, {type Props as VCardQRCodeProps} from "../../vcard/VCardQRCode.astro";
+import ProfileContactIconLink, {type Props as ProfileContactIconLinkProps} from "./ProfileContactIconLink.astro";
+
+export interface Props extends Pick<VCardQRCodeProps, "names">, Pick<Profile["contact"], "label" | "qr"> {
+  "links": ProfileContactIconLinkProps[];
+}
+
+const {links = [], qr, ...props} = Astro.props;
+
+let phoneNumbers: string[] = [];
+let emailAddresses: string[] = [];
+
+let urls = links.filter(({url}) => {
+  const protocol = url.protocol;
+  if (protocol === "tel:") {
+    phoneNumbers.push(url.toString().substring(protocol.length));
+    return false;
+  } else if (protocol === "mailto:") {
+    emailAddresses.push(url.toString().substring(protocol.length));
+    return false;
+  }
+
+  return true;
+}).map((link) => link.url);
+
+---
+
+<Panel significance={200}>
+  <PanelHeading color="secondary">{props.label}</PanelHeading>
+  <div class="m-2">
+    {qr.enabled &&
+        <div class="mt-4 mb-8 p-4 border-4 border-dashed border-contour rounded-lg">
+          <VCardQRCode names={props.names} {phoneNumbers} {emailAddresses} {urls} />
+          <p class="mt-4 font-light text-xs italic text-center">{qr.description}</p>
+        </div>
+    }
+
+    <div class="">    
+      {links.length > 0 && links.map((linkProps) =>
+        <ProfileContactIconLink {...linkProps}/>
+      )}
+    </div>
+
+  </div>
+</Panel>

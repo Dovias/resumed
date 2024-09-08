@@ -8,6 +8,7 @@ import ProfileInformationHeading from "../components/profile/ProfileInformationH
 import ProfilePicture from "../components/profile/ProfilePicture.astro";
 import PanelHeading from "../components/panel/PanelHeading.astro";
 import Panel from "../components/panel/Panel.astro";
+import ProfileContactPanel from "../components/profile/contact/ProfileContactPanel.astro";
 
 export interface Props {
   "profile": Profile;
@@ -18,10 +19,8 @@ export interface Props {
 }
 
 const {profile, locale} = Astro.props;
-
-const {names, picture, ...restProfile} = profile;
+const {names, picture, contact, ...restProfile} = profile;
 ---
-
 
 <Layout locale={locale.name} title={names.join(" ")}>
   <div class="grid md:grid-cols-[1fr_auto] print:grid-cols-[1fr_auto] md:grid-rows-[min-content_min-content] print:grid-rows-[min-content_min-content] gap-4 justify-center max-w-screen-xl mx-auto p-8 overflow-auto">
@@ -38,6 +37,9 @@ const {names, picture, ...restProfile} = profile;
       </Panel> 
     </main>
     <aside class="md:order-3 print:order-3 grid gap-6 md:max-w-72">
+      <ProfileContactPanel label={contact.label} {names} qr={contact.qr} links={Object.values(contact.entries)
+        .map(link => ({"url": new URL(link.path), "newInstance": link.newInstance, "icon": link.icon}))}
+      />
     </aside>
   </div>
 </Layout>

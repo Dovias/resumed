@@ -1,0 +1,28 @@
+---
+import type {Profile} from "../../../profile";
+
+export interface Props extends Omit<Profile["contact"]["entries"][keyof Profile["contact"]["entries"]], "path"> {
+  "url": URL;
+}
+
+const {icon, newInstance, url} = Astro.props;
+
+let target, rel;
+if (newInstance) {
+  target = "_blank";
+  rel = "noopener noreferrer";
+}
+
+let linkText = url.toString().substring(url.protocol.length);
+if (linkText.startsWith("//")) {
+  linkText.substring(2);
+}
+---
+
+<div class="my-2">
+  <picture class="inline-block align-middle mr-2 p-1 border-2 border-contour rounded-lg">
+    <source srcset={icon.path} />
+    <img alt={icon.description} width="16"/>
+  </picture>
+  <a class="underline font-light" href={url} {target} {rel}>{linkText}</a>
+</div>

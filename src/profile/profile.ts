@@ -26,15 +26,11 @@ export const profileSchema = z.object({
   }).readonly(),
   "contact": z.object({
     "label": nonEmptyStringSchema,
-    "telephoneNumber": z.string().regex(/^\+?[0-9]{1,15}$/g),
-    "emailAddress": z.string().email(),
-    "links": z.object({
-      "entries": z.record(z.object({
-        "path": nonEmptyStringSchema,
-        "newInstance": defaultBooleanSchema,
-        "icon": iconSchema.readonly()
-      })).readonly()
-    }).readonly(),
+    "entries": z.record(z.object({
+      "path": nonEmptyStringSchema,
+      "newInstance": defaultBooleanSchema,
+      "icon": iconSchema.readonly()
+    })).readonly(),
     "qr": z.object({
       "enabled": defaultBooleanSchema,
       "description": nonEmptyStringSchema

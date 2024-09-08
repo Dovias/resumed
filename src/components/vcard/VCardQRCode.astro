@@ -1,19 +1,21 @@
 ---
 import QRCode from "qrcode";
-import type {Profile} from "../../profile";
 
-export interface Props extends Pick<Profile, "names">, Pick<Profile["contact"], "telephoneNumber" | "emailAddress"> {
+export interface Props {
+  "names": [string, ...string[]];
+  "phoneNumbers": string[];
+  "emailAddresses": string[];
   "urls"?: URL[];
 }
 
-const {names, telephoneNumber, emailAddress, urls = []} = Astro.props;
+const {names, phoneNumbers, emailAddresses, urls = []} = Astro.props;
 
 const vCardData = [
   "BEGIN:VCARD",
   "VERSION:4.0",
   `FN:${names.join(" ")}`,
-  `TEL:${telephoneNumber}`,
-  `EMAIL:${emailAddress}`,
+  ...phoneNumbers.map(phoneNumber => `TEL:${phoneNumber}`),
+  ...emailAddresses.map(emailAddress => `EMAIL:${emailAddress}`),
   ...urls.map(url => `URL:${url}`),
   "END:VCARD"
 ].join("\r\n");
@@ -30,6 +32,6 @@ let qrCodeData = (await QRCode.toString(vCardData, {
  * Maybe we should contribute to the project?
  */
 })).replace("#000000", "currentColor");
- 
 ---
+
 <Fragment set:html={qrCodeData} />
