@@ -18,7 +18,7 @@ const defaultBooleanSchema = z.boolean().default(true);
 const dateSchema = z.date();
 
 export const profileSchema = z.object({
-  "contacts": z.object({
+  "contact": z.object({
     "label": nonEmptyStringSchema,
     "names": z.string().array().nonempty(),
     "role": nonEmptyStringSchema,

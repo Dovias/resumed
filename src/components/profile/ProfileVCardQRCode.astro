@@ -2,7 +2,7 @@
 import QRCode from "qrcode";
 import type {Profile} from "../../profile";
 
-export interface Props extends Pick<Profile["contacts"], "names" | "telephoneNumber" | "emailAddress"> {
+export interface Props extends Pick<Profile["contact"], "names" | "telephoneNumber" | "emailAddress"> {
   "urls"?: URL[];
 }
 

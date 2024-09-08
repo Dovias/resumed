@@ -1,7 +1,7 @@
 ---
 import type {Profile} from "../../profile";
 
-export interface Props extends Pick<Profile["contacts"], "names" | "role"> {}
+export interface Props extends Pick<Profile["contact"], "names" | "role"> {}
 
 const {names, role} = Astro.props;
 ---
