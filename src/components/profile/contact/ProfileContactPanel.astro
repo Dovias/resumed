@@ -35,7 +35,9 @@ let urls = links.filter(({url}) => {
   <div class="m-2">
     {qr.enabled &&
         <div class="mt-4 mb-8 p-4 border-4 border-dashed border-contour rounded-lg">
-          <VCardQRCode names={props.names} {phoneNumbers} {emailAddresses} {urls} />
+          <div class="max-w-64 mx-auto">
+            <VCardQRCode names={props.names} {phoneNumbers} {emailAddresses} {urls} />
+          </div>
           <p class="mt-4 font-light text-xs italic text-center">{qr.description}</p>
         </div>
     }
