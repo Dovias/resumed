@@ -26,6 +26,7 @@ export const profileSchema = z.object({
     "links": z.object({
       "entries": z.record(z.object({
         "path": z.string().min(1),
+        "newInstance": z.boolean(),
         "icon": iconSchema.readonly()
       })).readonly()
     }).readonly(),

@@ -10,6 +10,7 @@ contacts:
     entries:
       example:
         path: https://example.com/
+        newInstance: true
         icon:
           path: /icons/example.svg
   qr:
