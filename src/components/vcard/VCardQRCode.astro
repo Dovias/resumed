@@ -3,12 +3,12 @@ import QRCode from "qrcode";
 
 export interface Props {
   "names": [string, ...string[]];
-  "phoneNumbers": string[];
-  "emailAddresses": string[];
+  "phoneNumbers"?: string[];
+  "emailAddresses"?: string[];
   "urls"?: URL[];
 }
 
-const {names, phoneNumbers, emailAddresses, urls = []} = Astro.props;
+const {names, phoneNumbers = [], emailAddresses = [], urls = []} = Astro.props;
 
 urls.filter((url) => {
   const {protocol} = url;
