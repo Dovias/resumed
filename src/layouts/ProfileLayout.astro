@@ -5,10 +5,10 @@ import type {Profile} from "../profile";
 import type {LocaleMetadata, LocaleName} from "../locale";
 
 import ProfileInformationHeading from "../components/profile/ProfileInformationHeading.astro";
+import ProfileContactPanel from "../components/profile/contact/ProfileContactPanel.astro";
 import ProfilePicture from "../components/profile/ProfilePicture.astro";
 import PanelHeading from "../components/panel/PanelHeading.astro";
 import Panel from "../components/panel/Panel.astro";
-import ProfileContactPanel from "../components/profile/contact/ProfileContactPanel.astro";
 
 export interface Props {
   "profile": Profile;
@@ -37,9 +37,7 @@ const {names, picture, contact, ...restProfile} = profile;
       </Panel> 
     </main>
     <aside class="md:order-3 print:order-3 grid gap-6 md:max-w-72">
-      <ProfileContactPanel label={contact.label} {names} qr={contact.qr} links={Object.values(contact.entries)
-        .map(link => ({"label": link.label, "url": new URL(link.path), "newInstance": link.newInstance, "icon": link.icon}))}
-      />
+      <ProfileContactPanel label={contact.label} {names} qr={contact.qr} links={Object.values(contact.entries)} />
     </aside>
   </div>
 </Layout>

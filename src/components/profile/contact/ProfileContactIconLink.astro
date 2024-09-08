@@ -1,9 +1,7 @@
 ---
-import type {Profile} from "../../../profile";
+import type {ProfileContactEntry} from "../../../profile";
 
-export interface Props extends Omit<Profile["contact"]["entries"][keyof Profile["contact"]["entries"]], "path"> {
-  "url": URL;
-}
+export interface Props extends ProfileContactEntry {}
 
 const {icon, url, ...props} = Astro.props;
 
@@ -14,10 +12,12 @@ if (props.newInstance) {
 }
 
 let linkText = props.label;
+const href = url.toString();
+
 if (props.label == undefined) {
-  linkText = url.toString().substring(url.protocol.length);
+  linkText = href.substring(url.protocol.length);
   if (linkText.startsWith("//")) {
-    linkText.substring(2);
+    linkText = linkText.substring(2);
   }
 }
 ---
@@ -25,7 +25,7 @@ if (props.label == undefined) {
 <div class="my-2">
   <picture class="inline-block align-middle mr-2 p-1 border-2 border-contour rounded-lg">
     <source srcset={icon.path} />
-    <img alt={icon.description} width="16"/>
+    <img alt={icon.description} width="16" class="size-4" />
   </picture>
-  <a class="underline font-light" href={url} {target} {rel}>{linkText}</a>
+  <a class="underline font-light" {href} {target} {rel}>{linkText}</a>
 </div>

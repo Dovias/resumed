@@ -28,7 +28,7 @@ export const profileSchema = z.object({
     "label": nonEmptyStringSchema,
     "entries": z.record(z.object({
       "label": nullishNonEmptyStringSchema,
-      "path": nonEmptyStringSchema,
+      "url": nonEmptyStringSchema.url().transform(url => new URL(url)),
       "newInstance": defaultBooleanSchema,
       "icon": iconSchema.readonly()
     })).readonly(),
@@ -60,6 +60,7 @@ export const profileSchema = z.object({
 }).readonly();
 
 export type Profile = z.infer<typeof profileSchema>;
+export type ProfileContactEntry = Profile["contact"]["entries"][keyof Profile["contact"]["entries"]];
 
 export type ContentLocaleProfileName<
   L extends ContentLocaleName,

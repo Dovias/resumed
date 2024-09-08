@@ -6,12 +6,12 @@ picture:
 contact:
   entries:
     phoneNumber:
-      path: "tel:+000000000"
+      url: "tel:+000000000"
       newInstance: false
       icon:
         path: /icons/phone.svg
     emailAddress:
-      path: "mailto:contact@example.com"
+      url: "mailto:contact@example.com"
       newInstance: false
       icon:
         path: /icons/envelope.svg
