@@ -4,6 +4,8 @@ import {type DataEntryMap, z, getEntry} from "astro:content";
 import {AstroError} from "astro/errors";
 import {localeContentCollection} from "./astro/integration";
 
+export type LocaleName = string;
+
 export type ContentLocalePath = Split<keyof DataEntryMap[typeof localeContentCollection], "/">;
 export type ContentLocaleName = ContentLocalePath[0];
 

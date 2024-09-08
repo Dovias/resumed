@@ -1,23 +1,42 @@
 ---
 import Layout from "./Layout.astro";
-import type {Props as LayoutProps} from "./Layout.astro";
+
 import type {Profile} from "../profile";
+import type {LocaleMetadata, LocaleName} from "../locale";
 
-interface Props extends Pick<LayoutProps, "locale">, Pick<Profile["contacts"], "names"> {}
+import ProfileInformationHeading from "../components/profile/ProfileInformationHeading.astro";
+import ProfilePicture from "../components/profile/ProfilePicture.astro";
+import PanelHeading from "../components/panel/PanelHeading.astro";
+import Panel from "../components/panel/Panel.astro";
 
-const {names, ...props} = Astro.props;
+export interface Props {
+  "profile": Profile;
+  "locale": {
+    "name": LocaleName;
+    "metadatas": [LocaleMetadata, ...LocaleMetadata[]];
+  };
+}
+
+const {profile, locale} = Astro.props;
+
+const {names, role, picture} = profile.contacts;
 ---
 
-<Layout title={names.join(" ")} {...props}>
+
+<Layout locale={locale.name} title={names.join(" ")}>
   <div class="grid md:grid-cols-[1fr_auto] print:grid-cols-[1fr_auto] md:grid-rows-[min-content_min-content] print:grid-rows-[min-content_min-content] gap-4 justify-center max-w-screen-xl mx-auto p-8 overflow-auto">
     <aside class="md:order-2 print:order-2 mb-6 justify-self-center">
-      <slot name="aside-top" />
+      <ProfilePicture slot="aside-top" path={picture.path} description={picture.description} />
     </aside>
     <main class="md:row-span-3 print:row-span-3">
       <header>
-        <slot name="header" />
+        <ProfileInformationHeading slot="header" {names} {role} />
       </header>
-      <slot />    
+      
+      <Panel significance={200}>
+        <PanelHeading>Example Panel Heading</PanelHeading>
+        <p>This is an example panel paragraph</p>
+      </Panel> 
     </main>
     <aside class="md:order-3 print:order-3 grid gap-6 md:max-w-72">
       <slot name="aside" />

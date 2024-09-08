@@ -6,11 +6,6 @@ import {loadContentLocalizedProfile} from "../profile";
 import {getContentLocales, loadContentLocaleMetadata} from "../locale";
 
 import ProfileLayout from "../layouts/ProfileLayout.astro";
-import ProfileInformationHeading from "../components/profile/ProfileInformationHeading.astro";
-import ProfilePicture from "../components/profile/ProfilePicture.astro";
-
-import Panel from "../components/panel/Panel.astro";
-import PanelHeading from "../components/panel/PanelHeading.astro";
 
 export const getStaticPaths = (async () => {
   const contentLocales = getContentLocales();
@@ -26,7 +21,7 @@ export const getStaticPaths = (async () => {
         "params": {contentLocale},
         "props": {
           "profile": await loadContentLocalizedProfile(contentLocale, import.meta.env.PROFILE),
-          localeMetadatas
+          "localeMetadatas": localeMetadatas as [typeof localeMetadatas[number], ...typeof localeMetadatas[number][]]
         }
       };
     }));
@@ -46,14 +41,7 @@ export const getStaticPaths = (async () => {
   }
 }) satisfies GetStaticPaths;
 
-const {profile} = Astro.props;
+const {profile, localeMetadatas} = Astro.props;
 ---
 
-<ProfileLayout locale={Astro.params.contentLocale} names={profile.contacts.names}>
-  <ProfileInformationHeading slot="header" names={profile.contacts.names} role={profile.contacts.role} />
-  <ProfilePicture slot="aside-top" path={profile.contacts.picture.path} description={profile.contacts.picture.description} />
-  <Panel significance={200}>
-    <PanelHeading>Example Panel Heading</PanelHeading>
-    <p>This is an example panel paragraph</p>
-  </Panel>
-</ProfileLayout>
+<ProfileLayout {profile} locale={{"name": Astro.params.contentLocale, "metadatas": localeMetadatas}} />
