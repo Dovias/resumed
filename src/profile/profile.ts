@@ -27,6 +27,7 @@ export const profileSchema = z.object({
   "contact": z.object({
     "label": nonEmptyStringSchema,
     "entries": z.record(z.object({
+      "label": nullishNonEmptyStringSchema,
       "path": nonEmptyStringSchema,
       "newInstance": defaultBooleanSchema,
       "icon": iconSchema.readonly()

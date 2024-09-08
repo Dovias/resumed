@@ -38,7 +38,7 @@ const {names, picture, contact, ...restProfile} = profile;
     </main>
     <aside class="md:order-3 print:order-3 grid gap-6 md:max-w-72">
       <ProfileContactPanel label={contact.label} {names} qr={contact.qr} links={Object.values(contact.entries)
-        .map(link => ({"url": new URL(link.path), "newInstance": link.newInstance, "icon": link.icon}))}
+        .map(link => ({"label": link.label, "url": new URL(link.path), "newInstance": link.newInstance, "icon": link.icon}))}
       />
     </aside>
   </div>

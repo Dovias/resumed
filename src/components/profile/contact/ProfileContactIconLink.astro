@@ -5,17 +5,20 @@ export interface Props extends Omit<Profile["contact"]["entries"][keyof Profile[
   "url": URL;
 }
 
-const {icon, newInstance, url} = Astro.props;
+const {icon, url, ...props} = Astro.props;
 
 let target, rel;
-if (newInstance) {
+if (props.newInstance) {
   target = "_blank";
   rel = "noopener noreferrer";
 }
 
-let linkText = url.toString().substring(url.protocol.length);
-if (linkText.startsWith("//")) {
-  linkText.substring(2);
+let linkText = props.label;
+if (props.label == undefined) {
+  linkText = url.toString().substring(url.protocol.length);
+  if (linkText.startsWith("//")) {
+    linkText.substring(2);
+  }
 }
 ---
 
