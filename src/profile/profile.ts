@@ -12,46 +12,51 @@ export const profilesContentCollection = "profiles" as const satisfies keyof Dat
 
 export type ContentProfilePath = Split<keyof DataEntryMap[typeof profilesContentCollection], "/">;
 
+const nonEmptyStringSchema = z.string().min(1);
+const nullishNonEmptyStringSchema = nonEmptyStringSchema.nullish();
+const defaultBooleanSchema = z.boolean().default(true);
+const dateSchema = z.date();
+
 export const profileSchema = z.object({
   "contacts": z.object({
-    "label": z.string().min(1),
+    "label": nonEmptyStringSchema,
     "names": z.string().array().nonempty(),
-    "role": z.string().min(1),
+    "role": nonEmptyStringSchema,
     "picture": z.object({
-      "path": z.string().min(1),
-      "description": z.string().nullish()
+      "path": nonEmptyStringSchema,
+      "description": nullishNonEmptyStringSchema
     }).readonly(),
     "telephoneNumber": z.string().regex(/^\+?[0-9]{1,15}$/g),
     "emailAddress": z.string().email(),
     "links": z.object({
       "entries": z.record(z.object({
-        "path": z.string().min(1),
-        "newInstance": z.boolean(),
+        "path": nonEmptyStringSchema,
+        "newInstance": defaultBooleanSchema,
         "icon": iconSchema.readonly()
       })).readonly()
     }).readonly(),
     "qr": z.object({
-      "enabled": z.boolean(),
-      "description": z.string().min(1)
+      "enabled": defaultBooleanSchema,
+      "description": nonEmptyStringSchema
     }).readonly()
   }),
   "aspects": z.record(z.object({
-    "label": z.string().min(1),
+    "label": nonEmptyStringSchema,
     "entries": z.record(z.object({
-      "label": z.string().min(1),
+      "label": nonEmptyStringSchema,
       "icon": iconSchema.readonly()
     })).readonly()
   })),
   "timelines": z.record(z.object({
-    "label": z.string().min(1),
+    "label": nonEmptyStringSchema,
     "entries": z.record(z.object({
-      "label": z.string().min(1).nullish(),
-      "type": z.string().min(1),
-      "location": z.string().min(1),
-      "description": z.string().min(1).nullish(),
+      "label": nullishNonEmptyStringSchema,
+      "type": nonEmptyStringSchema,
+      "location": nonEmptyStringSchema,
+      "description": nullishNonEmptyStringSchema,
       "timespan": z.object({
-        "from": z.date(),
-        "to": z.date().nullish()
+        "from": dateSchema,
+        "to": dateSchema.nullish()
       }).readonly()
     })).readonly()
   }))
