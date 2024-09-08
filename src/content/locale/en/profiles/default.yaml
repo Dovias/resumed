@@ -2,30 +2,30 @@ contacts:
   role: Role name
 aspects:
   technologies:
-    name: Technologies
+    label: Technologies
     entries:
       example:
-        name: Example
+        label: Example
   communication:
-    name: Communication
+    label: Communication
     entries:
       lithuanian:
-        name: Lithuanian
+        label: Lithuanian
       english:
-        name: English
+        label: English
 timelines:
   experience:
-    name: Professional Experience
+    label: Professional Experience
     entries:
       example:
-        name: Entry Name
+        label: Entry Name
         type: Entry Type
         location: Entry Location
         description: Entry Description
   education:
-    name: Education
+    label: Education
     entries:
       example:
-        name: Entry Name
+        label: Entry Name
         type: Entry Type
         location: Entry Location

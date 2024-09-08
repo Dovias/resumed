@@ -2,30 +2,30 @@ contacts:
   role: Pareigos
 aspects:
   technologies:
-    name: Technologijos
+    label: Technologijos
     entries:
       example:
-        name: Pavyzdys
+        label: Pavyzdys
   communication:
-    name: Komunikacija
+    label: Komunikacija
     entries:
       lithuanian:
-        name: Lietuvių k.
+        label: Lietuvių k.
       english:
-        name: Anglų k.
+        label: Anglų k.
 timelines:
   experience:
-    name: Profesinė patirtis
+    label: Profesinė patirtis
     entries:
       example:
-        name: Įrašo pavadinimas
+        label: Įrašo pavadinimas
         type: Įrašo tipas
         location: Įrašo vieta
         description: Įrašo aprašymas
   education:
-    name: Išsilavinimas
+    label: Išsilavinimas
     entries:
       example:
-        name: Įrašo pavadinimas
+        label: Įrašo pavadinimas
         type: Įrašo tipas
         location: Įrašo vieta

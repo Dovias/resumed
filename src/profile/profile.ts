@@ -30,16 +30,16 @@ export const profileSchema = z.object({
     }).readonly()
   }),
   "aspects": z.record(z.object({
-    "name": z.string().min(1),
+    "label": z.string().min(1),
     "entries": z.record(z.object({
-      "name": z.string().min(1),
+      "label": z.string().min(1),
       "icon": iconSchema.readonly()
     })).readonly()
   })),
   "timelines": z.record(z.object({
-    "name": z.string().min(1),
+    "label": z.string().min(1),
     "entries": z.record(z.object({
-      "name": z.string().min(1).nullish(),
+      "label": z.string().min(1).nullish(),
       "type": z.string().min(1),
       "location": z.string().min(1),
       "description": z.string().min(1).nullish(),
