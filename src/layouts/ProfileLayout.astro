@@ -8,6 +8,7 @@ import ProfileInformationHeading from "../components/profile/ProfileInformationH
 import ProfilePicture from "../components/profile/ProfilePicture.astro";
 import PanelHeading from "../components/panel/PanelHeading.astro";
 import Panel from "../components/panel/Panel.astro";
+import ProfileVCardQRCode from "../components/profile/ProfileVCardQRCode.astro";
 
 export interface Props {
   "profile": Profile;
@@ -19,7 +20,7 @@ export interface Props {
 
 const {profile, locale} = Astro.props;
 
-const {names, role, picture} = profile.contacts;
+const {names, role, picture, ...contacts} = profile.contacts;
 ---
 
 
@@ -35,11 +36,10 @@ const {names, role, picture} = profile.contacts;
       
       <Panel significance={200}>
         <PanelHeading>Example Panel Heading</PanelHeading>
-        <p>This is an example panel paragraph</p>
+        <ProfileVCardQRCode {names} telephoneNumber={contacts.telephoneNumber} emailAddress={contacts.emailAddress} urls={Object.values(contacts.links.entries).map(link => new URL(link.path))} />
       </Panel> 
     </main>
     <aside class="md:order-3 print:order-3 grid gap-6 md:max-w-72">
-      <slot name="aside" />
     </aside>
   </div>
 </Layout>

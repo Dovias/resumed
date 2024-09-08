@@ -1,0 +1,35 @@
+---
+import QRCode from "qrcode";
+import type {Profile} from "../../profile";
+
+export interface Props extends Pick<Profile["contacts"], "names" | "telephoneNumber" | "emailAddress"> {
+  "urls"?: URL[];
+}
+
+const {names, telephoneNumber, emailAddress, urls = []} = Astro.props;
+
+const vCardData = [
+  "BEGIN:VCARD",
+  "VERSION:4.0",
+  `FN:${names.join(" ")}`,
+  `TEL:${telephoneNumber}`,
+  `EMAIL:${emailAddress}`,
+  ...urls.map(url => `URL:${url}`),
+  "END:VCARD"
+].join("\r\n");
+
+
+let qrCodeData = (await QRCode.toString(vCardData, {
+  "type": "svg",
+  "color": {
+    "light": "#ffffff00"
+  },
+  "margin": 0
+/*
+ * We need .replace() here since there's no option to set the 'dark' color as 'currentColor' to match the text color.
+ * Maybe we should contribute to the project?
+ */
+})).replace("#000000", "currentColor");
+ 
+---
+<Fragment set:html={qrCodeData} />
