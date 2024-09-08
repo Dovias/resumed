@@ -14,6 +14,7 @@ export type ContentProfilePath = Split<keyof DataEntryMap[typeof profilesContent
 
 export const profileSchema = z.object({
   "contacts": z.object({
+    "label": z.string().min(1),
     "names": z.string().array().nonempty(),
     "role": z.string().min(1),
     "picture": z.object({
@@ -27,6 +28,10 @@ export const profileSchema = z.object({
         "path": z.string().min(1),
         "icon": iconSchema.readonly()
       })).readonly()
+    }).readonly(),
+    "qr": z.object({
+      "enabled": z.boolean(),
+      "description": z.string().min(1)
     }).readonly()
   }),
   "aspects": z.record(z.object({

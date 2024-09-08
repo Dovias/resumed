@@ -12,6 +12,8 @@ contacts:
         path: https://example.com/
         icon:
           path: /icons/example.svg
+  qr:
+    enabled: true
 aspects:
   technologies:
     entries:
