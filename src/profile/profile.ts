@@ -18,14 +18,14 @@ const defaultBooleanSchema = z.boolean().default(true);
 const dateSchema = z.date();
 
 export const profileSchema = z.object({
+  "names": z.string().array().nonempty(),
+  "role": nonEmptyStringSchema,
+  "picture": z.object({
+    "path": nonEmptyStringSchema,
+    "description": nullishNonEmptyStringSchema
+  }).readonly(),
   "contact": z.object({
     "label": nonEmptyStringSchema,
-    "names": z.string().array().nonempty(),
-    "role": nonEmptyStringSchema,
-    "picture": z.object({
-      "path": nonEmptyStringSchema,
-      "description": nullishNonEmptyStringSchema
-    }).readonly(),
     "telephoneNumber": z.string().regex(/^\+?[0-9]{1,15}$/g),
     "emailAddress": z.string().email(),
     "links": z.object({

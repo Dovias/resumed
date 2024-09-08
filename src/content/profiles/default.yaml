@@ -1,9 +1,9 @@
+names:
+- First Name
+- Last Name
+picture:
+  path: /images/profile.png
 contact:
-  picture:
-    path: /images/profile.png
-  names:
-  - First Name
-  - Last Name
   telephoneNumber: "+000000000"
   emailAddress: contact@example.com
   links:

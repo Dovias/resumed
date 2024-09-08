@@ -1,8 +1,8 @@
+role: Role name
 contact:
   label: Contact
   qr:
     description: Scan this QR code in order to get all this contact information quickly and in a digital format
-  role: Role name
 aspects:
   technologies:
     label: Technologies
