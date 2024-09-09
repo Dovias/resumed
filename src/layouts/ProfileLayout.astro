@@ -25,11 +25,11 @@ const {names, picture, contact, ...restProfile} = profile;
 <Layout locale={locale.name} title={names.join(" ")}>
   <div class="grid md:grid-cols-[1fr_auto] print:grid-cols-[1fr_auto] md:grid-rows-[min-content_min-content] print:grid-rows-[min-content_min-content] gap-4 justify-center max-w-screen-xl mx-auto p-8 overflow-auto">
     <aside class="md:order-2 print:order-2 mb-6 justify-self-center w-full max-w-72 md:max-w-60 lg:max-w-64">
-      <ProfilePicture slot="aside-top" path={picture.path} description={picture.description} />
+      <ProfilePicture path={picture.path} description={picture.description} />
     </aside>
     <main class="md:row-span-3 print:row-span-3 md:mr-16 lg:mr-32">
       <header>
-        <ProfileInformationHeading slot="header" {names} role={restProfile.role} />
+        <ProfileInformationHeading {names} role={restProfile.role} />
       </header>
       
       <Panel significance={200}>
