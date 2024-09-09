@@ -13,7 +13,7 @@ export interface Props extends Pick<Profile, "names">, Pick<Profile["contact"], 
 const {links, qr, ...props} = Astro.props;
 ---
 
-<Panel significance={200}>
+<Panel significance={200} tag="article">
   <PanelHeading color="secondary">{props.label}</PanelHeading>
   <div class="m-2">
     {qr.enabled &&
