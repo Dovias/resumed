@@ -8,9 +8,9 @@ export interface Props {
   "urls"?: URL[];
 }
 
-const {names, phoneNumbers = [], emailAddresses = [], urls = []} = Astro.props;
+const {names, phoneNumbers = [], emailAddresses = [], ...props} = Astro.props;
 
-urls.filter((url) => {
+const urls = (props.urls || []).filter((url) => {
   const {protocol} = url;
   if (protocol === "tel:") {
     phoneNumbers.push(url.toString().substring(protocol.length));
