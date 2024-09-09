@@ -36,7 +36,7 @@ const {names, picture, contact, ...restProfile} = profile;
         <PanelHeading>Example Panel Heading</PanelHeading>
       </Panel> 
     </main>
-    <aside class="md:order-3 print:order-3 grid gap-6 md:max-w-72">
+    <aside class="md:order-3 print:order-3 grid gap-6 md:max-w-64 lg:max-w-72">
       <ProfileContactPanel label={contact.label} {names} qr={contact.qr} links={Object.values(contact.entries)} />
     </aside>
   </div>

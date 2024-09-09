@@ -22,10 +22,10 @@ if (props.label == undefined) {
 }
 ---
 
-<div class="my-2">
+<div class="text-nowrap">
   <picture class="inline-block align-middle mr-2 p-1 border-2 border-contour rounded-lg">
     <source srcset={icon.path} />
     <img alt={icon.description} width="16" class="size-4" />
   </picture>
-  <a class="underline font-light" {href} {target} {rel}>{linkText}</a>
+  <a class="underline font-light text-wrap break-words" {href} {target} {rel}>{linkText}</a>
 </div>
