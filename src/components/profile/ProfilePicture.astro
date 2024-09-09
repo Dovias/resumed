@@ -10,5 +10,5 @@ const {path, description = "profile picture"} = Astro.props;
 
 <picture class="block w-full">
   <source srcset={path} />
-  <img class="flex justify-center border-8 border-primary rounded-full outline outline-4 outline-contour shadow-[0.4em_0.4em_0] shadow-contour" width="256" alt={description} />
+  <img class="w-full bg-primary p-2 outline outline-4 outline-contour rounded-full shadow-[0.4em_0.4em_0] shadow-contour" width="256" alt={description} />
 </picture>
