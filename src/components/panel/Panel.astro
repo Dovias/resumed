@@ -3,11 +3,11 @@ import type {AccentColor} from "../../types/colors";
 
 export interface Props {
   "color"?: AccentColor;
-  "significance"?: 100 | 200;
+  "importance"?: "high" | "low";
   "tag"?: "div" | "article";
 }
 
-const {color, significance = 100, tag = "div"} = Astro.props;
+const {color, importance = "low", tag = "div"} = Astro.props;
 
 const Tag = tag;
 ---
@@ -17,8 +17,8 @@ const Tag = tag;
   "bg-secondary": color === "secondary",
   "bg-foreground": !color
 }, {
-  "shadow-[0.2em_0.2em_0] shadow-contour/20": significance === 100,
-  "shadow-[0.4em_0.4em_0] shadow-contour": significance === 200
+  "shadow-[0.2em_0.2em_0] shadow-contour/20": importance === "low",
+  "shadow-[0.4em_0.4em_0] shadow-contour": importance === "high"
 }]}>
   <slot />
 </Tag>
