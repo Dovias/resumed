@@ -4,12 +4,15 @@ import type {AccentColor} from "../../types/colors";
 export interface Props {
   "color"?: AccentColor;
   "significance"?: 100 | 200;
+  "tag"?: "div" | "article";
 }
 
-const {color, significance = 100} = Astro.props;
+const {color, significance = 100, tag = "div"} = Astro.props;
+
+const Tag = tag;
 ---
 
-<div class:list={["p-2", "border-4", "border-contour", "rounded-lg", "text-foreground", {
+<Tag class:list={["p-2", "border-4", "border-contour", "rounded-lg", "text-foreground", {
   "bg-primary": color === "primary",
   "bg-secondary": color === "secondary",
   "bg-foreground": !color
@@ -18,4 +21,4 @@ const {color, significance = 100} = Astro.props;
   "shadow-[0.4em_0.4em_0] shadow-contour": significance === 200
 }]}>
   <slot />
-</div>
+</Tag>
