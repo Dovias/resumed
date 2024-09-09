@@ -27,7 +27,7 @@ const {names, picture, contact, ...restProfile} = profile;
     <aside class="md:order-2 print:order-2 mb-6 justify-self-center">
       <ProfilePicture slot="aside-top" path={picture.path} description={picture.description} />
     </aside>
-    <main class="md:row-span-3 print:row-span-3">
+    <main class="md:row-span-3 print:row-span-3 md:mr-16 lg:mr-32">
       <header>
         <ProfileInformationHeading slot="header" {names} role={restProfile.role} />
       </header>
