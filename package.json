@@ -12,11 +12,9 @@
   "author": "Dovias",
   "license": "MIT",
   "dependencies": {
-    "@astrojs/tailwind": "^5.1.0",
     "@fontsource/kanit": "^5.0.21",
     "astro": "^4.15.4",
     "qrcode": "^1.5.4",
-    "tailwindcss": "^3.4.10",
     "typescript": "^5.5.4"
   },
   "devDependencies": {
