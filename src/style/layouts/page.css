@@ -6,7 +6,7 @@
 
 
 .page {
-  background: url("/images/background-tile.svg") rgba(var(--color-background));
+  background: url("/assets/images/background-tile.svg") rgba(var(--color-background));
   font-family: "Kanit", "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
   min-height: 100vh;

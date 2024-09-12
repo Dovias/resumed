@@ -2,7 +2,7 @@ names:
 - First Name
 - Last Name
 picture:
-  path: /images/profile.png
+  path: /assets/images/profile.png
 contact:
   entries:
     phoneNumber:
