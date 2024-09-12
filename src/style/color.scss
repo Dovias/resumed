@@ -1,0 +1,47 @@
+@use "sass:map";
+@use "sass:list";
+
+$schemes: (
+  "light": (
+    "primary": #FDE047,
+    "secondary": #99F6E4,
+    "background": #FEFCE8,
+    "foreground": #FFFFFF,
+    "contour": #000000,
+    "selection": #000000,
+    "text-primary": #000000,
+    "text-secondary": #000000,
+    "text-background": #000000,
+    "text-foreground": #000000,
+    "text-selection": #FFFFFF
+  ),
+  "dark": (
+    "primary": #FDE047,
+    "secondary": #99F6E4,
+    "background": #171717,
+    "foreground": #FFFFFF,
+    "contour": #000000,
+    "selection": #000000,
+    "text-primary": #000000,
+    "text-secondary": #000000,
+    "text-background": #000000,
+    "text-foreground": #000000,
+    "text-selection": #FFFFFF
+  )
+);
+
+@if list.length(map.keys($schemes)) > 0 {
+  html {
+    color-scheme: #{list.join((), map.keys($schemes), $separator: space)};
+  }
+}
+
+@each $name, $values in $schemes {
+  @media (prefers-color-scheme: #{$name}) {
+    :root {
+      @each $key, $color in $values {
+        --color-#{$key}: #{$color};
+      }
+    }
+  }
+}

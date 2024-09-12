@@ -1,0 +1,10 @@
+@use "@fontsource/kanit/scss/mixins" as Kanit;
+
+@include Kanit.faces(
+  $subsets: latin,
+  $weights: 400,
+  $styles: normal,
+  $directory: "@fontsource/kanit/files"
+);
+
+$family: "Kanit";
