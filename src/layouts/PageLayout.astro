@@ -1,12 +1,5 @@
 ---
-import "@fontsource/kanit/300.css";
-import "@fontsource/kanit/400.css";
-import "@fontsource/kanit/600.css";
-import "@fontsource/kanit/700.css";
-import "@fontsource/kanit/800.css";
-
-import "../styles/colors.css";
-import "../styles/print.css";
+import "../style/layouts/page.css";
 
 import type {LocaleName} from "../locale";
 
@@ -26,7 +19,7 @@ const {locale, title} = Astro.props;
     <title>{title}</title>
   </head>
   <body>
-    <div class="bg-background bg-[url('/images/background-tile.svg')] min-w-screen min-h-screen">
+    <div class="page">
       <slot />
     </div>
   </body>
