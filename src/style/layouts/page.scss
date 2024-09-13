@@ -1,7 +1,6 @@
 @use "../font" as font; 
 @use "../color";
-
-@import url("../reset.scss");
+@use "../reset";
 
 @import url("../print.scss");
 

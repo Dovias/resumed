@@ -1,4 +1,6 @@
 ---
+import "../style/layouts/profile.scss";
+
 import PageLayout from "./PageLayout.astro";
 
 import type {Profile} from "../profile";
@@ -23,11 +25,11 @@ const {names, picture, contact, ...restProfile} = profile;
 ---
 
 <PageLayout locale={locale.name} title={names.join(" ")}>
-  <div class="grid md:grid-cols-[1fr_auto] print:grid-cols-[1fr_auto] md:grid-rows-[min-content_min-content] print:grid-rows-[min-content_min-content] gap-4 justify-center max-w-screen-xl mx-auto p-8 overflow-auto">
-    <aside class="md:order-2 print:order-2 mb-6 justify-self-center w-full max-w-72 md:max-w-60 lg:max-w-64">
+  <div class="profile">
+    <aside class="profile__aside-top">
       <ProfilePicture path={picture.path} description={picture.description} />
     </aside>
-    <main class="md:row-span-3 print:row-span-3 md:mr-16 lg:mr-32">
+    <main class="profile__main">
       <header>
         <ProfileInformationHeading {names} role={restProfile.role} />
       </header>
@@ -36,7 +38,7 @@ const {names, picture, contact, ...restProfile} = profile;
         <PanelHeading>Example Panel Heading</PanelHeading>
       </Panel> 
     </main>
-    <aside class="md:order-3 print:order-3 grid gap-6 md:max-w-64 lg:max-w-72">
+    <aside class="profile__aside-bottom">
       <ProfileContactPanel label={contact.label} {names} qr={contact.qr} links={Object.values(contact.entries)} />
     </aside>
   </div>
