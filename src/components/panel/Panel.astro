@@ -1,4 +1,8 @@
 ---
+import "../../style/components/panel/panel.scss";
+import "../../style/utilities/colors.scss";
+import "../../style/utilities/shadows.scss";
+
 import type {AccentColor} from "../../types/colors";
 
 export interface Props {
@@ -12,13 +16,13 @@ const {color, importance = "low", tag = "div"} = Astro.props;
 const Tag = tag;
 ---
 
-<Tag class:list={["p-2", "border-4", "border-contour", "rounded-lg", "text-foreground", {
-  "bg-primary": color === "primary",
-  "bg-secondary": color === "secondary",
-  "bg-foreground": !color
+<Tag class:list={["panel", {
+  "color-primary": color === "primary",
+  "color-secondary": color === "secondary",
+  "color-foreground": !color
 }, {
-  "shadow-[0.2em_0.2em_0] shadow-contour/20": importance === "low",
-  "shadow-[0.4em_0.4em_0] shadow-contour": importance === "high"
+  "shadow-subtle": importance === "low",
+  "shadow-intense": importance === "high"
 }]}>
   <slot />
 </Tag>

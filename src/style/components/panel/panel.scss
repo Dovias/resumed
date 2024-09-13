@@ -1,0 +1,9 @@
+@use "../../configuration/color";
+
+.panel {
+  padding: 0.5em;
+
+
+  border: 0.2rem solid color.dynamic("contour");
+  border-radius: 0.6rem;
+}

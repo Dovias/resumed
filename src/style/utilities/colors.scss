@@ -1,0 +1,16 @@
+@use "../configuration/color";
+
+.color-foreground {
+  background: color.dynamic("foreground");
+  color: color.dynamic("foreground", "text");
+}
+
+.color-primary {
+  background: color.dynamic("primary");
+  color: color.dynamic("primary", "text");
+}
+
+.color-secondary {
+  background: color.dynamic("secondary");
+  color: color.dynamic("secondary", "text");
+}

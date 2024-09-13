@@ -1,0 +1,9 @@
+@use "../configuration/color";
+
+.shadow-intense {
+  box-shadow: 0.3em 0.3em 0 color.dynamic("contour");
+}
+
+.shadow-subtle {
+  box-shadow: 0.05em 0.05em 0 color.dynamic("contour");
+}
