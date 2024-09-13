@@ -1,5 +1,8 @@
 @use "sass:map";
 @use "sass:list";
+@use "sass:string";
+
+@use "./utilities/strings";
 
 $_schemes: (
   "light": (
@@ -42,6 +45,22 @@ $_schemes: (
       @each $key, $color in $values {
         --color-#{$key}: #{$color};
       }
+    }
+  }
+}
+
+@function static($scheme, $color...) {
+  $colors: map.get($_scheme, $scheme);
+  @if $colors {
+    @return map.get($colors, strings.replace("#{$color}", ', ', '-'));
+  }
+}
+
+@function dynamic($color...) {
+  @each $colors in map.values($_schemes) {
+    $key: strings.replace("#{$color}", ', ', '-');
+    @if map.has-key($colors, $key) {
+      @return var(--color-#{$key});
     }
   }
 }

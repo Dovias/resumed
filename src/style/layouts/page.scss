@@ -5,8 +5,10 @@
 @import url("../print.scss");
 
 .page {
-  background: url("/assets/images/background-tile.svg") var(--color-background);
-  font-family: font.$family, "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-
   min-height: 100vh;
+
+  background: url("/assets/images/background-tile.svg") color.dynamic("background");
+
+  font-family: font.$family, "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  color: color.dynamic("text", "background");
 }
