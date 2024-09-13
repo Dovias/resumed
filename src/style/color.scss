@@ -1,7 +1,7 @@
 @use "sass:map";
 @use "sass:list";
 
-$schemes: (
+$_schemes: (
   "light": (
     "primary": #FDE047,
     "secondary": #99F6E4,
@@ -30,13 +30,13 @@ $schemes: (
   )
 );
 
-@if list.length(map.keys($schemes)) > 0 {
+@if list.length(map.keys($_schemes)) > 0 {
   html {
-    color-scheme: #{list.join((), map.keys($schemes), $separator: space)};
+    color-scheme: #{list.join((), map.keys($_schemes), $separator: space)};
   }
 }
 
-@each $name, $values in $schemes {
+@each $name, $values in $_schemes {
   @media (prefers-color-scheme: #{$name}) {
     :root {
       @each $key, $color in $values {
