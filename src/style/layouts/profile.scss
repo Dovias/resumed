@@ -1,6 +1,7 @@
-@use "../color";
-@use "../reset";
-@use "../size";
+@use "../configuration/color";
+@use "../configuration/size";
+
+@use "../utilities/reset";
 
 .profile {
   display: grid;

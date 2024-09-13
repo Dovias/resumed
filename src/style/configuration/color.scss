@@ -2,7 +2,7 @@
 @use "sass:list";
 @use "sass:string";
 
-@use "./utilities/strings";
+@use "../utilities/strings";
 
 $_schemes: (
   "light": (
@@ -12,11 +12,11 @@ $_schemes: (
     "foreground": #FFFFFF,
     "contour": #000000,
     "selection": #000000,
-    "text-primary": #000000,
-    "text-secondary": #000000,
-    "text-background": #000000,
-    "text-foreground": #000000,
-    "text-selection": #FFFFFF
+    "primary-text": #000000,
+    "secondary-text": #000000,
+    "background-text": #000000,
+    "foreground-text": #000000,
+    "selection-text": #FFFFFF
   ),
   "dark": (
     "primary": #FDE047,
@@ -24,12 +24,12 @@ $_schemes: (
     "background": #171717,
     "foreground": #FFFFFF,
     "contour": #000000,
-    "selection": #000000,
-    "text-primary": #000000,
-    "text-secondary": #000000,
-    "text-background": #000000,
-    "text-foreground": #000000,
-    "text-selection": #FFFFFF
+    "selection": #FFFFFF,
+    "primary-text": #FFFFFF,
+    "secondary-text": #FFFFFF,
+    "background-text": #FFFFFF,
+    "foreground-text": #FFFFFF,
+    "selection-text": #000000
   )
 );
 

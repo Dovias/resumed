@@ -1,8 +1,7 @@
-@use "../font" as font; 
-@use "../color";
-@use "../reset";
+@use "../configuration/font"; 
+@use "../configuration/color";
 
-@import url("../print.scss");
+@use "../utilities/reset";
 
 .page {
   min-height: 100vh;
@@ -10,5 +9,16 @@
   background: url("/assets/images/background-tile.svg") color.dynamic("background");
 
   font-family: font.$family, "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  color: color.dynamic("text", "background");
+  color: color.dynamic("background", "text");
+
+  & ::selection {
+    background: color.dynamic("selection");
+    color: color.dynamic("selection", "text");
+  }
+
+  @media print {
+    & {
+        font-size: 0.8em;
+    }
+  }
 }
