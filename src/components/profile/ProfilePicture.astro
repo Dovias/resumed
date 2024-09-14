@@ -1,6 +1,4 @@
 ---
-import "../../style/components/profile/picture.scss";
-
 import type {Profile} from "../../profile";
 
 type ProfilePictureProps = Profile["picture"];
@@ -14,3 +12,24 @@ const {path, description = "profile picture"} = Astro.props;
   <source srcset={path} />
   <img class="profile-picture__image shadow-intense" width="256" height="256" alt={description} />
 </picture>
+
+<style lang="scss" is:global>
+  @use "../../style/configuration/color";
+  @use "../../style/mixins/color" as mixins_color;
+
+  .profile-picture {
+    display: block;
+    width: 100%;
+
+    &__image {
+      @include mixins_color.background("primary");
+
+      width: 100%;
+      height: auto;
+      padding: 0.5em;
+
+      border: 0.2rem solid color.dynamic("contour");
+      border-radius: 9999px;
+    }
+  }
+</style>
