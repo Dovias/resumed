@@ -1,4 +1,6 @@
 ---
+import "../../style/components/profile/picture.scss";
+
 import type {Profile} from "../../profile";
 
 type ProfilePictureProps = Profile["picture"];
@@ -8,7 +10,7 @@ export interface Props extends ProfilePictureProps {}
 const {path, description = "profile picture"} = Astro.props;
 ---
 
-<picture class="block w-full">
+<picture class="profile-picture">
   <source srcset={path} />
-  <img class="w-full h-auto p-2 bg-primary outline outline-4 outline-contour rounded-full shadow-[0.4em_0.4em_0] shadow-contour" width="256" height="256" alt={description} />
+  <img class="profile-picture__image shadow-intense" width="256" height="256" alt={description} />
 </picture>

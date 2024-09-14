@@ -1,8 +1,8 @@
-@use "@fontsource/kanit/scss/mixins" as Kanit;
+@use "@fontsource/kanit/scss/mixins" as font;
 
-@include Kanit.faces(
+@include font.faces(
   $subsets: latin,
-  $weights: 400,
+  $weights: (300, 400, 600, 800),
   $styles: normal,
   $directory: "@fontsource/kanit/files"
 );
