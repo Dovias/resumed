@@ -11,24 +11,23 @@
   },
   "author": "Dovias",
   "license": "MIT",
-  "dependencies": {
-    "@fontsource/kanit": "^5.0.21",
-    "astro": "^4.15.4",
-    "cssnano": "^7.0.6",
-    "qrcode": "^1.5.4",
-    "typescript": "^5.5.4"
-  },
   "devDependencies": {
-    "@csstools/postcss-sass": "^5.1.1",
+    "@fontsource/kanit": "^5.0.21",
     "@hail2u/css-mqpacker": "github:hail2u/node-css-mqpacker#v9.0.1",
     "@stylistic/eslint-plugin": "^2.7.2",
     "@types/eslint": "^9.6.1",
     "@types/node": "^22.5.1",
+    "astro": "^4.15.4",
+    "cssnano": "^7.0.6",
     "cssnano-preset-advanced": "^7.0.6",
     "eslint": "^9.9.1",
     "eslint-plugin-astro": "^1.2.3",
     "jiti": "^2.0.0-beta.3",
+    "postcss": "^8.4.47",
     "postcss-merge-rules-plus": "^2.0.0",
+    "qrcode": "^1.5.4",
+    "sass": "^1.78.0",
+    "typescript": "^5.5.4",
     "typescript-eslint": "^8.4.0"
   }
 }
