@@ -6,7 +6,6 @@ import type {Accent, Importance as StyleImportance} from "../../types";
 export type Importance = StyleImportance;
 export type Emphasis = Exclude<StyleImportance, "medium">;
 
-// We need this since utilizing Props type externally leads to buggy mess from Polymorphic type
 export type AttributeProps = {
   "accent"?: Accent;
   "importance": Importance;
@@ -34,7 +33,6 @@ const {accent, "as": Tag, importance, emphasis, "class": className, ...props} = 
 
 <style lang="scss" is:global>
   @use "../../style/configuration/color";
-  @use "../../style/mixins/color" as mixins_color;
 
   .panel {
     padding: 0.5em;

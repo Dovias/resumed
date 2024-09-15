@@ -1,31 +1,17 @@
 ---
 import type {Profile} from "../../profile";
-
-import Panel, {type Props as PanelProps} from "../panel/Panel.astro";
+import ImagePanel from "../panel/ImagePanel.astro";
 
 type ProfilePictureProps = Profile["picture"];
 
 export interface Props extends ProfilePictureProps {}
 
 const {path, description = "profile picture"} = Astro.props;
-
-const panelProps = {
-  "accent": "primary",
-  "importance": "high",
-  "emphasis": "high",
-  "as": "img",
-  "class": "profile-picture__image",
-
-  "width": "256",
-  "height": "256",
-  "alt": description
-} as PanelProps;
 ---
 
-<!-- <Panel importance="high" emphasis="high" accent="primary" as="picture"class="profile-picture" /> -->
 <picture class="profile-picture">
   <source srcset={path} />
-  <Panel {...panelProps} />
+  <ImagePanel accent="primary" importance="high" emphasis="high" width="256" height="256" class="profile-picture__image" alt={description} />
 </picture>
 
 <style lang="scss" is:global>
