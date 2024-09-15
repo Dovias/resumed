@@ -1,6 +1,4 @@
 ---
-import "../style/layouts/page.scss";
-
 import type {LocaleName} from "../locale";
 
 export interface Props {
@@ -24,3 +22,32 @@ const {locale, title} = Astro.props;
     </div>
   </body>
 </html>
+
+<style lang="scss" is:global>
+  @use "../style/configuration/font"; 
+  @use "../style/configuration/color" with (
+    $css_variable_selector: ".page"
+  );
+
+  @use "../style/utilities/reset";
+
+  .page {
+    min-height: 100vh;
+
+    background: url("/assets/images/background-tile.svg") color.variable("background");
+
+    font-family: font.family(), "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    color: color.variable("text", "background");
+
+    & ::selection {
+      background: color.variable("selection");
+      color: color.variable("text", "selection");
+    }
+
+    @media print {
+      & {
+          font-size: 0.8em;
+      }
+    }
+  }
+</style>

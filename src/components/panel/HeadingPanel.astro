@@ -1,0 +1,56 @@
+---
+import type {HTMLTag, Polymorphic} from "astro/types";
+import Panel, {type Importance as PanelImportance, type AttributeProps as PanelAttributeProps} from "./Panel.astro";
+
+export type Importance = PanelImportance;
+
+export type AttributeProps = {
+  "heading:importance": Importance;
+};
+
+// We can't make this exported directly. Thanks ESBuild :)
+type _Props = Omit<Polymorphic<AttributeProps & PanelAttributeProps & {
+  "as": "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+}>, "as">;
+
+export type Props = _Props;
+
+const {"heading:importance": headingImportance, ...props} = Astro.props;
+
+let as: HTMLTag;
+if (headingImportance == "high") {
+  as = "h1";
+} else if (headingImportance == "medium") {
+  as = "h2";
+} else {
+  as = "h3";
+}
+---
+
+<Panel class:list={[
+  "panel--heading",
+  `panel--heading--${headingImportance}`
+]} {as} {...props}>
+  <slot />
+</Panel>
+
+<style lang="scss" is:global>
+  .panel--heading {
+    &--high {
+      font-size: 1.5em;
+      font-weight: 800;
+    }
+
+    &--medium, &--low {
+      font-weight: 600;
+    }
+
+    &--medium {
+      font-size: 1.25em;
+    }
+
+    &--low {
+      font-size: 1em;
+    }
+  }
+</style>

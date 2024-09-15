@@ -1,6 +1,4 @@
 ---
-import "../style/layouts/profile.scss";
-
 import PageLayout from "./PageLayout.astro";
 
 import type {Profile} from "../profile";
@@ -9,7 +7,7 @@ import type {LocaleMetadata, LocaleName} from "../locale";
 import ProfileInformationHeading from "../components/profile/ProfileInformationHeading.astro";
 import ProfileContactPanel from "../components/profile/contact/ProfileContactPanel.astro";
 import ProfilePicture from "../components/profile/ProfilePicture.astro";
-import PanelHeading from "../components/panel/PanelHeading.astro";
+import HeadingPanel from "../components/panel/HeadingPanel.astro";
 import Panel from "../components/panel/Panel.astro";
 
 export interface Props {
@@ -33,9 +31,8 @@ const {names, picture, contact, ...restProfile} = profile;
       <header>
         <ProfileInformationHeading {names} role={restProfile.role} />
       </header>
-      
-      <Panel importance="high">
-        <PanelHeading>Example Panel Heading</PanelHeading>
+      <Panel as="div" importance="high" emphasis="low">
+        <HeadingPanel importance="medium" emphasis="low" heading:importance="high">Example Panel Heading</HeadingPanel>
       </Panel> 
     </main>
     <aside class="profile__aside-bottom">
@@ -43,3 +40,74 @@ const {names, picture, contact, ...restProfile} = profile;
     </aside>
   </div>
 </PageLayout>
+
+<style lang="scss" is:global>
+  @use "../style/configuration/color";
+  @use "../style/configuration/size";
+
+  @use "../style/utilities/reset";
+
+  .profile {
+    display: grid;
+    justify-content: center;
+    gap: 1rem;
+
+    max-width: size.breakpoint("extra-large");
+    padding: 2rem;
+
+    overflow: auto;
+    margin: auto;
+
+    &__aside-top {
+      justify-self: center;
+
+      max-width: 18rem;
+      width: 100%;
+
+      margin-bottom: 1.5rem;
+    }
+
+    &__aside-bottom {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: size.breakpoint("medium")) {
+      & {
+        grid-template-columns: 1fr auto;
+    
+        &__aside-top {
+          order: 2;
+    
+          max-width: 15rem;
+        }
+    
+        &__aside-bottom {
+          order: 3;
+          
+          max-width: 16rem;
+        }
+    
+        &__main {
+          grid-row: span 3 / span 3;
+    
+          margin-right: 4rem;
+        }
+      }
+    }
+
+    @media (min-width: size.breakpoint("large")) {
+      &__aside-top {
+        max-width: 16rem;
+      }
+    
+      &__aside-bottom {
+        max-width: 18rem;
+      }
+    
+      &__main {
+        margin-right: 8rem;
+      }
+    }
+  }
+</style>

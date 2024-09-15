@@ -1,10 +1,35 @@
+@use "sass:map";
+@use "sass:string";
+
 @use "@fontsource/kanit/scss/mixins" as font;
 
-@include font.faces(
-  $subsets: latin,
-  $weights: (300, 400, 600, 800),
-  $styles: normal,
-  $directory: "@fontsource/kanit/files"
+$_family: "Kanit";
+
+$_weights: (
+  "thin": 300,
+  "regular": 400,
+  "semibold": 600,
+  "bold": 800
 );
 
-$family: "Kanit";
+@include font.faces(
+  $family: $_family,
+  $subsets: latin,
+  $weights: map.values($_weights),
+  $styles: normal,
+  $directory: "@fontsource/#{string.to-lower-case($_family)}/files"
+);
+
+@function family() {
+  @return $_family;
+}
+
+@function weight($name) {
+  $weight: map.get($_weights, $name);
+  @if $weight {
+    @return $weight;
+  }
+
+  @error "Failed to find font weight named: #{$name}";
+}
+

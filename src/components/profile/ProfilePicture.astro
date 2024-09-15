@@ -1,35 +1,43 @@
 ---
 import type {Profile} from "../../profile";
 
+import Panel, {type Props as PanelProps} from "../panel/Panel.astro";
+
 type ProfilePictureProps = Profile["picture"];
 
 export interface Props extends ProfilePictureProps {}
 
 const {path, description = "profile picture"} = Astro.props;
+
+const panelProps = {
+  "accent": "primary",
+  "importance": "high",
+  "emphasis": "high",
+  "as": "img",
+  "class": "profile-picture__image",
+
+  "width": "256",
+  "height": "256",
+  "alt": description
+} as PanelProps;
 ---
 
+<!-- <Panel importance="high" emphasis="high" accent="primary" as="picture"class="profile-picture" /> -->
 <picture class="profile-picture">
   <source srcset={path} />
-  <img class="profile-picture__image shadow-intense" width="256" height="256" alt={description} />
+  <Panel {...panelProps} />
 </picture>
 
 <style lang="scss" is:global>
   @use "../../style/configuration/color";
-  @use "../../style/mixins/color" as mixins_color;
 
   .profile-picture {
     display: block;
     width: 100%;
-
+    
     &__image {
-      @include mixins_color.background("primary");
-
       width: 100%;
       height: auto;
-      padding: 0.5em;
-
-      border: 0.2rem solid color.dynamic("contour");
-      border-radius: 9999px;
     }
   }
 </style>

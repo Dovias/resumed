@@ -1,27 +1,82 @@
 ---
-import "../../style/components/panel/panel.scss";
-import "../../style/utilities/shadows.scss";
+import type {HTMLTag, Polymorphic} from "astro/types";
 
-import type {AccentColor} from "../../types/colors";
+import type {Accent, Importance as StyleImportance} from "../../types";
 
-export interface Props {
-  "color"?: AccentColor;
-  "importance"?: "high" | "low";
-  "tag"?: "div" | "article";
-}
+export type Importance = StyleImportance;
+export type Emphasis = Exclude<StyleImportance, "medium">;
 
-const {color, importance = "low", tag = "div"} = Astro.props;
+// We need this since utilizing Props type externally leads to buggy mess from Polymorphic type
+export type AttributeProps = {
+  "accent"?: Accent;
+  "importance": Importance;
+  "emphasis": Emphasis;
+};
 
-const Tag = tag;
+type _Props = Polymorphic<AttributeProps & {
+  "as": HTMLTag;
+}>;
+
+export type Props = _Props & Required<Pick<_Props, "as">>;
+
+const {accent, "as": Tag, importance, emphasis, "class": className, ...props} = Astro.props;
 ---
 
-<Tag class:list={[{
-  "panel-primary": color === "primary",
-  "panel-secondary": color === "secondary",
-  "panel-foreground": !color
-}, {
-  "shadow-subtle": importance === "low",
-  "shadow-intense": importance === "high"
-}]}>
+<Tag class:list={[
+  "panel",
+  `panel--${accent || `foreground-${importance === "medium" ? "intense" : "subtle"}`}`,
+  `panel--shadow-${importance === "high" ? "intense" : "subtle"}`,
+  `panel--${emphasis === "high" ? "rounded-full" : "rounded"}`,
+  className
+]} {...props}>
   <slot />
 </Tag>
+
+<style lang="scss" is:global>
+  @use "../../style/configuration/color";
+  @use "../../style/mixins/color" as mixins_color;
+
+  .panel {
+    padding: 0.5em;
+
+    border: 0.2rem solid color.variable("contour");
+
+    &--primary {
+      background: color.variable("primary", "accent");
+      color: color.variable("primary", "text", "accent");
+    }
+
+    &--secondary {
+      background: color.variable("secondary", "accent");
+      color: color.variable("secondary", "text", "accent");
+    }
+
+    &--foreground-intense {
+      background: color.variable("secondary", "foreground");
+      color: color.variable("secondary", "text", "foreground");
+    }
+
+    &--foreground-subtle {
+      background: color.variable("primary", "foreground");
+      color: color.variable("primary", "text", "foreground");
+    }
+
+    &--rounded {
+      border-radius: 0.6rem;
+    }
+
+    &--rounded-full {
+      border-radius: 9999px;
+    }
+
+    &--shadow {
+      &-intense {
+        box-shadow: 0.3em 0.3em 0 color.variable("contour");
+      }
+
+      &-subtle {
+        box-shadow: 0.1em 0.1em 0 color.variable("contour");
+      }
+    }
+  }
+</style>

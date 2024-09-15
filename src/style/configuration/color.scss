@@ -1,35 +1,61 @@
 @use "sass:map";
 @use "sass:list";
 @use "sass:string";
+@use "sass:meta";
 
 @use "../utilities/strings";
 
 $_schemes: (
   "light": (
-    "primary": #FDE047,
-    "secondary": #99F6E4,
+    "primary": (
+      "accent": #FDE047,
+      "foreground": #FFFFFF,
+      "text": (
+        "accent": #000000,
+        "foreground": #000000
+      )
+    ),
+    "secondary": (
+      "accent": #99F6E4,
+      "foreground": #FFFFFF,
+      "text": (
+        "accent": #000000,
+        "foreground": #000000
+      )
+    ),
+
     "background": #FEFCE8,
-    "foreground": #FFFFFF,
     "contour": #000000,
     "selection": #000000,
-    "primary-text": #000000,
-    "secondary-text": #000000,
-    "background-text": #000000,
-    "foreground-text": #000000,
-    "selection-text": #FFFFFF
+    "text": (
+      "background": #000000,
+      "selection": #ffffff
+    )
   ),
   "dark": (
-    "primary": #ffcb62,
-    "secondary": rgb(162, 221, 209),
+    "primary": (
+      "accent": #ffcb62,
+      "foreground": #536872,
+      "text": (
+        "accent": #000000,
+        "foreground": #E0FFF9
+      )
+    ),
+    "secondary": (
+      "accent": #a2ddd1,
+      "foreground": #768891,
+      "text": (
+        "accent": #000000,
+        "foreground": #ffffff
+      )
+    ),
     "background": #2d383c,
-    "foreground": 	#536872,
     "contour": #000000,
     "selection": #000000,
-    "primary-text": #000000,
-    "secondary-text": #000000,
-    "background-text": #FFFFFF,
-    "foreground-text": #FFFFFF,
-    "selection-text": #ffffff
+    "text": (
+      "background": #E0FFF9,
+      "selection": #ffffff
+    )
   )
 );
 
@@ -39,28 +65,49 @@ $_schemes: (
   }
 }
 
-@each $name, $values in $_schemes {
-  @media (prefers-color-scheme: #{$name}) {
-    :root {
-      @each $key, $color in $values {
-        --color-#{$key}: #{$color};
+@function _constructCSSVariableMap($key, $map) {
+  $cssVariables: ();
+
+  @each $child_key, $child_value in $map {
+    @if $key != "" {
+      $child_key: "#{$key}-#{$child_key}";
+    }
+
+    $type: meta.type-of($child_value);
+    @if $type == "map" {
+      $cssVariables: map.merge($cssVariables, _constructCSSVariableMap($child_key, $child_value));
+    }
+    @if $type == "color" {
+      $cssVariables: map.set($cssVariables, $child_key, $child_value);
+    }
+  }
+  @return $cssVariables;
+}
+
+
+/* 
+ * Initializes css variables only if selector via @use was provided.
+ * Optimization for module based development environments like Vite, since
+ * It runs sass for each css chunk so unnecessary initializations could be made.
+ */
+$css_variable_selector: false !default;
+@if meta.type-of($css_variable_selector) == "string" {
+  @each $name, $values in $_schemes {
+    @media (prefers-color-scheme: #{$name}) {
+      #{$css_variable_selector} {
+        @each $key, $value in _constructCSSVariableMap("color", $values) {
+          --#{$key}: #{$value};
+        }
       }
     }
   }
 }
 
-@function static($scheme, $color...) {
-  $colors: map.get($_scheme, $scheme);
-  @if $colors {
-    @return map.get($colors, strings.replace("#{$color}", ', ', '-'));
-  }
-}
-
-@function dynamic($color...) {
+@function variable($color_path...) {
   @each $colors in map.values($_schemes) {
-    $key: strings.replace("#{$color}", ', ', '-');
-    @if map.has-key($colors, $key) {
-      @return var(--color-#{$key});
+    @if map.has-key($colors, $color_path...) {
+      @return var(--color-#{strings.replace("#{$color_path}", ', ', '-')});
     }
   }
+  @error string.unquote("Failed to fetch color css variable from path: #{$color_path}");
 }

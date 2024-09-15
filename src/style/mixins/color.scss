@@ -1,6 +1,0 @@
-@use "../configuration/color";
-
-@mixin background($color) {
-  background: color.dynamic($color);
-  color: color.dynamic($color, "text");
-}

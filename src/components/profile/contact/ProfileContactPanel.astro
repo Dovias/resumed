@@ -2,7 +2,7 @@
 import type {Profile} from "../../../profile";
 
 import Panel from "../../panel/Panel.astro";
-import PanelHeading from "../../panel/PanelHeading.astro";
+import HeadingPanel from "../../panel/HeadingPanel.astro";
 import VCardQRCode from "../../vcard/VCardQRCode.astro";
 import ProfileContactIconLink, {type Props as ProfileContactIconLinkProps} from "./ProfileContactIconLink.astro";
 
@@ -13,8 +13,8 @@ export interface Props extends Pick<Profile, "names">, Pick<Profile["contact"], 
 const {links, qr, ...props} = Astro.props;
 ---
 
-<Panel importance="high" tag="article">
-  <PanelHeading color="secondary">{props.label}</PanelHeading>
+<Panel importance="high" as="article">
+  <HeadingPanel accent="secondary" importance="low" emphasis="medium">{props.label}</HeadingPanel>
   <div class="m-2">
     {qr.enabled &&
       <div class="mt-4 mb-8 p-4 border-4 border-dashed border-contour rounded-lg">
