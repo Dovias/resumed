@@ -7,8 +7,6 @@ import type {LocaleMetadata, LocaleName} from "../locale";
 import ProfileInformationHeading from "../components/profile/ProfileInformationHeading.astro";
 import ProfileContactPanel from "../components/profile/contact/ProfileContactPanel.astro";
 import ProfilePicture from "../components/profile/ProfilePicture.astro";
-import HeadingPanel from "../components/panel/HeadingPanel.astro";
-import Panel from "../components/panel/Panel.astro";
 
 export interface Props {
   "profile": Profile;
@@ -31,9 +29,6 @@ const {names, picture, contact, ...restProfile} = profile;
       <header>
         <ProfileInformationHeading {names} role={restProfile.role} />
       </header>
-      <Panel as="div" importance="high" emphasis="low">
-        <HeadingPanel importance="medium" emphasis="low" heading:importance="high">Example Panel Heading</HeadingPanel>
-      </Panel> 
     </main>
     <aside class="profile__aside-bottom">
       <ProfileContactPanel label={contact.label} {names} qr={contact.qr} links={Object.values(contact.entries)} />

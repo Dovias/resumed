@@ -2,14 +2,14 @@
 import type {HTMLTag, Polymorphic} from "astro/types";
 import Panel, {type Importance as PanelImportance, type AttributeProps as PanelAttributeProps} from "./Panel.astro";
 
-export type Importance = PanelImportance;
+export type HeadingImportance = PanelImportance;
 
-export type AttributeProps = {
-  "heading:importance": Importance;
+export type AttributeProps = PanelAttributeProps & {
+  "heading:importance": HeadingImportance;
 };
 
 // We can't make this exported directly. Thanks ESBuild :)
-type _Props = Omit<Polymorphic<AttributeProps & PanelAttributeProps & {
+type _Props = Omit<Polymorphic<AttributeProps & {
   "as": "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }>, "as">;
 
