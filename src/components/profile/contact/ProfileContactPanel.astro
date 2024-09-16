@@ -5,18 +5,18 @@ import VCardQRCode from "../../vcard/VCardQRCode.astro";
 import ProfileContactIconLink, {type Props as ProfileContactIconLinkProps} from "./ProfileContactIconLink.astro";
 import ProfileArticlePanel from "../ProfileArticlePanel.astro";
 
-export interface Props extends Pick<Profile, "names">, Pick<Profile["contact"], "label" | "qr"> {
+export type Props = Pick<Profile, "names"> & Pick<Profile["contact"], "label" | "qr"> & {
   "links": ProfileContactIconLinkProps[];
-}
+};
 
-const {links, label, qr, ...props} = Astro.props;
+const {names, links, label, qr} = Astro.props;
 ---
 
 <ProfileArticlePanel label={label} accent="secondary">
   {qr.enabled &&
     <div class="mt-4 mb-8 p-4 border-4 border-dashed border-contour rounded-lg">
       <div class="max-w-64 mx-auto">
-        <VCardQRCode names={props.names} urls={links.map(link => link.url)} />
+        <VCardQRCode {names} urls={links.map(link => link.url)} />
       </div>
       <p class="mt-4 font-light text-xs italic text-center">{qr.description}</p>
     </div>
