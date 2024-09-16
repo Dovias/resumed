@@ -1,9 +1,9 @@
 ---
 import type {Polymorphic} from "astro/types";
 
-import Panel, {type AttributeProps as PanelAttributeProps} from "./Panel.astro";
+import type {AttributeProps as PanelAttributeProps} from "./Panel.astro";
+import ContentPanel from "./ContentPanel.astro";
 
-// We can't make this exported directly. Thanks ESBuild :)
 type _Props = Omit<Polymorphic<{
   "as": "img";
 } & PanelAttributeProps>, "as">;
@@ -13,4 +13,4 @@ export type Props = _Props;
 const {...props} = Astro.props;
 ---
 
-<Panel as="img" {...props} />
+<ContentPanel as="img" {...props} />

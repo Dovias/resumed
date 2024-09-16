@@ -1,0 +1,17 @@
+---
+import Panel, {type Props as PanelProps} from "./Panel.astro";
+
+export type Props = PanelProps;
+
+const {"class": className, ...props} = Astro.props;
+---
+
+<Panel class:list={["panel--content", className]} {...props}>
+  <slot />
+</Panel>
+
+<style lang="scss" is:global>
+  .panel--content {
+    padding: 0.5em;
+  }
+</style>

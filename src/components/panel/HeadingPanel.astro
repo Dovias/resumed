@@ -1,6 +1,7 @@
 ---
 import type {HTMLTag, Polymorphic} from "astro/types";
-import Panel, {type Importance as PanelImportance, type AttributeProps as PanelAttributeProps} from "./Panel.astro";
+import type {Importance as PanelImportance, AttributeProps as PanelAttributeProps} from "./Panel.astro";
+import ContentPanel from "./ContentPanel.astro";
 
 export type HeadingImportance = PanelImportance;
 
@@ -8,7 +9,6 @@ export type AttributeProps = PanelAttributeProps & {
   "heading:importance": HeadingImportance;
 };
 
-// We can't make this exported directly. Thanks ESBuild :)
 type _Props = Omit<Polymorphic<AttributeProps & {
   "as": "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }>, "as">;
@@ -27,12 +27,11 @@ if (headingImportance == "high") {
 }
 ---
 
-<Panel class:list={[
-  "panel--heading",
+<ContentPanel class:list={[
   `panel--heading--${headingImportance}`
 ]} {as} {...props}>
   <slot />
-</Panel>
+</ContentPanel>
 
 <style lang="scss" is:global>
   .panel--heading {

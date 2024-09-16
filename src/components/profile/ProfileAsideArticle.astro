@@ -1,7 +1,8 @@
 ---
 import type {Polymorphic} from "astro/types";
 
-import Panel, {type AttributeProps as PanelAttributeProps} from "../panel/Panel.astro";
+import {type AttributeProps as PanelAttributeProps} from "../panel/Panel.astro";
+import ContentPanel from "../panel/ContentPanel.astro";
 import HeadingPanel from "../panel/HeadingPanel.astro";
 
 export type AttributeProps = Pick<PanelAttributeProps, "accent"> & {
@@ -16,9 +17,9 @@ export type Props = _Props;
 
 const {accent, label, ...props} = Astro.props;
 ---
-<Panel as="article" importance="high" emphasis="low" {...props}>
+<ContentPanel as="article" importance="high" emphasis="low" {...props}>
   <HeadingPanel accent={accent as NonNullable<typeof accent>} importance="low" emphasis="low" heading:importance="medium">
     {label}
   </HeadingPanel>
   <slot />
-</Panel>
+</ContentPanel>
