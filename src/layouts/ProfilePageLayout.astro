@@ -4,7 +4,7 @@ import PageLayout from "./PageLayout.astro";
 import type {Profile} from "../profile";
 import type {LocaleMetadata, LocaleName} from "../locale";
 
-import ProfileInformationHeading from "../components/profile/ProfileInformationHeading.astro";
+import ProfileLabel from "../components/profile/ProfileLabel.astro";
 import ProfileContactPanel from "../components/profile/contact/ProfileContactPanel.astro";
 import ProfilePicture from "../components/profile/ProfilePicture.astro";
 
@@ -27,7 +27,7 @@ const {names, picture, contact, ...restProfile} = profile;
     </aside>
     <main class="profile__main">
       <header>
-        <ProfileInformationHeading {names} role={restProfile.role} />
+        <ProfileLabel {names} role={restProfile.role} />
       </header>
     </main>
     <aside class="profile__aside-bottom">
