@@ -1,11 +1,11 @@
 @use "../utilities/maps";
 
-$_size: (
+$_sizes: (
   "small": 0.2em,
   "medium": 0.3em,
   "large": 0.5em
 );
 
 @function size($name) {
-  @return maps.get-or-error($_size, $name, "Failed to get padding size named: #{$name}"); 
+  @return maps.get-or-error($_sizes, $name, "Failed to get padding size named: '#{$name}'"); 
 }

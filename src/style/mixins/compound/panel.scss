@@ -1,7 +1,7 @@
 @use "../padding";
 @use "../contour";
 @use "../color";
-@use "../font";
+@use "./text";
 
 @mixin _panel($contour_shadow_size_name, $contour_radius_type_name, $color_variant_name, $color_name) {
   @include padding.all("large");
@@ -17,6 +17,5 @@
 
 @mixin heading($color_variant_name: "primary", $font_size: "medium") {
   @include _panel("small", "normal", $color_variant_name, "accent");
-  @include font.weight("semibold");
-  @include font.size("medium");
+  @include text.heading("regular");
 }

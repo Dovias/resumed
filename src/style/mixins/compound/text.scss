@@ -1,0 +1,61 @@
+@use "../../configuration/font.scss";
+@use "../../utilities/maps";
+
+$_heading_font_size_names: (
+  "regular": "large",
+  "medium": "extra large",
+  "large": "very large"
+);
+
+$_heading_font_weight_names: (
+  "regular": "semibold",
+  "medium": "semibold",
+  "large": "bold"
+);
+
+$_paragraph_font_size_names: (
+  "small": "small",
+  "regular": "medium",
+  "large": "large"
+);
+
+$_paragraph_font_weight_names: (
+  "small": "thin",
+  "regular": "normal",
+  "large": "normal"
+);
+
+
+@mixin heading($heading_font_size_name: "regular") {
+  font-size: font.size(
+    maps.get-or-error(
+      $_heading_font_size_names,
+      $heading_font_size_name,
+      "Failed to get heading font size named: '#{$heading_font_size_name}'"
+    )
+  );
+  font-weight: font.weight(
+    maps.get-or-error(
+      $_heading_font_weight_names,
+      $heading_font_size_name,
+      "Failed to get heading font weight named: '#{$heading_font_size_name}'"
+    )
+  );
+}
+
+@mixin paragraph($paragraph_font_size_name: "regular") {
+  font-size: font.size(
+    maps.get-or-error(
+      $_paragraph_font_size_names,
+      $paragraph_font_size_name,
+      "Failed to get paragraph font size named: '#{$paragraph_font_size_name}'"
+    )
+  );
+  font-weight: font.weight(
+    maps.get-or-error(
+      $_paragraph_font_weight_names,
+      $paragraph_font_size_name,
+      "Failed to get paragraph font weight named: '#{$paragraph_font_size_name}'"
+    )
+  );
+}

@@ -109,5 +109,5 @@ $css_variable_selector: false !default;
       @return var(--color-#{strings.replace("#{$color_path}", ', ', '-')});
     }
   }
-  @error string.unquote("Failed to fetch color css variable from path: #{$color_path}");
+  @error string.unquote("Failed to fetch color css variable from path: '#{$color_path}'");
 }

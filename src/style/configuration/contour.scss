@@ -1,11 +1,11 @@
 @use "../utilities/maps";
 
-$_type: (
+$_types: (
   "solid": "solid",
   "dashed": "dashed"
 );
 
-$_size: (
+$_sizes: (
   "small": 0.1rem,
   "medium": 0.2rem,
   "large": 0.3rem
@@ -17,13 +17,13 @@ $_radius: (
 );
 
 @function type($name) {
-  @return maps.get-or-error($_type, $name, "Failed to get contour type named: #{$name}");
+  @return maps.get-or-error($_types, $name, "Failed to get contour type named: '#{$name}'");
 }
 
 @function size($name) {
-  @return maps.get-or-error($_size, $name, "Failed to get contour size named: #{$name}"); 
+  @return maps.get-or-error($_sizes, $name, "Failed to get contour size named: '#{$name}'"); 
 }
 
 @function radius($name) {
-  @return maps.get-or-error($_radius, $name, "Failed to get contour radius named: #{$name}"); 
+  @return maps.get-or-error($_radius, $name, "Failed to get contour radius named: '#{$name}'"); 
 }

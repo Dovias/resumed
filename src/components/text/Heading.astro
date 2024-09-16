@@ -1,0 +1,47 @@
+---
+import type {HTMLTag, Polymorphic} from "astro/types";
+
+import type {Importance} from "../panel/Panel.astro";
+
+export type AttributeProps = {
+  "importance": Importance;
+};
+
+type _Props = Omit<Polymorphic<AttributeProps & {
+  "as": "h1" | "h2" | "h3";
+}>, "as">;
+
+export type Props = _Props;
+
+const {importance, "class": className, ...props} = Astro.props;
+
+let Tag: HTMLTag;
+if (importance === "high") {
+  Tag = "h1";
+} else if (importance == "medium") {
+  Tag = "h2";
+} else {
+  Tag = "h3";
+}
+---
+
+<Tag class:list={[`heading-${importance}`, className]} {...props}>
+  <slot />
+</Tag>
+
+<style lang="scss" is:global>
+  @use "../../style/mixins/compound/text";
+
+  $_heading_font_size_names: (
+    "high": "large",
+    "medium": "medium",
+    "low": "regular"
+  );
+
+  @each $importance, $heading_font_size in $_heading_font_size_names {
+    .heading-#{$importance} {
+      @include text.heading($heading_font_size);
+    }
+  }
+</style>
+

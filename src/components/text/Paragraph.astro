@@ -1,0 +1,38 @@
+---
+import type {Polymorphic} from "astro/types";
+
+import type {Importance} from "../panel/Panel.astro";
+
+export type AttributeProps = {
+  "importance": Importance;
+};
+
+type _Props = Omit<Polymorphic<AttributeProps & {
+  "as": "p";
+}>, "as">;
+
+export type Props = _Props;
+
+const {importance, "class": className, ...props} = Astro.props;
+---
+
+<p class:list={[`paragraph-${importance}`, className]} {...props}>
+  <slot />
+</p>
+
+<style lang="scss" is:global>
+  @use "../../style/mixins/compound/text";
+
+  $_heading_font_size_names: (
+    "high": "large",
+    "medium": "regular",
+    "low": "small"
+  );
+
+  @each $importance, $heading_font_size in $_heading_font_size_names {
+    .paragraph-#{$importance} {
+      @include text.paragraph($heading_font_size);
+    }
+  }
+</style>
+

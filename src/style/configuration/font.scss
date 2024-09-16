@@ -7,24 +7,25 @@
 
 $_family: "Kanit";
 
-$_weight: (
+$_weights: (
   "thin": 300,
-  "regular": 400,
+  "normal": 400,
   "semibold": 600,
   "bold": 800
 );
 
-$_size: (
+$_sizes: (
   "small": 0.875em,
-  "regular": 1em,
-  "medium": 1.25em,
-  "large": 1.5em
+  "medium": 1em,
+  "large": 1.25em,
+  "extra large": 2.5em,
+  "very large": 4em 
 );
 
 @include font.faces(
   $family: $_family,
   $subsets: latin,
-  $weights: map.values($_weight),
+  $weights: map.values($_weights),
   $styles: normal,
   $directory: "@fontsource/#{string.to-lower-case($_family)}/files"
 );
@@ -34,9 +35,9 @@ $_size: (
 }
 
 @function weight($name) {
-  @return maps.get_or_error($_weight, $name, "Failed to get font weight named: #{$name}");
+  @return maps.get_or_error($_weights, $name, "Failed to get font weight named: '#{$name}'");
 }
 
 @function size($name) {
-  @return maps.get_or_error($_size, $name, "Failed to get font size named: #{$name}");
+  @return maps.get_or_error($_sizes, $name, "Failed to get font size named: '#{$name}'");
 }

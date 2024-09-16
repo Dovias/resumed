@@ -1,9 +1,0 @@
-@use "../configuration/font";
-
-@mixin size($font_size_name) {
-  font-size: font.size($font_size_name);
-}
-
-@mixin weight($font_weight_name) {
-  font-weight: font.weight($font_weight_name);
-}
