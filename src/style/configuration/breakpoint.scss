@@ -1,0 +1,13 @@
+@use "../utilities/maps";
+
+$_size: (
+  "small": 640px,
+  "medium": 768px,
+  "large": 1024px,
+  "extra-large": 1280px,
+  "very-large": 1536px
+);
+
+@function size($name) {
+  @return maps.get-or-error($_size, $name, "Failed to get breakpoint size named: #{$name}"); 
+}

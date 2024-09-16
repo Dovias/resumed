@@ -3,19 +3,28 @@
 
 @use "@fontsource/kanit/scss/mixins" as font;
 
+@use "../utilities/maps";
+
 $_family: "Kanit";
 
-$_weights: (
+$_weight: (
   "thin": 300,
   "regular": 400,
   "semibold": 600,
   "bold": 800
 );
 
+$_size: (
+  "small": 0.875em,
+  "regular": 1em,
+  "medium": 1.25em,
+  "large": 1.5em
+);
+
 @include font.faces(
   $family: $_family,
   $subsets: latin,
-  $weights: map.values($_weights),
+  $weights: map.values($_weight),
   $styles: normal,
   $directory: "@fontsource/#{string.to-lower-case($_family)}/files"
 );
@@ -25,11 +34,9 @@ $_weights: (
 }
 
 @function weight($name) {
-  $weight: map.get($_weights, $name);
-  @if $weight {
-    @return $weight;
-  }
-
-  @error "Failed to find font weight named: #{$name}";
+  @return maps.get_or_error($_weight, $name, "Failed to get font weight named: #{$name}");
 }
 
+@function size($name) {
+  @return maps.get_or_error($_size, $name, "Failed to get font size named: #{$name}");
+}

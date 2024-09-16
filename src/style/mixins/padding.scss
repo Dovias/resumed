@@ -1,0 +1,21 @@
+@use "../configuration/padding";
+
+@mixin all($padding_size_name) {
+  padding: padding.size($padding_size_name);
+}
+
+@mixin top($padding_size_name) {
+  padding-top: padding.size($padding_size_name);
+}
+
+@mixin right($padding_size_name) {
+  padding-right: padding.size($padding_size_name);
+}
+
+@mixin bottom($padding_size_name) {
+  padding-bottom: padding.size($padding_size_name);
+}
+
+@mixin left($padding_size_name) {
+  padding-left: padding.size($padding_size_name);
+}

@@ -38,7 +38,7 @@ const {names, picture, contact, ...restProfile} = profile;
 
 <style lang="scss" is:global>
   @use "../style/configuration/color";
-  @use "../style/configuration/size";
+  @use "../style/configuration/breakpoint";
 
   @use "../style/utilities/reset";
 
@@ -47,7 +47,7 @@ const {names, picture, contact, ...restProfile} = profile;
     justify-content: center;
     gap: 1rem;
 
-    max-width: size.breakpoint("extra-large");
+    max-width: breakpoint.size("extra-large");
     padding: 2rem;
 
     overflow: auto;
@@ -66,7 +66,7 @@ const {names, picture, contact, ...restProfile} = profile;
       gap: 1.5rem;
     }
 
-    @media (min-width: size.breakpoint("medium")) {
+    @media (min-width: breakpoint.size("medium")) {
       & {
         grid-template-columns: 1fr auto;
     
@@ -90,7 +90,7 @@ const {names, picture, contact, ...restProfile} = profile;
       }
     }
 
-    @media (min-width: size.breakpoint("large")) {
+    @media (min-width: breakpoint.size("large")) {
       &__aside-top {
         max-width: 16rem;
       }

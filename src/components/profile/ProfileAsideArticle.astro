@@ -1,11 +1,10 @@
 ---
 import type {Polymorphic} from "astro/types";
 
-import {type AttributeProps as PanelAttributeProps} from "../panel/Panel.astro";
-import ContentPanel from "../panel/ContentPanel.astro";
-import HeadingPanel from "../panel/HeadingPanel.astro";
+import type {Accent} from "../../types";
 
-export type AttributeProps = Pick<PanelAttributeProps, "accent"> & {
+export type AttributeProps = {
+  "accent": Accent;
   "label": string;
 };
 
@@ -17,9 +16,24 @@ export type Props = _Props;
 
 const {accent, label, ...props} = Astro.props;
 ---
-<ContentPanel as="article" importance="high" emphasis="low" {...props}>
-  <HeadingPanel accent={accent as NonNullable<typeof accent>} importance="low" emphasis="low" heading:importance="medium">
-    {label}
-  </HeadingPanel>
+<article class="profile-article" {...props}>
+  <h2 class={`profile-article__header-${accent}`}>{label}</h2>
   <slot />
-</ContentPanel>
+</article>
+
+
+<style lang="scss" is:global>
+  @use "../../style/mixins/component/panel";
+
+  .profile-article {
+    @include panel.content;
+
+    &__header-primary {
+      @include panel.heading("primary");
+    }
+
+    &__header-secondary {
+      @include panel.heading("secondary");
+    }
+  }
+</style>

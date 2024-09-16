@@ -1,0 +1,10 @@
+@use "sass:map";
+
+@function get-or-error($map, $key, $error_message) {
+  $value: map.get($map, $key);
+  @if $value {
+    @return $value;
+  }
+
+  @error $error_message;
+}

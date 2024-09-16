@@ -1,0 +1,6 @@
+@use "../configuration/color" as color;
+
+@mixin text-background($color_variant_name, $color_name: "accent") {
+  background: color.variable($color_variant_name, $color_name);
+  color: color.variable($color_variant_name, "text", $color_name);
+}

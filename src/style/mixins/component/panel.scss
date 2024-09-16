@@ -1,0 +1,22 @@
+@use "../padding";
+@use "../contour";
+@use "../color";
+@use "../font";
+
+@mixin _panel($contour_shadow_size_name, $contour_radius_type_name, $color_variant_name, $color_name) {
+  @include padding.all("large");
+  @include contour.border("medium");
+  @include contour.shadow($contour_shadow_size_name);
+  @include contour.radius($contour_radius_type_name);
+  @include color.text-background($color_variant_name, $color_name);
+}
+
+@mixin content($contour_radius_type_name: "normal", $color_variant_name: "primary", $color_name: "foreground") {
+  @include _panel("large", $contour_radius_type_name, $color_variant_name, $color_name);
+}
+
+@mixin heading($color_variant_name: "primary", $font_size: "medium") {
+  @include _panel("small", "normal", $color_variant_name, "accent");
+  @include font.weight("semibold");
+  @include font.size("medium");
+}

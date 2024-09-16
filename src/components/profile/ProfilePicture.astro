@@ -1,6 +1,5 @@
 ---
 import type {Profile} from "../../profile";
-import ImagePanel from "../panel/ImagePanel.astro";
 
 type ProfilePictureProps = Profile["picture"];
 
@@ -11,17 +10,19 @@ const {path, description = "profile picture"} = Astro.props;
 
 <picture class="profile-picture">
   <source srcset={path} />
-  <ImagePanel accent="primary" importance="high" emphasis="high" width="256" height="256" class="profile-picture__image" alt={description} />
+  <img width="256" height="256" class="profile-picture__image" alt={description} />
 </picture>
 
 <style lang="scss" is:global>
-  @use "../../style/configuration/color";
+  @use "../../style/mixins/component/panel";
 
   .profile-picture {
     display: block;
     width: 100%;
     
     &__image {
+      @include panel.content($contour_radius_type_name: "full", $color_name: "accent");
+
       width: 100%;
       height: auto;
     }
