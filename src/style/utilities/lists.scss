@@ -19,15 +19,4 @@
   }
 
   @return $non_trailing_index;
-  /*
-  $trimmed_list: ();
-  @for $index from 1 through $non_trailing_index {
-    $value: list.nth($list, $index);
-    @if $value != $trailing_value {
-      $value: padding.size($value);
-    }
-
-    $trimmed_list: list.append($trimmed_list, $value, $separator);
-  }
-  */
 }
