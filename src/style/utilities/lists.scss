@@ -1,0 +1,33 @@
+@use "sass:list";
+
+/* 
+ * Function which returns last index of non trailing value
+ * in the specified $list.
+ *
+ * For example:
+ * $list: (0, 0, 1, 0), $trailing_value: 0 would @return 3
+ * $list: (0, 1, 1, 1), $trailing_value: 0 would @return 4
+ * $list: (0, 0, 0, 0), $trailing_value: 0 would @return 1
+ */
+@function non-trailing-last-index($list, $trailing_value) {
+  $non_trailing_index: 1;
+  @for $index from 1 through 4 {
+    $value: list.nth($list, $index);
+    @if $value != $trailing_value {
+      $non_trailing_index: $index;
+    }
+  }
+
+  @return $non_trailing_index;
+  /*
+  $trimmed_list: ();
+  @for $index from 1 through $non_trailing_index {
+    $value: list.nth($list, $index);
+    @if $value != $trailing_value {
+      $value: padding.size($value);
+    }
+
+    $trimmed_list: list.append($trimmed_list, $value, $separator);
+  }
+  */
+}

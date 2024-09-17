@@ -4,7 +4,7 @@
 @use "./text";
 
 @mixin _panel($contour_shadow_size_name, $contour_radius_type_name, $color_variant_name, $color_name) {
-  @include padding.all("large");
+  @include padding.all("medium");
   @include contour.border("medium");
   @include contour.shadow($contour_shadow_size_name);
   @include contour.radius($contour_radius_type_name);

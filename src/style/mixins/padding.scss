@@ -1,7 +1,23 @@
-@use "../configuration/padding";
+@use "sass:list";
 
-@mixin all($padding_size_name) {
-  padding: padding.size($padding_size_name);
+@use "../configuration/padding";
+@use "../utilities/lists";
+
+@mixin all($padding_top_size_name: 0, $padding_right_size_name: 0, $padding_bottom_size_name: 0, $padding_left_size_name: 0) {
+  $padding_size_name_list: ($padding_top_size_name, $padding_right_size_name, $padding_bottom_size_name, $padding_left_size_name);
+
+  $trailing_value: 0;
+  $padding_size_list: ();
+  @for $index from 1 through lists.non-trailing-last-index($padding_size_name_list, $trailing_value) {
+    $value: list.nth($padding_size_name_list, $index);
+    @if $value != $trailing_value {
+      $value: padding.size($value);
+    }
+    
+    $padding_size_list: list.append($padding_size_list, $value);
+  }
+
+  padding: $padding_size_list;
 }
 
 @mixin top($padding_size_name) {

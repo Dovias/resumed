@@ -1,0 +1,11 @@
+@use "../utilities/maps";
+
+$_sizes: (
+  "small": 0.5em,
+  "medium": 1em,
+  "large": 1.5em
+);
+
+@function size($name) {
+  @return maps.get-or-error($_sizes, $name, "Failed to get margin size named: '#{$name}'"); 
+}

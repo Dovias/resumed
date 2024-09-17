@@ -18,12 +18,15 @@ const {accent, label, ...props} = Astro.props;
 ---
 <article class="profile-article" {...props}>
   <h2 class={`profile-article__header-${accent}`}>{label}</h2>
-  <slot />
+  <div class="profile-article__content">
+    <slot />
+  </div>
 </article>
 
 
 <style lang="scss" is:global>
   @use "../../style/mixins/compound/panel";
+  @use "../../style/mixins/margin";
 
   .profile-article {
     @include panel.content;
@@ -34,6 +37,10 @@ const {accent, label, ...props} = Astro.props;
 
     &__header-secondary {
       @include panel.heading("secondary");
+    }
+
+    &__content {
+      @include margin.all($margin_top_size_name: "medium", $margin_bottom_size_name: "large");
     }
   }
 </style>

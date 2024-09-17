@@ -1,0 +1,37 @@
+@use "sass:list";
+
+@use "../configuration/margin";
+@use "../utilities/lists";
+
+@mixin all($margin_top_size_name: 0, $margin_right_size_name: 0, $margin_bottom_size_name: 0, $margin_left_size_name: 0) {
+  $margin_size_name_list: ($margin_top_size_name, $margin_right_size_name, $margin_bottom_size_name, $margin_left_size_name);
+  
+  $trailing_value: 0;
+  $margin_size_list: ();
+  @for $index from 1 through lists.non-trailing-last-index($margin_size_name_list, $trailing_value) {
+    $value: list.nth($margin_size_name_list, $index);
+    @if $value != $trailing_value {
+      $value: margin.size($value);
+    }
+    
+    $margin_size_list: list.append($margin_size_list, $value);
+  }
+
+  margin: $margin_size_list;
+}
+
+@mixin top($margin_size_name) {
+  margin-top: margin.size($margin_size_name);
+}
+
+@mixin right($margin_size_name) {
+  margin-right: margin.size($margin_size_name);
+}
+
+@mixin bottom($margin_size_name) {
+  margin-bottom: margin.size($margin_size_name);
+}
+
+@mixin left($margin_size_name) {
+  margin-left: margin.size($margin_size_name);
+}
