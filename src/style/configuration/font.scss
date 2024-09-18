@@ -5,39 +5,69 @@
 
 @use "../utilities/maps";
 
-$_family: "Kanit";
+$_font_family: "Kanit";
 
-$_weights: (
+$_font_subsets: (
+  "latin",
+  "latin-ext"
+);
+
+$_font_styles: (
+  normal,
+  italic
+);
+
+$_font_weights: (
   "thin": 300,
   "normal": 400,
   "semibold": 600,
   "bold": 800
 );
 
-$_sizes: (
+$_font_sizes: (
   "small": 0.875em,
   "medium": 1em,
   "large": 1.25em,
-  "extra large": 2.5em,
-  "very large": 4em 
+  "extra large": 1.5em,
+  "very large": 2em,
+  "extra very large": 2.5em,
+  "largest": 4em 
 );
 
+
 @include font.faces(
-  $family: $_family,
-  $subsets: latin,
-  $weights: map.values($_weights),
-  $styles: normal,
-  $directory: "@fontsource/#{string.to-lower-case($_family)}/files"
+  $family: $_font_family,
+  $subsets: $_font_subsets,
+  $weights: map.values($_font_weights),
+  $styles: $_font_styles,
+  $directory: "@fontsource/#{string.to-lower-case($_font_family)}/files"
 );
 
 @function family() {
-  @return $_family;
+  @return $_font_family;
 }
 
-@function weight($name) {
-  @return maps.get_or_error($_weights, $name, "Failed to get font weight named: '#{$name}'");
+@function subsets() {
+  @return $_font_subsets;
 }
 
-@function size($name) {
-  @return maps.get_or_error($_sizes, $name, "Failed to get font size named: '#{$name}'");
+@function styles() {
+  @return $_font_styles;
+}
+
+@function weight($font_weight_name) {
+  @return maps.get_or_error($_font_weights, $font_weight_name, "Failed to get font weight named: '#{$font_weight_name}'");
+}
+
+@function size($font_size_name) {
+  @return maps.get_or_error($_font_sizes, $font_size_name, "Failed to get font size named: '#{$font_size_name}'");
+}
+
+
+@function weight-paths() {
+  @return maps.paths($_font_weights);
+}
+
+@function size-paths() {
+  @return maps.paths($_font_sizes);
 }

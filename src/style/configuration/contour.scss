@@ -1,29 +1,44 @@
 @use "../utilities/maps";
 
-$_types: (
+$_contour_types: (
   "solid": "solid",
   "dashed": "dashed"
 );
 
-$_sizes: (
+$_contour_sizes: (
   "small": 0.1rem,
   "medium": 0.2rem,
   "large": 0.3rem
 );
 
-$_radius: (
-  "normal": 0.6rem,
+$_contour_radius: (
+  "small": 0.1rem,
+  "medium": 0.3rem,
+  "large": 0.6rem,
   "full": 9999rem
 );
 
-@function type($name) {
-  @return maps.get-or-error($_types, $name, "Failed to get contour type named: '#{$name}'");
+@function type($contour_type_name) {
+  @return maps.get-or-error($_contour_types, $contour_type_name, "Failed to get contour type named: '#{$contour_type_name}'");
 }
 
-@function size($name) {
-  @return maps.get-or-error($_sizes, $name, "Failed to get contour size named: '#{$name}'"); 
+@function size($contour_size_name) {
+  @return maps.get-or-error($_contour_sizes, $contour_size_name, "Failed to get contour size named: '#{$contour_size_name}'"); 
 }
 
-@function radius($name) {
-  @return maps.get-or-error($_radius, $name, "Failed to get contour radius named: '#{$name}'"); 
+@function radius($contour_radius_name) {
+  @return maps.get-or-error($_contour_radius, $contour_radius_name, "Failed to get contour radius named: '#{$contour_radius_name}'"); 
+}
+
+
+@function type-paths() {
+  @return maps.paths($_contour_types);
+}
+
+@function size-paths() {
+  @return maps.paths($_contour_sizes);
+}
+
+@function radius-paths() {
+  @return maps.paths($_contour_radius);
 }

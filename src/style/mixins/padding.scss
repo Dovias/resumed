@@ -3,35 +3,35 @@
 @use "../configuration/padding";
 @use "../utilities/lists";
 
-@mixin all($padding_top_size_name: 0, $padding_right_size_name: 0, $padding_bottom_size_name: 0, $padding_left_size_name: 0) {
-  $padding_size_name_list: ($padding_top_size_name, $padding_right_size_name, $padding_bottom_size_name, $padding_left_size_name);
+@mixin all($first_size_name: 0, $second_size_name: 0, $third_size_name: 0, $fourth_size_name: 0) {
+  $size_name_list: ($first_size_name, $second_size_name, $third_size_name, $fourth_size_name);
 
   $trailing_value: 0;
-  $padding_size_list: ();
-  @for $index from 1 through lists.non-trailing-last-index($padding_size_name_list, $trailing_value) {
-    $value: list.nth($padding_size_name_list, $index);
+  $size_list: ();
+  @for $index from 1 through lists.non-trailing-last-index($size_name_list, $trailing_value) {
+    $value: list.nth($size_name_list, $index);
     @if $value != $trailing_value {
       $value: padding.size($value);
     }
     
-    $padding_size_list: list.append($padding_size_list, $value);
+    $size_list: list.append($size_list, $value);
   }
 
-  padding: $padding_size_list;
+  padding: $size_list;
 }
 
-@mixin top($padding_size_name) {
-  padding-top: padding.size($padding_size_name);
+@mixin top($size_name) {
+  padding-top: padding.size($size_name);
 }
 
-@mixin right($padding_size_name) {
-  padding-right: padding.size($padding_size_name);
+@mixin right($size_name) {
+  padding-right: padding.size($size_name);
 }
 
-@mixin bottom($padding_size_name) {
-  padding-bottom: padding.size($padding_size_name);
+@mixin bottom($size_name) {
+  padding-bottom: padding.size($size_name);
 }
 
-@mixin left($padding_size_name) {
-  padding-left: padding.size($padding_size_name);
+@mixin left($size_name) {
+  padding-left: padding.size($size_name);
 }

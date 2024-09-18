@@ -4,6 +4,7 @@ import type {Profile} from "../../../profile";
 import VCardQRCode from "../../vcard/VCardQRCode.astro";
 import ProfileContactIconLink, {type Props as ProfileContactIconLinkProps} from "./ProfileContactIconLink.astro";
 import ProfileArticlePanel from "../ProfileArticlePanel.astro";
+import Paragraph from "../../text/Paragraph.astro";
 
 export type Props = Pick<Profile, "names"> & Pick<Profile["contact"], "label" | "qr"> & {
   "links": ProfileContactIconLinkProps[];
@@ -14,11 +15,9 @@ const {names, links, label, qr} = Astro.props;
 
 <ProfileArticlePanel label={label} accent="secondary">
   {qr.enabled &&
-    <div class="mt-4 mb-8 p-4 border-4 border-dashed border-contour rounded-lg">
-      <div class="max-w-64 mx-auto">
-        <VCardQRCode {names} urls={links.map(link => link.url)} />
-      </div>
-      <p class="mt-4 font-light text-xs italic text-center">{qr.description}</p>
+    <div class="profile-qr-frame">
+      <VCardQRCode {names} urls={links.map(link => link.url)} />
+      <Paragraph importance="low"><em>{qr.description}</em></Paragraph>
     </div>
   }
 
@@ -28,3 +27,15 @@ const {names, links, label, qr} = Astro.props;
     )}
   </div>
 </ProfileArticlePanel>
+
+<style lang="scss" is:global>
+  @use "../../../style/mixins/contour";
+  @use "../../../style/mixins/padding";
+  @use "../../../style/mixins/margin";
+
+  .profile-qr-frame {
+    @include contour.border("medium", "large", "dashed");
+    @include padding.all("large");
+    @include margin.all($fourth_size_name: "small", $second_size_name: "small");
+  }
+</style>

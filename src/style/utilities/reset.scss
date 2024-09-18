@@ -1,12 +1,9 @@
-/* makes sizing simpler */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-/* remove default spacing */
-/* force styling of type through styling, rather than elements */
 * {
   margin: 0;
   padding: 0;

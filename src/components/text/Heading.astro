@@ -1,7 +1,7 @@
 ---
 import type {HTMLTag, Polymorphic} from "astro/types";
 
-import type {Importance} from "../panel/Panel.astro";
+import type {Importance} from "../../types";
 
 export type AttributeProps = {
   "importance": Importance;
@@ -30,17 +30,27 @@ if (importance === "high") {
 </Tag>
 
 <style lang="scss" is:global>
-  @use "../../style/mixins/compound/text";
+  @use "sass:map";
+
+  @use "../../style/mixins/compound/font";
 
   $_heading_font_size_names: (
-    "high": "large",
-    "medium": "medium",
-    "low": "regular"
+    "high": "largest",
+    "medium": "extra very large",
+    "low": "very large"
+  );
+
+  $_heading_font_weight_names: (
+    "high": "extra very high",
+    "medium": "extra very high",
+    "low": "extra high"
   );
 
   @each $importance, $heading_font_size in $_heading_font_size_names {
+    $heading_font_weight_name: map.get($_heading_font_weight_names, $importance);
+
     .heading-#{$importance} {
-      @include text.heading($heading_font_size);
+      @include font.text($heading_font_size, $heading_font_weight_name, "text", "background");
     }
   }
 </style>

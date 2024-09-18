@@ -1,5 +1,7 @@
 @use "sass:string";
+@use "sass:list";
 @use "sass:map";
+@use "sass:meta";
 
 @function get-or-error($map, $key, $error_message) {
   $value: map.get($map, $key);
@@ -8,4 +10,18 @@
   }
 
   @error string.unquote($error_message);
+}
+
+@function paths($map, $path_list: (), $result_list_separator: auto) {
+  $result_paths: ();
+
+  @each $child_key, $child_value in $map {
+    $child_path: list.join($path_list, $child_key, $result_list_separator);
+    $result_paths: if(
+      meta.type-of($child_value) == "map",
+      list.join($result_paths, paths($child_value, $child_path)),
+      list.append($result_paths, $child_path)
+    );
+  }
+  @return $result_paths;
 }

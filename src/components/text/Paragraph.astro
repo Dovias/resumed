@@ -1,7 +1,7 @@
 ---
 import type {Polymorphic} from "astro/types";
 
-import type {Importance} from "../panel/Panel.astro";
+import type {Importance} from "../../types";
 
 export type AttributeProps = {
   "importance": Importance;
@@ -21,17 +21,27 @@ const {importance, "class": className, ...props} = Astro.props;
 </p>
 
 <style lang="scss" is:global>
-  @use "../../style/mixins/compound/text";
+  @use "sass:map";
 
-  $_heading_font_size_names: (
+  @use "../../style/mixins/compound/font";
+
+  $_paragraph_font_size_names: (
     "high": "large",
-    "medium": "regular",
+    "medium": "medium",
     "low": "small"
   );
 
-  @each $importance, $heading_font_size in $_heading_font_size_names {
+  $_paragraph_font_weight_names: (
+    "high": "medium",
+    "medium": "medium",
+    "low": "lowest"
+  );
+
+  @each $importance, $paragraph_font_size in $_paragraph_font_size_names {
+    $paragraph_font_weight_name: map.get($_paragraph_font_weight_names, $importance);
+
     .paragraph-#{$importance} {
-      @include text.paragraph($heading_font_size);
+      @include font.text($paragraph_font_size, $paragraph_font_weight_name, "text", "background");
     }
   }
 </style>

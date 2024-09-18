@@ -1,22 +1,22 @@
 @use "sass:list";
 
-/* 
- * Function which returns last index of non trailing value
- * in the specified $list.
- *
- * For example:
- * $list: (0, 0, 1, 0), $trailing_value: 0 would @return 3
- * $list: (0, 1, 1, 1), $trailing_value: 0 would @return 4
- * $list: (0, 0, 0, 0), $trailing_value: 0 would @return 1
- */
-@function non-trailing-last-index($list, $trailing_value) {
+@function non-trailing-last-index($list, $trailing_element) {
   $non_trailing_index: 1;
   @for $index from 1 through 4 {
     $value: list.nth($list, $index);
-    @if $value != $trailing_value {
+    @if $value != $trailing_element {
       $non_trailing_index: $index;
     }
   }
 
   @return $non_trailing_index;
+}
+
+@function contains($list, $search_element) {
+  @each $element in $list {
+    @if $element == $search_element {
+      @return true;
+    }
+  }
+  @return false;
 }
