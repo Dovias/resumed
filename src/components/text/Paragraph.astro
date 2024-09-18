@@ -41,7 +41,7 @@ const {importance, "class": className, ...props} = Astro.props;
     $paragraph_font_weight_name: map.get($_paragraph_font_weight_names, $importance);
 
     .paragraph-#{$importance} {
-      @include font.text($paragraph_font_size, $paragraph_font_weight_name, "text", "background");
+      @include font.text($paragraph_font_size, $paragraph_font_weight_name);
     }
   }
 </style>

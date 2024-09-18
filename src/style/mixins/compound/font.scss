@@ -52,9 +52,8 @@ $_emphasis_css_properties: (
   }
 }
 
-@mixin text($font_size_name, $emphasis_name, $color_path...) {
+@mixin text($font_size_name, $emphasis_name) {
   @include emphasis($emphasis_name);
 
   font-size: font.size($font_size_name);
-  color: color.variable($color_path...);
 }

@@ -16,5 +16,5 @@
 
 @mixin heading($color_variant_name: "primary", $font_size: "large") {
   @include _panel("small", "large", $color_variant_name, "accent");
-  @include font.text($font_size, "extra high", $color_variant_name, "text", "accent");
+  @include font.text($font_size, "extra high");
 }

@@ -50,7 +50,7 @@ if (importance === "high") {
     $heading_font_weight_name: map.get($_heading_font_weight_names, $importance);
 
     .heading-#{$importance} {
-      @include font.text($heading_font_size, $heading_font_weight_name, "text", "background");
+      @include font.text($heading_font_size, $heading_font_weight_name);
     }
   }
 </style>
