@@ -32,25 +32,22 @@ if (importance === "high") {
 <style lang="scss" is:global>
   @use "sass:map";
 
-  @use "../../style/mixins/compound/font";
+  @use "../../style/configuration/font";
 
-  $_heading_font_size_names: (
-    "high": "largest",
-    "medium": "extra very large",
-    "low": "very large"
-  );
 
-  $_heading_emphasis_names: (
-    "high": "very high",
-    "medium": "extra high",
-    "low": "medium"
-  );
+  .heading {
+    &-high {
+      font-size: font.size("largest");
+      font-weight: font.weight("bold");
+    }
 
-  @each $importance, $heading_font_size in $_heading_font_size_names {
-    $_heading_emphasis_name: map.get($_heading_emphasis_names, $importance);
+    &-medium {
+      font-size: font.size("extra very large");
+      font-weight: font.weight("semibold");
+    }
 
-    .heading-#{$importance} {
-      @include font.text($heading_font_size, $_heading_emphasis_name);
+    &-low {
+      font-size: font.size("very large");
     }
   }
 </style>

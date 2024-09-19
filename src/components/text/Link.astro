@@ -1,11 +1,7 @@
 ---
 import type {Polymorphic} from "astro/types";
 
-import type {Importance} from "../../types";
-
-export type AttributeProps = {
-  "importance": Importance;
-};
+export type AttributeProps = object;
 
 type _Props = Omit<Polymorphic<AttributeProps & {
   "as": "a";
@@ -13,38 +9,25 @@ type _Props = Omit<Polymorphic<AttributeProps & {
 
 export type Props = _Props;
 
-const {importance, "class": className, ...props} = Astro.props;
+const {"class": className, ...props} = Astro.props;
 ---
 
-<a class:list={[`link-${importance}`, className]} {...props}>
+<a class:list={["link", className]} {...props}>
   <slot />
 </a>
 
 <style lang="scss" is:global>
   @use "sass:map";
 
-  @use "../../style/mixins/color";
+  @use "../../style/configuration/color";
   @use "../../style/mixins/compound/font";
 
-  $_link_font_size_names: (
-    "high": "large",
-    "medium": "medium",
-    "low": "small"
-  );
-
-  %link {
+  .link {
     color: inherit;
-  }
-
-  @each $importance, $link_font_size in $_link_font_size_names {
-    .link-#{$importance} {
-      @extend %link;
-
-      @include font.text($link_font_size, "low");
-
-      &:active {
-        @include color.selection;
-      }
+    
+    &:active {
+      background: color.variable("selection");
+      color: color.variable("text", "selection");
     }
   }
 </style>

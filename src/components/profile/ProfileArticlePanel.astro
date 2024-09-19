@@ -25,22 +25,38 @@ const {accent, label, ...props} = Astro.props;
 
 
 <style lang="scss" is:global>
-  @use "../../style/mixins/compound/panel";
-  @use "../../style/mixins/margin";
+  @use "../../style/configuration/contour";
+  @use "../../style/configuration/padding";
+  @use "../../style/configuration/margin";
+  @use "../../style/configuration/color";
+  @use "../../style/configuration/font";
+
+  @mixin _panel($contour_size_name, $accent_type, $color_name) {
+    padding: padding.size("medium");
+    border: contour.size("medium") solid color.variable("contour");
+    border-radius: contour.radius("large");
+    box-shadow: contour.size($contour_size_name) contour.size($contour_size_name) 0 color.variable("contour");
+
+    background: color.variable($accent_type, $color_name);
+    color: color.variable($accent_type, "text", $color_name);
+  }
 
   .profile-article {
-    @include panel.content;
+    @include _panel("large", "primary", "foreground");
 
-    &__header-primary {
-      @include panel.heading("primary");
-    }
+    &__header {
+      @each $accent_type in ("primary", "secondary") {
+        &-#{$accent_type} {
+          @include _panel("small", $accent_type, "accent");
 
-    &__header-secondary {
-      @include panel.heading("secondary");
+          font-size: font.size("large");
+          font-weight: font.weight("semibold");
+        }
+      }
     }
 
     &__content {
-      @include margin.all("medium", "small", "large", "small");
+      margin: margin.size("medium") margin.size("small") margin.size("large") margin.size("small");
     }
   }
 </style>

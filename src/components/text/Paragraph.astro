@@ -23,7 +23,7 @@ const {importance, "class": className, ...props} = Astro.props;
 <style lang="scss" is:global>
   @use "sass:map";
 
-  @use "../../style/mixins/compound/font";
+  @use "../../style/configuration/font";
 
   $_paragraph_font_size_names: (
     "high": "large",
@@ -31,9 +31,17 @@ const {importance, "class": className, ...props} = Astro.props;
     "low": "small"
   );
 
-  @each $importance, $paragraph_font_size in $_paragraph_font_size_names {
-    .paragraph-#{$importance} {
-      @include font.text($paragraph_font_size, "low");
+  .paragraph {
+    &-high {
+      font-size: font.size("large");
+    }
+
+    &-medium {
+      font-size: font.size("medium");
+    }
+
+    &-low {
+      font-size: font.size("small");
     }
   }
 </style>

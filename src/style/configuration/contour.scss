@@ -1,10 +1,5 @@
 @use "../utilities/maps";
 
-$_contour_types: (
-  "solid": "solid",
-  "dashed": "dashed"
-);
-
 $_contour_sizes: (
   "small": 0.1rem,
   "medium": 0.2rem,
@@ -17,10 +12,6 @@ $_contour_radius: (
   "large": 0.6rem,
   "full": 9999rem
 );
-
-@function type($contour_type_name) {
-  @return maps.get-or-error($_contour_types, $contour_type_name, "Failed to get contour type named: '#{$contour_type_name}'");
-}
 
 @function size($contour_size_name) {
   @return maps.get-or-error($_contour_sizes, $contour_size_name, "Failed to get contour size named: '#{$contour_size_name}'"); 

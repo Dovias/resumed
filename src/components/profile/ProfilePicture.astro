@@ -14,17 +14,25 @@ const {path, description = "profile picture"} = Astro.props;
 </picture>
 
 <style lang="scss" is:global>
-  @use "../../style/mixins/compound/panel";
+  @use "../../style/configuration/contour";
+  @use "../../style/configuration/padding";
+  @use "../../style/configuration/color";
 
   .profile-picture {
     display: block;
     width: 100%;
     
     &__image {
-      @include panel.content($contour_radius_type_name: "full", $color_name: "accent");
-
       width: 100%;
       height: auto;
+
+      padding: padding.size("medium");
+
+      background: color.variable("primary", "accent");
+
+      border: contour.size("medium") solid color.variable("contour");
+      border-radius: contour.radius("full");
+      box-shadow: contour.size("large") contour.size("large") 0 color.variable("contour");
     }
   }
 </style>

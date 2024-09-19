@@ -29,23 +29,31 @@ if (props.label == undefined) {
     <source srcset={icon.path} />
     <img alt={icon.description} width="12" class="profile-contact-link__icon__image"/>
   </picture>
-  <Link importance="medium" {href} {target} {rel}>{linkText}</Link>
+  <Link {href} {target} {rel}>{linkText}</Link>
 </div>
 
 <style lang="scss" is:global>
-  @use "../../../style/mixins/compound/panel";
-  @use "../../../style/mixins/margin";
-
+  @use "../../../style/configuration/contour";
+  @use "../../../style/configuration/padding";
+  @use "../../../style/configuration/margin";
+  @use "../../../style/configuration/color";
 
   .profile-contact-link {
     text-wrap: nowrap;
 
     &__icon {
-      @include panel.content($contour_shadow_size_name: "small", $color_variant_name: "secondary");
-      @include margin.right("small");
-
       display: inline-block;
       vertical-align: middle;
+
+      margin-right: margin.size("small");
+      padding: padding.size("medium");
+
+      background: color.variable("secondary", "foreground");
+      color: color.variable("secondary", "text", "foreground");
+
+      border: contour.size("medium") solid color.variable("contour");
+      border-radius: contour.radius("large");
+      box-shadow: contour.size("small") contour.size("small") 0 color.variable("contour");
 
       &__image {
         display: block;

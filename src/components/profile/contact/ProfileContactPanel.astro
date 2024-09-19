@@ -29,22 +29,27 @@ const {names, links, label, qr} = Astro.props;
 </ProfileArticlePanel>
 
 <style lang="scss" is:global>
-  @use "../../../style/mixins/contour";
-  @use "../../../style/mixins/padding";
-  @use "../../../style/mixins/margin";
+  @use "../../../style/configuration/contour";
+  @use "../../../style/configuration/padding";
+  @use "../../../style/configuration/margin";
+  @use "../../../style/configuration/color";
 
-  .contact-qr {
-    @include contour.border("medium", "large", "dashed");
-    @include padding.all("large");
+  .contact {
+    &-qr {
+      padding: padding.size("large");
 
-    text-align: center;
-  }
+      text-align: center;
 
-  .contact-links {
-    @include margin.all("medium", "none");
+      border: contour.size("medium") dashed color.variable("contour");
+      border-radius: contour.radius("large");
+    }
 
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-    gap: 0.5em;
+    &-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+      gap: 0.5em;
+
+      margin: margin.size("medium") 0;
+    }
   }
 </style>
