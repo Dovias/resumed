@@ -42,7 +42,8 @@ const {locale, title} = Astro.props;
     color: color.variable("text", "background");
 
     & ::selection {
-      @include color-mixins.selection;
+      background: color.variable("selection");
+      color: color.variable("text", "selection");
     }
 
     @media print {
