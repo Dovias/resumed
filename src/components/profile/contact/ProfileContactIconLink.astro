@@ -33,14 +33,17 @@ if (props.label == undefined) {
 </div>
 
 <style lang="scss" is:global>
+  @use "../../../style/configuration/breakpoint";
   @use "../../../style/configuration/padding";
   @use "../../../style/configuration/margin";
   @use "../../../style/configuration/border";
   @use "../../../style/configuration/shadow";
   @use "../../../style/configuration/color";
+  @use "../../../style/configuration/font";
 
   .profile-contact-link {
     text-wrap: nowrap;
+    font-size: font.size("medium");
 
     &__icon {
       display: inline-block;
@@ -58,6 +61,14 @@ if (props.label == undefined) {
       &__image {
         display: block;
       }
+    }
+
+    @media (min-width: breakpoint.size("medium")) {
+      font-size: font.size("small");
+    }
+
+    @media (min-width: breakpoint.size("large")) {
+      font-size: font.size("medium");
     }
   }
 </style>

@@ -23,6 +23,7 @@ const {importance, "class": className, ...props} = Astro.props;
 <style lang="scss" is:global>
   @use "sass:map";
 
+  @use "../../style/configuration/breakpoint";
   @use "../../style/configuration/font";
 
   $_paragraph_font_size_names: (
@@ -36,13 +37,22 @@ const {importance, "class": className, ...props} = Astro.props;
       font-size: font.size("large");
     }
 
-    &-medium {
-      font-size: font.size("medium");
-    }
-
     &-low {
       font-size: font.size("small");
     }
+
+    @media (min-width: breakpoint.size("medium")) {
+      &-high {
+        font-size: font.size("medium");
+      }
+    }
+
+    @media (min-width: breakpoint.size("large")) {
+      &-high {
+        font-size: font.size("large");
+      }
+    }
   }
+
 </style>
 

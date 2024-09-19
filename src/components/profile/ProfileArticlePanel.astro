@@ -25,6 +25,7 @@ const {accent, label, ...props} = Astro.props;
 
 
 <style lang="scss" is:global>
+  @use "../../style/configuration/breakpoint";
   @use "../../style/configuration/padding";
   @use "../../style/configuration/margin";
   @use "../../style/configuration/border";
@@ -52,6 +53,18 @@ const {accent, label, ...props} = Astro.props;
 
           font-size: font.size("large");
           font-weight: font.weight("semibold");
+
+          @media (min-width: breakpoint.size("medium")) {
+            & {
+              font-size: font.size("medium");
+            }
+          }
+
+          @media (min-width: breakpoint.size("large")) {
+            & {
+              font-size: font.size("large");
+            }
+          }
         }
       }
     }
