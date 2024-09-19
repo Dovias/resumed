@@ -18,9 +18,7 @@ const {accent, label, ...props} = Astro.props;
 ---
 <article class="profile-article" {...props}>
   <h2 class={`profile-article__header-${accent}`}>{label}</h2>
-  <div class="profile-article__content">
-    <slot />
-  </div>
+  <slot />
 </article>
 
 
@@ -67,10 +65,6 @@ const {accent, label, ...props} = Astro.props;
           }
         }
       }
-    }
-
-    &__content {
-      margin: margin.size("medium") margin.size("small");
     }
   }
 </style>

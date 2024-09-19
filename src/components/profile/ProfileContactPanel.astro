@@ -1,0 +1,128 @@
+---
+import type {Profile, ProfileContactEntry} from "../../profile";
+
+import ProfileArticlePanel, {type Props as ProfileArticlePanelProps} from "./ProfileArticlePanel.astro";
+import VCardQRCode from "../vcard/VCardQRCode.astro";
+import Paragraph from "../text/Paragraph.astro";
+import Link from "../text/Link.astro";
+
+export type AttributeProps = Pick<Profile, "names"> & Pick<Profile["contact"], "label" | "qr"> & {
+  "links": ProfileContactEntry[];
+};
+
+export type Props = Omit<ProfileArticlePanelProps, "accent"> & AttributeProps;
+
+const {names, links, qr, ...props} = Astro.props;
+---
+
+<ProfileArticlePanel accent="secondary" {...props}>
+  <div class="profile-contact">
+    {qr.enabled &&
+      <div class="profile-contact__qr">
+        <div class="profile-contact__qr__container">
+          <VCardQRCode {names} urls={links.map(link => link.url)} />
+          <Paragraph importance="low">{qr.description}</Paragraph>
+        </div>
+      </div>
+    }
+    
+    <div class="profile-contact__links">    
+      {links.length > 0 && links.map(({newInstance, icon, url, label}) => {
+        let target, rel;
+        if (newInstance) {
+          target = "_blank";
+          rel = "noopener noreferrer";
+        }
+
+        const href = url.toString();
+        if (label == undefined) {
+          label = href.substring(url.protocol.length);
+          if (label.startsWith("//")) {
+            label = label.substring(2);
+          }
+        }
+
+        return (
+          <div class="profile-contact__links__link">
+            <picture class="profile-contact__links__link__icon">
+              <source srcset={icon.path} />
+              <img alt={icon.description} width="12" class="profile-contact__links__link__icon__image"/>
+            </picture>
+            <Link {href} {target} {rel}>{label}</Link>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</ProfileArticlePanel>
+
+<style lang="scss" is:global>
+  @use "../../style/configuration/breakpoint";
+  @use "../../style/configuration/padding";
+  @use "../../style/configuration/margin";
+  @use "../../style/configuration/border";
+  @use "../../style/configuration/shadow";
+  @use "../../style/configuration/color";
+  @use "../../style/configuration/font";
+
+
+  .profile-contact {
+    margin: margin.size("medium") margin.size("small");
+
+    &__qr {
+      padding: padding.size("large");
+
+      border: border.size("small") dashed color.variable("contour");
+      border-radius: border.radius("large");
+
+      &__container {
+        max-width: 13rem;
+
+        margin: auto;
+      }
+    }
+
+    &__links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+      gap: 0.5rem;
+
+      margin: margin.size("medium") 0;
+
+      @media (min-width: breakpoint.size("medium")) {
+        grid-template-columns: 1fr;
+      }
+
+      &__link {
+        text-wrap: nowrap;
+        font-size: font.size("medium");
+
+        &__icon {
+          display: inline-block;
+          vertical-align: middle;
+
+          margin-right: margin.size("small");
+          padding: padding.size("medium");
+
+          background: color.variable("secondary", "foreground");
+
+          border: border.size("small") solid color.variable("contour");
+          border-radius: border.radius("large");
+          box-shadow: shadow.size("small") shadow.size("small") 0 color.variable("contour");
+
+          &__image {
+            display: block;
+          }
+        }
+
+        @media (min-width: breakpoint.size("medium")) {
+          font-size: font.size("small");
+        }
+
+        @media (min-width: breakpoint.size("large")) {
+          font-size: font.size("medium");
+        }
+      }
+    }
+  }
+</style>
