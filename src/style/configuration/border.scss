@@ -1,0 +1,37 @@
+@use "../utilities/maps";
+
+$_border_sizes: (
+  "small": 0.2rem,
+  "large": 0.3rem
+);
+
+$_border_radius: (
+  "small": 0.1rem,
+  "medium": 0.3rem,
+  "large": 0.6rem,
+  "full": 9999rem
+);
+
+@function size($border_size_name_path...) {
+  @return maps.get-or-error(
+    $_border_sizes,
+    "Failed to get border size named: '#{$border_size_name_path}'",
+    $border_size_name_path...
+  ); 
+}
+
+@function radius($border_radius_name_path...) {
+  @return maps.get-or-error(
+    $_border_radius,
+    "Failed to get border radius named: '#{$border_radius_name_path}'",
+    $border_radius_name_path...
+  );
+}
+
+@function size-paths() {
+  @return maps.paths($_border_sizes);
+}
+
+@function radius-paths() {
+  @return maps.paths($_border_radius);
+}

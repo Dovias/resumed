@@ -29,9 +29,9 @@ const {names, links, label, qr} = Astro.props;
 </ProfileArticlePanel>
 
 <style lang="scss" is:global>
-  @use "../../../style/configuration/contour";
   @use "../../../style/configuration/padding";
   @use "../../../style/configuration/margin";
+  @use "../../../style/configuration/border";
   @use "../../../style/configuration/color";
 
   .contact {
@@ -40,8 +40,8 @@ const {names, links, label, qr} = Astro.props;
 
       text-align: center;
 
-      border: contour.size("medium") dashed color.variable("contour");
-      border-radius: contour.radius("large");
+      border: border.size("small") dashed color.variable("contour");
+      border-radius: border.radius("large");
     }
 
     &-links {

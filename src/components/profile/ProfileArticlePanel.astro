@@ -25,17 +25,18 @@ const {accent, label, ...props} = Astro.props;
 
 
 <style lang="scss" is:global>
-  @use "../../style/configuration/contour";
   @use "../../style/configuration/padding";
   @use "../../style/configuration/margin";
+  @use "../../style/configuration/border";
+  @use "../../style/configuration/shadow";
   @use "../../style/configuration/color";
   @use "../../style/configuration/font";
 
-  @mixin _panel($contour_size_name, $accent_type, $color_name) {
+  @mixin _panel($border_size_name, $accent_type, $color_name) {
     padding: padding.size("medium");
-    border: contour.size("medium") solid color.variable("contour");
-    border-radius: contour.radius("large");
-    box-shadow: contour.size($contour_size_name) contour.size($contour_size_name) 0 color.variable("contour");
+    border: border.size("small") solid color.variable("contour");
+    border-radius: border.radius("large");
+    box-shadow: shadow.size($border_size_name) shadow.size($border_size_name) 0 color.variable("contour");
 
     background: color.variable($accent_type, $color_name);
     color: color.variable($accent_type, "text", $color_name);
