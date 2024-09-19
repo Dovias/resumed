@@ -9,12 +9,12 @@ contact:
       url: "tel:+000000000"
       newInstance: false
       icon:
-        path: /icons/phone.svg
+        path: /assets/icons/phone.svg
     emailAddress:
       url: "mailto:contact@example.com"
       newInstance: false
       icon:
-        path: /icons/envelope.svg
+        path: /assets/icons/envelope.svg
 aspects:
   technologies:
     entries:
