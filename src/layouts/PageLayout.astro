@@ -28,9 +28,7 @@ const {locale, title} = Astro.props;
   @use "../style/configuration/color" with (
     $css_variable_selector: ".page"
   );
-
-  @use "../style/mixins/color" as color-mixins;
-
+  
   @use "../style/utilities/reset";
 
   .page {
