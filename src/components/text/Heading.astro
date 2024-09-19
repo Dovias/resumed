@@ -40,17 +40,17 @@ if (importance === "high") {
     "low": "very large"
   );
 
-  $_heading_font_weight_names: (
-    "high": "extra very high",
-    "medium": "extra very high",
-    "low": "extra high"
+  $_heading_emphasis_names: (
+    "high": "very high",
+    "medium": "extra high",
+    "low": "medium"
   );
 
   @each $importance, $heading_font_size in $_heading_font_size_names {
-    $heading_font_weight_name: map.get($_heading_font_weight_names, $importance);
+    $_heading_emphasis_name: map.get($_heading_emphasis_names, $importance);
 
     .heading-#{$importance} {
-      @include font.text($heading_font_size, $heading_font_weight_name);
+      @include font.text($heading_font_size, $_heading_emphasis_name);
     }
   }
 </style>

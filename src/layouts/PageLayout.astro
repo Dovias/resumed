@@ -29,6 +29,8 @@ const {locale, title} = Astro.props;
     $css_variable_selector: ".page"
   );
 
+  @use "../style/mixins/color" as color-mixins;
+
   @use "../style/utilities/reset";
 
   .page {
@@ -40,8 +42,7 @@ const {locale, title} = Astro.props;
     color: color.variable("text", "background");
 
     & ::selection {
-      background: color.variable("selection");
-      color: color.variable("text", "selection");
+      @include color-mixins.selection;
     }
 
     @media print {

@@ -8,37 +8,29 @@
 @use "../../utilities/maps";
 
 $_emphasis_css_properties: (
-  "lowest": (
-    "font-style": list.nth(font.styles(), 1),
-    "font-weight": font.weight(#{list.nth(font.weight-paths(), 1)})
-  ),
   "low": (
-    "font-style": list.nth(font.styles(), 2),
-    "font-weight": font.weight(#{list.nth(font.weight-paths(), 1)})
+    "font-style": list.nth(font.styles(), 1),
+    "font-weight": font.weight("#{list.nth(font.weight-paths(), 1)}")
   ),
   "medium": (
-    "font-style": list.nth(font.styles(), 1),
-    "font-weight": font.weight("#{list.nth(font.weight-paths(), 2)}")
+    "font-style": list.nth(font.styles(), 2),
+    "font-weight": font.weight("#{list.nth(font.weight-paths(), 1)}")
   ),
   "high": (
-    "font-style": list.nth(font.styles(), 2),
+    "font-style": list.nth(font.styles(), 1),
     "font-weight": font.weight("#{list.nth(font.weight-paths(), 2)}")
   ),
   "extra high": (
-    "font-style": list.nth(font.styles(), 1),
-    "font-weight": font.weight("#{list.nth(font.weight-paths(), 3)}")
+    "font-style": list.nth(font.styles(), 2),
+    "font-weight": font.weight("#{list.nth(font.weight-paths(), 2)}")
   ),
   "very high": (
-    "font-style": list.nth(font.styles(), 2),
+    "font-style": list.nth(font.styles(), 1),
     "font-weight": font.weight("#{list.nth(font.weight-paths(), 3)}")
   ),
   "extra very high": (
-    "font-style": list.nth(font.styles(), 1),
-    "font-weight": font.weight("#{list.nth(font.weight-paths(), 4)}")
-  ),
-  "highest": (
     "font-style": list.nth(font.styles(), 2),
-    "font-weight": font.weight("#{list.nth(font.weight-paths(), 4)}")
+    "font-weight": font.weight("#{list.nth(font.weight-paths(), 3)}")
   )
 );
 

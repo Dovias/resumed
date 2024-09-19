@@ -3,18 +3,14 @@
 @use "../color";
 @use "./font";
 
-@mixin _panel($contour_shadow_size_name, $contour_radius_type_name, $color_variant_name, $color_name) {
+@mixin content($contour_shadow_size_name: "large", $contour_radius_type_name: "large", $color_variant_name: "primary", $color_name: "foreground") {
   @include padding.all("medium");
   @include contour.border("medium", $contour_radius_type_name);
   @include contour.shadow($contour_shadow_size_name);
   @include color.text-background($color_variant_name, $color_name);
 }
 
-@mixin content($contour_radius_type_name: "large", $color_variant_name: "primary", $color_name: "foreground") {
-  @include _panel("large", $contour_radius_type_name, $color_variant_name, $color_name);
-}
-
 @mixin heading($color_variant_name: "primary", $font_size: "large") {
-  @include _panel("small", "large", $color_variant_name, "accent");
-  @include font.text($font_size, "extra high");
+  @include content("small", "large", $color_variant_name, "accent");
+  @include font.text($font_size, "high");
 }

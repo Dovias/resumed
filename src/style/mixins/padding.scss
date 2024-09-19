@@ -3,14 +3,13 @@
 @use "../configuration/padding";
 @use "../utilities/lists";
 
-@mixin all($first_size_name: 0, $second_size_name: 0, $third_size_name: 0, $fourth_size_name: 0) {
+@mixin all($first_size_name: null, $second_size_name: null, $third_size_name: null, $fourth_size_name: null) {
   $size_name_list: ($first_size_name, $second_size_name, $third_size_name, $fourth_size_name);
 
-  $trailing_value: 0;
   $size_list: ();
-  @for $index from 1 through lists.non-trailing-last-index($size_name_list, $trailing_value) {
+  @for $index from 1 through lists.non-trailing-last-index($size_name_list) {
     $value: list.nth($size_name_list, $index);
-    @if $value != $trailing_value {
+    @if $value != null {
       $value: padding.size($value);
     }
     

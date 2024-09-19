@@ -8,7 +8,7 @@ export type AttributeProps = {
 };
 
 type _Props = Omit<Polymorphic<AttributeProps & {
-  "as": "p";
+  "as": "a";
 }>, "as">;
 
 export type Props = _Props;
@@ -16,25 +16,35 @@ export type Props = _Props;
 const {importance, "class": className, ...props} = Astro.props;
 ---
 
-<p class:list={[`paragraph-${importance}`, className]} {...props}>
+<a class:list={[`link-${importance}`, className]} {...props}>
   <slot />
-</p>
+</a>
 
 <style lang="scss" is:global>
   @use "sass:map";
 
+  @use "../../style/mixins/color";
   @use "../../style/mixins/compound/font";
 
-  $_paragraph_font_size_names: (
+  $_link_font_size_names: (
     "high": "large",
     "medium": "medium",
     "low": "small"
   );
 
-  @each $importance, $paragraph_font_size in $_paragraph_font_size_names {
-    .paragraph-#{$importance} {
-      @include font.text($paragraph_font_size, "low");
+  %link {
+    color: inherit;
+  }
+
+  @each $importance, $link_font_size in $_link_font_size_names {
+    .link-#{$importance} {
+      @extend %link;
+
+      @include font.text($link_font_size, "low");
+
+      &:active {
+        @include color.selection;
+      }
     }
   }
 </style>
-

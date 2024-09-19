@@ -1,6 +1,8 @@
 ---
 import type {ProfileContactEntry} from "../../../profile";
 
+import Link from "../../text/Link.astro";
+
 export interface Props extends ProfileContactEntry {}
 
 const {icon, url, ...props} = Astro.props;
@@ -22,10 +24,32 @@ if (props.label == undefined) {
 }
 ---
 
-<div class="text-nowrap">
-  <picture class="inline-block align-middle mr-2 p-1 border-2 border-contour rounded-lg">
+<div class="profile-contact-link">
+  <picture class="profile-contact-link__icon">
     <source srcset={icon.path} />
-    <img alt={icon.description} width="16" class="size-4" />
+    <img alt={icon.description} width="12" class="profile-contact-link__icon__image"/>
   </picture>
-  <a class="underline font-light text-wrap break-words" {href} {target} {rel}>{linkText}</a>
+  <Link importance="medium" {href} {target} {rel}>{linkText}</Link>
 </div>
+
+<style lang="scss" is:global>
+  @use "../../../style/mixins/compound/panel";
+  @use "../../../style/mixins/margin";
+
+
+  .profile-contact-link {
+    text-wrap: nowrap;
+
+    &__icon {
+      @include panel.content($contour_shadow_size_name: "small", $color_variant_name: "secondary");
+      @include margin.right("small");
+
+      display: inline-block;
+      vertical-align: middle;
+
+      &__image {
+        display: block;
+      }
+    }
+  }
+</style>

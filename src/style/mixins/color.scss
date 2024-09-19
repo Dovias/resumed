@@ -4,3 +4,8 @@
   background: color.variable($color_variant_name, $color_name);
   color: color.variable($color_variant_name, "text", $color_name);
 }
+
+@mixin selection() {
+  background: color.variable("selection");
+  color: color.variable("text", "selection");
+}

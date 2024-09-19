@@ -15,13 +15,13 @@ const {names, links, label, qr} = Astro.props;
 
 <ProfileArticlePanel label={label} accent="secondary">
   {qr.enabled &&
-    <div class="profile-qr-frame">
-      <VCardQRCode {names} urls={links.map(link => link.url)} />
-      <Paragraph importance="low"><em>{qr.description}</em></Paragraph>
-    </div>
+      <div class="contact-qr">
+        <VCardQRCode {names} urls={links.map(link => link.url)} />
+        <Paragraph importance="low"><em>{qr.description}</em></Paragraph>
+      </div>
   }
-
-  <div class="grid grid-cols-[repeat(auto-fit,_minmax(14rem,_1fr))] gap-2">    
+  
+  <div class="contact-links">    
     {links.length > 0 && links.map(linkProps =>
       <ProfileContactIconLink {...linkProps}/>
     )}
@@ -33,9 +33,18 @@ const {names, links, label, qr} = Astro.props;
   @use "../../../style/mixins/padding";
   @use "../../../style/mixins/margin";
 
-  .profile-qr-frame {
+  .contact-qr {
     @include contour.border("medium", "large", "dashed");
     @include padding.all("large");
-    @include margin.all($fourth_size_name: "small", $second_size_name: "small");
+
+    text-align: center;
+  }
+
+  .contact-links {
+    @include margin.all("medium", "none");
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 0.5em;
   }
 </style>

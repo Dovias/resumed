@@ -1,6 +1,6 @@
 @use "sass:list";
 
-@function non-trailing-last-index($list, $trailing_element) {
+@function non-trailing-last-index($list, $trailing_element: null) {
   $non_trailing_index: 1;
   @for $index from 1 through 4 {
     $value: list.nth($list, $index);
