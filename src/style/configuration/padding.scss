@@ -11,8 +11,12 @@ $_padding_sizes: (
   "very large": 2em
 );
 
-@function size($padding_size_name) {
-  @return maps.get-or-error($_padding_sizes, $padding_size_name, "Failed to get padding size named: '#{$padding_size_name}'"); 
+@function size($padding_size_name_path) {
+  @return maps.get-or-error(
+    $_padding_sizes,
+    "Failed to get padding size named: '#{$padding_size_name_path}'",
+    $padding_size_name_path...
+  ); 
 }
 
 

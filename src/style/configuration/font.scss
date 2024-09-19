@@ -54,12 +54,20 @@ $_font_sizes: (
   @return $_font_styles;
 }
 
-@function weight($font_weight_name) {
-  @return maps.get_or_error($_font_weights, $font_weight_name, "Failed to get font weight named: '#{$font_weight_name}'");
+@function weight($font_weight_name_path...) {
+  @return maps.get_or_error(
+    $_font_weights,
+    "Failed to get font weight named: '#{$font_weight_name_path}'",
+    $font_weight_name_path...
+  );
 }
 
-@function size($font_size_name) {
-  @return maps.get_or_error($_font_sizes, $font_size_name, "Failed to get font size named: '#{$font_size_name}'");
+@function size($font_size_name_path...) {
+  @return maps.get_or_error(
+    $_font_sizes,
+    "Failed to get font size named: '#{$font_size_name_path}'",
+    $font_size_name_path...
+  );
 }
 
 

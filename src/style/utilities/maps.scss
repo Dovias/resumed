@@ -3,8 +3,8 @@
 @use "sass:map";
 @use "sass:meta";
 
-@function get-or-error($map, $key, $error_message) {
-  $value: map.get($map, $key);
+@function get-or-error($map, $error_message, $keys...) {
+  $value: map.get($map, $keys...);
   @if $value {
     @return $value;
   }

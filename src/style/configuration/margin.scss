@@ -7,8 +7,12 @@ $_margin_sizes: (
   "large": 1.5em
 );
 
-@function size($margin_size_name) {
-  @return maps.get-or-error($_margin_sizes, $margin_size_name, "Failed to get margin size named: '#{$margin_size_name}'"); 
+@function size($margin_size_name_path...) {
+  @return maps.get-or-error(
+    $_margin_sizes,
+    "Failed to get margin size named: '#{$margin_size_name_path}'",
+    $margin_size_name_path...
+  ); 
 }
 
 

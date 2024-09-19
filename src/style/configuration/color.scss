@@ -86,13 +86,13 @@ $css_variable_selector: false !default;
   }
 }
 
-@function variable($color_path...) {
+@function variable($color_name_path...) {
   @each $colors in map.values($_colors) {
-    @if map.has-key($colors, $color_path...) {
-      @return var(--color-#{strings.replace("#{$color_path}", ', ', '-')});
+    @if map.has-key($colors, $color_name_path...) {
+      @return var(--color-#{strings.replace("#{$color_name_path}", ', ', '-')});
     }
   }
-  @error string.unquote("Failed to fetch color css variable from path: '#{$color_path}'");
+  @error string.unquote("Failed to fetch color css variable from path: #{$color_name_path}");
 }
 
 

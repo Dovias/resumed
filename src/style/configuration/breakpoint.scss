@@ -8,8 +8,12 @@ $_breakpoint_sizes: (
   "very-large": 1536px
 );
 
-@function size($breakpoint_size_name) {
-  @return maps.get-or-error($_breakpoint_sizes, $breakpoint_size_name, "Failed to get breakpoint size named: '#{$breakpoint_size_name}'"); 
+@function size($breakpoint_size_name_path...) {
+  @return maps.get-or-error(
+    $_breakpoint_sizes,
+    "Failed to get breakpoint size named: '#{$breakpoint_size_name_path}'",
+    $breakpoint_size_name_path...
+  ); 
 }
 
 
