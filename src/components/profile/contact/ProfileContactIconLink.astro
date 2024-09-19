@@ -1,6 +1,8 @@
 ---
 import type {ProfileContactEntry} from "../../../profile";
 
+import Link from "../../text/Link.astro";
+
 export interface Props extends ProfileContactEntry {}
 
 const {icon, url, ...props} = Astro.props;
@@ -22,10 +24,51 @@ if (props.label == undefined) {
 }
 ---
 
-<div class="text-nowrap">
-  <picture class="inline-block align-middle mr-2 p-1 border-2 border-contour rounded-lg">
+<div class="profile-contact-link">
+  <picture class="profile-contact-link__icon">
     <source srcset={icon.path} />
-    <img alt={icon.description} width="16" class="size-4" />
+    <img alt={icon.description} width="12" class="profile-contact-link__icon__image"/>
   </picture>
-  <a class="underline font-light text-wrap break-words" {href} {target} {rel}>{linkText}</a>
+  <Link {href} {target} {rel}>{linkText}</Link>
 </div>
+
+<style lang="scss" is:global>
+  @use "../../../style/configuration/breakpoint";
+  @use "../../../style/configuration/padding";
+  @use "../../../style/configuration/margin";
+  @use "../../../style/configuration/border";
+  @use "../../../style/configuration/shadow";
+  @use "../../../style/configuration/color";
+  @use "../../../style/configuration/font";
+
+  .profile-contact-link {
+    text-wrap: nowrap;
+    font-size: font.size("medium");
+
+    &__icon {
+      display: inline-block;
+      vertical-align: middle;
+
+      margin-right: margin.size("small");
+      padding: padding.size("medium");
+
+      background: color.variable("secondary", "foreground");
+
+      border: border.size("small") solid color.variable("contour");
+      border-radius: border.radius("large");
+      box-shadow: shadow.size("small") shadow.size("small") 0 color.variable("contour");
+
+      &__image {
+        display: block;
+      }
+    }
+
+    @media (min-width: breakpoint.size("medium")) {
+      font-size: font.size("small");
+    }
+
+    @media (min-width: breakpoint.size("large")) {
+      font-size: font.size("medium");
+    }
+  }
+</style>

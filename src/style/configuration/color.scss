@@ -1,0 +1,101 @@
+@use "sass:string";
+@use "sass:list";
+@use "sass:meta";
+@use "sass:map";
+
+@use "../utilities/strings";
+@use "../utilities/maps";
+
+$_colors: (
+  "light": (
+    "primary": (
+      "accent": #FDE047,
+      "foreground": #FFFFFF,
+      "text": (
+        "accent": #000000,
+        "foreground": #000000
+      )
+    ),
+    "secondary": (
+      "accent": #99F6E4,
+      "foreground": #FFFFFF,
+      "text": (
+        "accent": #000000,
+        "foreground": #000000
+      )
+    ),
+
+    "background": #FEFCE8,
+    "contour": #000000,
+    "selection": #000000,
+    "text": (
+      "background": #000000,
+      "selection": #ffffff
+    )
+  ),
+  "dark": (
+    "primary": (
+      "accent": #ffcb62,
+      "foreground": #536872,
+      "text": (
+        "accent": #000000,
+        "foreground": #E0FFF9
+      )
+    ),
+    "secondary": (
+      "accent": #a2ddd1,
+      "foreground": #738D99,
+      "text": (
+        "accent": #000000,
+        "foreground": #ffffff
+      )
+    ),
+    "background": #2d383c,
+    "contour": #000000,
+    "selection": #000000,
+    "text": (
+      "background": #E0FFF9,
+      "selection": #ffffff
+    )
+  )
+);
+
+/* 
+ * Initializes css variables only if selector via @use was provided.
+ * Optimization for module based development environments like Vite, since
+ * It runs sass for each css chunk so unnecessary initializations could be made.
+ */
+$css_variable_selector: false !default;
+@if meta.type-of($css_variable_selector) == "string" {
+  @if list.length(map.keys($_colors)) > 0 {
+    #{$css_variable_selector} {
+      color-scheme: #{list.join((), map.keys($_colors), $separator: space)};
+
+      @each $scheme_name, $scheme_color_map in $_colors {
+        @media (prefers-color-scheme: #{$scheme_name}) {
+          & {
+            @each $scheme_color_path in maps.paths($scheme_color_map) {
+              $scheme_color_css_variable_name: strings.replace("#{$scheme_color_path}", ' ', '-');
+              --color-#{$scheme_color_css_variable_name}: #{map.get($scheme_color_map, $scheme_color_path...)};
+            }
+          }
+        }
+      }
+
+    }
+  }
+}
+
+@function variable($color_name_path...) {
+  @each $colors in map.values($_colors) {
+    @if map.has-key($colors, $color_name_path...) {
+      @return var(--color-#{strings.replace("#{$color_name_path}", ', ', '-')});
+    }
+  }
+  @error string.unquote("Failed to fetch color css variable from path: '#{$color_name_path}'");
+}
+
+
+@function color-paths() {
+  @return maps.paths($_colors);
+}

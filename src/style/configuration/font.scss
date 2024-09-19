@@ -1,0 +1,80 @@
+@use "sass:map";
+@use "sass:string";
+
+@use "@fontsource/kanit/scss/mixins" as font;
+
+@use "../utilities/maps";
+
+$_font_family: "Kanit";
+
+$_font_subsets: (
+  "latin",
+  "latin-ext"
+);
+
+$_font_styles: (
+  normal,
+  italic
+);
+
+$_font_weights: (
+  "normal": 400,
+  "semibold": 600,
+  "bold": 800
+);
+
+$_font_sizes: (
+  "small": 0.875rem,
+  "medium": 1rem,
+  "large": 1.25rem,
+  "extra large": 1.5rem,
+  "very large": 2rem,
+  "extra very large": 2.5rem,
+  "largest": 4rem 
+);
+
+
+@include font.faces(
+  $family: $_font_family,
+  $subsets: $_font_subsets,
+  $weights: map.values($_font_weights),
+  $styles: $_font_styles,
+  $directory: "@fontsource/#{string.to-lower-case($_font_family)}/files"
+);
+
+@function family() {
+  @return $_font_family;
+}
+
+@function subsets() {
+  @return $_font_subsets;
+}
+
+@function styles() {
+  @return $_font_styles;
+}
+
+@function weight($font_weight_name_path...) {
+  @return maps.get_or_error(
+    $_font_weights,
+    "Failed to get font weight named: '#{$font_weight_name_path}'",
+    $font_weight_name_path...
+  );
+}
+
+@function size($font_size_name_path...) {
+  @return maps.get_or_error(
+    $_font_sizes,
+    "Failed to get font size named: '#{$font_size_name_path}'",
+    $font_size_name_path...
+  );
+}
+
+
+@function weight-paths() {
+  @return maps.paths($_font_weights);
+}
+
+@function size-paths() {
+  @return maps.paths($_font_sizes);
+}

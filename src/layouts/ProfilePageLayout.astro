@@ -1,0 +1,107 @@
+---
+import PageLayout from "./PageLayout.astro";
+
+import type {Profile} from "../profile";
+import type {LocaleMetadata, LocaleName} from "../locale";
+
+import ProfileLabel from "../components/profile/ProfileLabel.astro";
+import ProfileContactPanel from "../components/profile/contact/ProfileContactPanel.astro";
+import ProfilePicture from "../components/profile/ProfilePicture.astro";
+
+export interface Props {
+  "profile": Profile;
+  "locale": {
+    "name": LocaleName;
+    "metadatas": [LocaleMetadata, ...LocaleMetadata[]];
+  };
+}
+
+const {profile, locale} = Astro.props;
+const {names, picture, contact, ...restProfile} = profile;
+---
+
+<PageLayout locale={locale.name} title={names.join(" ")}>
+  <div class="profile">
+    <aside class="profile__aside-top">
+      <ProfilePicture path={picture.path} description={picture.description} />
+    </aside>
+    <main class="profile__main">
+      <header>
+        <ProfileLabel {names} role={restProfile.role} />
+      </header>
+    </main>
+    <aside class="profile__aside-bottom">
+      <ProfileContactPanel label={contact.label} {names} qr={contact.qr} links={Object.values(contact.entries)} />
+    </aside>
+  </div>
+</PageLayout>
+
+<style lang="scss" is:global>
+  @use "../style/configuration/color";
+  @use "../style/configuration/breakpoint";
+
+  @use "../style/utilities/reset";
+
+  .profile {
+    display: grid;
+    justify-content: center;
+    gap: 1rem;
+
+    max-width: breakpoint.size("extra-large");
+    padding: 2rem;
+
+    overflow: auto;
+    margin: auto;
+
+    &__aside-top {
+      justify-self: center;
+
+      max-width: 18rem;
+      
+      margin-bottom: 1.5rem;
+    }
+
+    &__aside-bottom {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: breakpoint.size("medium")) {
+      & {
+        grid-template-columns: 1fr auto;
+    
+        &__aside-top {
+          order: 2;
+    
+          max-width: 15rem;
+        }
+    
+        &__aside-bottom {
+          order: 3;
+          
+          max-width: 15rem;
+        }
+    
+        &__main {
+          grid-row: span 3 / span 3;
+    
+          margin-right: 4rem;
+        }
+      }
+    }
+
+    @media (min-width: breakpoint.size("large")) {
+      &__aside-top {
+        max-width: 16rem;
+      }
+    
+      &__aside-bottom {
+        max-width: 18rem;
+      }
+    
+      &__main {
+        margin-right: 8rem;
+      }
+    }
+  }
+</style>

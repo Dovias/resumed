@@ -1,0 +1,47 @@
+---
+import type {LocaleName} from "../locale";
+
+export interface Props {
+  "locale": LocaleName;
+  "title": string;
+}
+
+const {locale, title} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="page">
+      <slot />
+    </div>
+  </body>
+</html>
+
+<style lang="scss" is:global>
+  @use "../style/configuration/font"; 
+  @use "../style/configuration/color" with (
+    $css_variable_selector: ".page"
+  );
+  
+  @use "../style/utilities/reset";
+
+  .page {
+    min-height: 100vh;
+
+    background: url("/assets/images/background-tile.svg") color.variable("background");
+
+    font-family: font.family(), "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    color: color.variable("text", "background");
+
+    & ::selection {
+      background: color.variable("selection");
+      color: color.variable("text", "selection");
+    }
+  }
+</style>

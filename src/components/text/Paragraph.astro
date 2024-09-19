@@ -1,0 +1,58 @@
+---
+import type {Polymorphic} from "astro/types";
+
+import type {Importance} from "../../types";
+
+export type AttributeProps = {
+  "importance": Importance;
+};
+
+type _Props = Omit<Polymorphic<AttributeProps & {
+  "as": "p";
+}>, "as">;
+
+export type Props = _Props;
+
+const {importance, "class": className, ...props} = Astro.props;
+---
+
+<p class:list={[`paragraph-${importance}`, className]} {...props}>
+  <slot />
+</p>
+
+<style lang="scss" is:global>
+  @use "sass:map";
+
+  @use "../../style/configuration/breakpoint";
+  @use "../../style/configuration/font";
+
+  $_paragraph_font_size_names: (
+    "high": "large",
+    "medium": "medium",
+    "low": "small"
+  );
+
+  .paragraph {
+    &-high {
+      font-size: font.size("large");
+    }
+
+    &-low {
+      font-size: font.size("small");
+    }
+
+    @media (min-width: breakpoint.size("medium")) {
+      &-high {
+        font-size: font.size("medium");
+      }
+    }
+
+    @media (min-width: breakpoint.size("large")) {
+      &-high {
+        font-size: font.size("large");
+      }
+    }
+  }
+
+</style>
+

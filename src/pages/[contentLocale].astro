@@ -5,7 +5,7 @@ import {AstroError} from "astro/errors";
 import {loadContentLocalizedProfile} from "../profile";
 import {getContentLocales, loadContentLocaleMetadata} from "../locale";
 
-import ProfileLayout from "../layouts/ProfileLayout.astro";
+import ProfilePageLayout from "../layouts/ProfilePageLayout.astro";
 
 export const getStaticPaths = (async () => {
   const contentLocales = getContentLocales();
@@ -44,4 +44,4 @@ export const getStaticPaths = (async () => {
 const {profile, localeMetadatas} = Astro.props;
 ---
 
-<ProfileLayout {profile} locale={{"name": Astro.params.contentLocale, "metadatas": localeMetadatas}} />
+<ProfilePageLayout {profile} locale={{"name": Astro.params.contentLocale, "metadatas": localeMetadatas}} />

@@ -1,1 +1,0 @@
-export type AccentColor = "primary" | "secondary";

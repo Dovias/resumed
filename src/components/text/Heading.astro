@@ -1,0 +1,54 @@
+---
+import type {HTMLTag, Polymorphic} from "astro/types";
+
+import type {Importance} from "../../types";
+
+export type AttributeProps = {
+  "importance": Importance;
+};
+
+type _Props = Omit<Polymorphic<AttributeProps & {
+  "as": "h1" | "h2" | "h3";
+}>, "as">;
+
+export type Props = _Props;
+
+const {importance, "class": className, ...props} = Astro.props;
+
+let Tag: HTMLTag;
+if (importance === "high") {
+  Tag = "h1";
+} else if (importance == "medium") {
+  Tag = "h2";
+} else {
+  Tag = "h3";
+}
+---
+
+<Tag class:list={[`heading-${importance}`, className]} {...props}>
+  <slot />
+</Tag>
+
+<style lang="scss" is:global>
+  @use "sass:map";
+
+  @use "../../style/configuration/font";
+  @use "../../style/configuration/breakpoint";
+
+  .heading {
+    &-high {
+      font-size: font.size("largest");
+      font-weight: font.weight("bold");
+    }
+
+    &-medium {
+      font-size: font.size("extra very large");
+      font-weight: font.weight("semibold");
+    }
+
+    &-low {
+      font-size: font.size("very large");
+    }
+  }
+</style>
+

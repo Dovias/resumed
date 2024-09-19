@@ -1,0 +1,22 @@
+@use "../utilities/maps";
+
+$_breakpoint_sizes: (
+  "small": 640px,
+  "medium": 768px,
+  "large": 1024px,
+  "extra-large": 1280px,
+  "very-large": 1536px
+);
+
+@function size($breakpoint_size_name_path...) {
+  @return maps.get-or-error(
+    $_breakpoint_sizes,
+    "Failed to get breakpoint size named: '#{$breakpoint_size_name_path}'",
+    $breakpoint_size_name_path...
+  ); 
+}
+
+
+@function size-paths() {
+  @return maps.paths($_breakpoint_sizes);
+}

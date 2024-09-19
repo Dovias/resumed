@@ -1,0 +1,13 @@
+---
+import type {Profile} from "../../profile";
+
+import Heading from "../text/Heading.astro";
+import Paragraph from "../text/Paragraph.astro";
+
+export interface Props extends Pick<Profile, "names" | "role"> {}
+
+const {names, role} = Astro.props;
+---
+
+<Heading importance="high">{names.join(" ")}</Heading>
+<Paragraph importance="high">{role}</Paragraph>

@@ -1,0 +1,25 @@
+@use "sass:map";
+
+@use "../utilities/maps";
+
+$_padding_sizes: (
+  "none": 0,
+  "small": 0.3em,
+  "medium": 0.5em,
+  "large": 1em,
+  "extra large": 1.5em,
+  "very large": 2em
+);
+
+@function size($padding_size_name_path) {
+  @return maps.get-or-error(
+    $_padding_sizes,
+    "Failed to get padding size named: '#{$padding_size_name_path}'",
+    $padding_size_name_path...
+  ); 
+}
+
+
+@function size-paths() {
+  @return maps.keys($_padding_sizes);
+}
