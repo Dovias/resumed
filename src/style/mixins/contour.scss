@@ -4,10 +4,8 @@
 @use "../configuration/contour";
 @use "../configuration/color";
 
-@mixin border($contour_size_name, $contour_radius_type_name, $contour_type_name: "solid", $contour_color_name...) {
-  $contour_color_name: if(list.length($contour_color_name) > 0, $contour_color_name, ("contour"));
-
-  border: contour.size($contour_size_name) string.unquote(contour.type($contour_type_name)) color.variable($contour_color_name...);
+@mixin border($contour_size_name, $contour_radius_type_name, $contour_type_name: "solid") {
+  border: contour.size($contour_size_name) string.unquote(contour.type($contour_type_name)) color.variable("contour");
   border-radius: contour.radius($contour_radius_type_name);
 }
 
