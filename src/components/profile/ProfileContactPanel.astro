@@ -4,7 +4,6 @@ import type {Profile, ProfileContactEntry} from "../../profile";
 import ProfileArticlePanel, {type Props as ProfileArticlePanelProps} from "./ProfileArticlePanel.astro";
 import VCardQRCode from "../vcard/VCardQRCode.astro";
 import Paragraph from "../text/Paragraph.astro";
-import Link from "../text/Link.astro";
 
 export type AttributeProps = Pick<Profile, "names"> & Pick<Profile["contact"], "label" | "qr"> & {
   "links": ProfileContactEntry[];
@@ -48,7 +47,7 @@ const {names, links, qr, ...props} = Astro.props;
               <source srcset={icon.path} />
               <img alt={icon.description} width="12" class="profile-contact__links__link__icon__image"/>
             </picture>
-            <Link {href} {target} {rel}>{label}</Link>
+            <a class="profile-contact__links__link__anchor" {href} {target} {rel}>{label}</a>
           </div>
         );
       })}
@@ -64,6 +63,8 @@ const {names, links, qr, ...props} = Astro.props;
   @use "../../style/configuration/shadow";
   @use "../../style/configuration/color";
   @use "../../style/configuration/font";
+
+  @use "../../style/mixins/link" as *;
 
 
   .profile-contact {
@@ -121,6 +122,13 @@ const {names, links, qr, ...props} = Astro.props;
 
         @media (min-width: breakpoint.size("large")) {
           font-size: font.size("medium");
+        }
+
+        &__anchor {
+          text-wrap: wrap;
+          word-break: break-word;
+
+          @include link;
         }
       }
     }

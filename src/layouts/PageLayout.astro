@@ -28,6 +28,8 @@ const {locale, title} = Astro.props;
   @use "../style/configuration/color" with (
     $css_variable_selector: ".page"
   );
+
+  @use "../style/mixins/selection" as *;
   
   @use "../style/utilities/reset";
 
@@ -40,8 +42,7 @@ const {locale, title} = Astro.props;
     color: color.variable("text", "background");
 
     & ::selection {
-      background: color.variable("selection");
-      color: color.variable("text", "selection");
+      @include selection;
     }
   }
 </style>

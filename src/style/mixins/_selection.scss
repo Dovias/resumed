@@ -1,0 +1,6 @@
+@use "../configuration/color";
+
+@mixin selection {
+  background: color.variable("selection");
+  color: color.variable("text", "selection");
+}

@@ -1,0 +1,9 @@
+@use "./selection" as *;
+
+@mixin link {
+  color: inherit;
+    
+  &:active {
+    @include selection;
+  }
+}
