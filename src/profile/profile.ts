@@ -60,7 +60,6 @@ export const profileSchema = z.object({
 }).readonly();
 
 export type Profile = z.infer<typeof profileSchema>;
-export type ProfileContactEntry = Profile["contact"]["entries"][keyof Profile["contact"]["entries"]];
 
 export type ContentLocaleProfileName<
   L extends ContentLocaleName,

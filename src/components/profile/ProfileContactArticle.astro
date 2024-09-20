@@ -1,12 +1,12 @@
 ---
-import type {Profile, ProfileContactEntry} from "../../profile";
+import type {Profile} from "../../profile";
 
 import ProfileArticle, {type Props as ProfileArticleProps} from "./ProfileArticle.astro";
 import VCardQRCode from "../vcard/VCardQRCode.astro";
 import Paragraph from "../text/Paragraph.astro";
 
 export type AttributeProps = Pick<Profile, "names"> & Pick<Profile["contact"], "label" | "qr"> & {
-  "links": ProfileContactEntry[];
+  "links": Profile["contact"]["entries"][keyof Profile["contact"]["entries"]][];
 };
 
 export type Props = Omit<ProfileArticleProps, "accent"> & AttributeProps;
