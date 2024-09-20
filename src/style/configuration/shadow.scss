@@ -1,18 +1,18 @@
 @use "../utilities/maps";
 
-$_shadow_sizes: (
+$_shadow_offsets: (
   "small": 0.1rem,
   "large": 0.3rem
 );
 
-@function size($shadow_size_name_path...) {
+@function offset($shadow_offset_name_path...) {
   @return maps.get-or-error(
-    $_shadow_sizes,
-    "Failed to get shadow size named: '#{$shadow_size_name_path}'",
-    $shadow_size_name_path...
+    $_shadow_offsets,
+    "Failed to get shadow size named: '#{$shadow_offset_name_path}'",
+    $shadow_offset_name_path...
   ); 
 }
 
-@function size-paths() {
+@function offset-paths() {
   @return maps.paths($_shadow_sizes);
 }
