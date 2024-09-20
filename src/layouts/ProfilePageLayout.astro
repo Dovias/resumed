@@ -7,6 +7,7 @@ import type {Profile} from "../profile";
 import ProfileContactArticle from "../components/profile/ProfileContactArticle.astro";
 import ProfilePicture from "../components/profile/ProfilePicture.astro";
 import ProfileLabel from "../components/profile/ProfileLabel.astro";
+import ProfileAspectArticle from "../components/profile/ProfileAspectArticle.astro";
 
 export interface Props {
   "profile": Profile;
@@ -17,7 +18,7 @@ export interface Props {
 }
 
 const {profile, locale} = Astro.props;
-const {names, picture, contact, ...restProfile} = profile;
+const {names, picture, contact, aspects, ...restProfile} = profile;
 ---
 
 <PageLayout locale={locale.name} title={names.join(" ")}>
@@ -32,6 +33,11 @@ const {names, picture, contact, ...restProfile} = profile;
     </main>
     <aside class="profile__aside-bottom">
       <ProfileContactArticle label={contact.label} {names} qr={contact.qr} links={Object.values(contact.entries)} />
+      {Object.values(aspects)
+        .map(({label, entries}) =>
+          <ProfileAspectArticle entries={Object.values(entries)} {label} />
+        )
+      }
     </aside>
   </div>
 </PageLayout>

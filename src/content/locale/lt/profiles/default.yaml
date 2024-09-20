@@ -4,11 +4,6 @@ contact:
   qr:
     description: Skenuokite šį QR kodą išmaniuoju įrenginiu, norėdami greitai gauti visą suskaitmenintą konktaktinę informaciją
 aspects:
-  technologies:
-    label: Technologijos
-    entries:
-      example:
-        label: Pavyzdys
   communication:
     label: Komunikacija
     entries:

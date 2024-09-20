@@ -4,11 +4,6 @@ contact:
   qr:
     description: Scan this QR code in order to get all this contact information quickly and in a digital format
 aspects:
-  technologies:
-    label: Technologies
-    entries:
-      example:
-        label: Example
   communication:
     label: Communication
     entries:

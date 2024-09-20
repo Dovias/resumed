@@ -1,0 +1,57 @@
+---
+import type {RecordValue} from "../../types";
+import type {Profile} from "../../profile";
+
+import ProfileArticle, {type Props as ProfileArticleProps, type AttributeProps as ProfileArticleAttributeProps} from "./ProfileArticle.astro";
+import Paragraph from "../text/Paragraph.astro";
+
+export type AttributeProps = Omit<ProfileArticleAttributeProps, "accent"> & Pick<RecordValue<Profile["aspects"]>, "label"> & {
+  "entries": RecordValue<RecordValue<Profile["aspects"]>["entries"]>[];
+};
+export type Props = AttributeProps & Omit<ProfileArticleProps, "accent">;
+
+const {entries, ...props} = Astro.props;
+---
+
+<ProfileArticle accent="primary" {...props}>
+  <div class="profile-aspect">
+    {entries.map(({label, icon}) =>
+      <div class="profile-aspect__card">
+        <picture>
+          <source srcset={icon.path} />
+          <img alt={icon.description} height="22"/>
+        </picture>
+        <Paragraph importance="low">{label}</Paragraph>
+      </div>
+    )}
+  </div>
+</ProfileArticle>
+
+<style lang="scss" is:global>
+  @use "../../style/configuration/padding";
+  @use "../../style/configuration/margin";
+
+  @use "../../style/mixins/panel" as *;
+
+  .profile-aspect {
+    display: flex;
+    flex-wrap: wrap;
+    gap: margin.size("medium");
+
+    margin: margin.size("medium") 0 margin.size("small") 0;
+
+    &__card {
+      @include panel(
+        $padding_size_name: "large",
+        $border_radius_name: "large",
+        $shadow_offset_size_name: "small",
+        $color_variant_name: "secondary",
+        $color_name: "foreground"
+      );
+
+      flex: 1;
+
+      text-align: center;
+    }
+  }
+</style>

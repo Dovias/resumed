@@ -1,3 +1,3 @@
-export * from "./component";
+export * from "./record";
 export * from "./style";
 export * from "./html";
