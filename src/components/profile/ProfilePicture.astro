@@ -14,26 +14,24 @@ const {path, description = "profile picture"} = Astro.props;
 </picture>
 
 <style lang="scss" is:global>
-  @use "../../style/configuration/padding";
-  @use "../../style/configuration/border";
-  @use "../../style/configuration/shadow";
-  @use "../../style/configuration/color";
+  @use "../../style/mixins/panel" as *;
 
   .profile-picture {
     display: block;
     width: 100%;
     
     &__image {
+      @include panel(
+        $padding_size_name: "medium",
+        $border_radius_name: "full",
+        $shadow_offset_size_name: "large",
+        $color_variant_name: "primary",
+        $color_name: "accent",
+        $color_text: false
+      );
+
       width: 100%;
       height: auto;
-
-      padding: padding.size("medium");
-
-      background: color.variable("primary", "accent");
-
-      border: border.size("small") solid color.variable("contour");
-      border-radius: border.radius("full");
-      box-shadow: shadow.offset("large") shadow.offset("large") 0 color.variable("contour");
     }
   }
 </style>
