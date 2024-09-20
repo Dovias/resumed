@@ -1,12 +1,12 @@
 ---
 import PageLayout from "./PageLayout.astro";
 
-import type {Profile} from "../profile";
 import type {LocaleMetadata, LocaleName} from "../locale";
+import type {Profile} from "../profile";
 
-import ProfileLabel from "../components/profile/ProfileLabel.astro";
-import ProfileContactPanel from "../components/profile/ProfileContactPanel.astro";
+import ProfileContactArticle from "../components/profile/ProfileContactArticle.astro";
 import ProfilePicture from "../components/profile/ProfilePicture.astro";
+import ProfileLabel from "../components/profile/ProfileLabel.astro";
 
 export interface Props {
   "profile": Profile;
@@ -31,7 +31,7 @@ const {names, picture, contact, ...restProfile} = profile;
       </header>
     </main>
     <aside class="profile__aside-bottom">
-      <ProfileContactPanel label={contact.label} {names} qr={contact.qr} links={Object.values(contact.entries)} />
+      <ProfileContactArticle label={contact.label} {names} qr={contact.qr} links={Object.values(contact.entries)} />
     </aside>
   </div>
 </PageLayout>
