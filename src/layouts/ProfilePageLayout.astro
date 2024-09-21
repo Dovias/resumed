@@ -23,22 +23,22 @@ const {names, picture, contact, aspects, ...restProfile} = profile;
 
 <PageLayout locale={locale.name} title={names.join(" ")}>
   <div class="profile">
-    <aside class="profile__aside-top">
+    <section class="profile__section-right-top">
       <ProfilePicture path={picture.path} description={picture.description} />
-    </aside>
-    <main class="profile__main">
+    </section>
+    <section class="profile__section-left">
       <header>
         <ProfileLabel {names} role={restProfile.role} />
       </header>
-    </main>
-    <aside class="profile__aside-bottom">
+    </section>
+    <section class="profile__section-right-bottom">
       <ProfileContactArticle label={contact.label} {names} qr={contact.qr} links={Object.values(contact.entries)} />
       {Object.values(aspects)
         .map(({label, entries}) =>
           <ProfileAspectArticle entries={Object.values(entries)} {label} />
         )
       }
-    </aside>
+    </section>
   </div>
 </PageLayout>
 
@@ -59,54 +59,63 @@ const {names, picture, contact, aspects, ...restProfile} = profile;
     overflow: auto;
     margin: auto;
 
-    &__aside-top {
-      justify-self: center;
+    &__section {
+      &-right {
+        &-top {
+          max-width: 18rem;
+          justify-self: center;
 
-      max-width: 18rem;
-      
-      margin-bottom: 1.5rem;
-    }
+          margin-bottom: 1.5rem;
+        }
 
-    &__aside-bottom {
-      display: grid;
-      gap: 1.5rem;
+        &-bottom {
+          display: grid;
+          gap: 1.5rem;
+        }
+      }
     }
 
     @media (min-width: breakpoint.size("medium")) {
       & {
         grid-template-columns: 1fr auto;
     
-        &__aside-top {
-          order: 2;
-    
-          max-width: 15rem;
-        }
-    
-        &__aside-bottom {
-          order: 3;
-          
-          max-width: 15rem;
-        }
-    
-        &__main {
-          grid-row: span 3 / span 3;
-    
-          margin-right: 4rem;
+        &__section {
+          &-left {
+            grid-row: span 3 / span 3;
+
+            margin-right: 4rem;
+          }
+
+          &-right {
+            &-top {
+              order: 2;
+              max-width: 15rem;
+            }
+
+            &-bottom {
+              order: 3;
+              max-width: 15rem;
+            }
+          }
         }
       }
     }
 
     @media (min-width: breakpoint.size("large")) {
-      &__aside-top {
-        max-width: 16rem;
-      }
-    
-      &__aside-bottom {
-        max-width: 18rem;
-      }
-    
-      &__main {
-        margin-right: 4rem;
+      &__section {
+        &-left {
+          margin-right: 4rem;
+        }
+
+        &-right {
+          &-top {
+            max-width: 16rem;
+          }
+
+          &-bottom {
+            max-width: 18rem;
+          }
+        }
       }
     }
   }
