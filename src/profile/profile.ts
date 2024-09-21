@@ -54,6 +54,15 @@ export const profileSchema = z.object({
       "timespan": z.object({
         "from": dateSchema,
         "to": dateSchema.nullish()
+      }).transform((transform) => {
+        const to = transform.to;
+        const from = transform.from;
+        if (to != undefined && from > to) {
+          transform.from = to;
+          transform.to = from;
+        }
+        
+        return transform;
       }).readonly()
     })).readonly()
   }))
