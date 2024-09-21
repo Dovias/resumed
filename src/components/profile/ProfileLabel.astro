@@ -1,6 +1,7 @@
 ---
 import type {Profile} from "../../profile";
 
+import Paragraph from "../text/Paragraph.astro";
 import Heading from "../text/Heading.astro";
 
 export interface Props extends Pick<Profile, "names" | "role"> {}
@@ -9,4 +10,4 @@ const {names, role} = Astro.props;
 ---
 
 <Heading importance="high">{names.join(" ")}</Heading>
-<Heading importance="low">{role}</Heading>
+<Paragraph importance="high">{role}</Paragraph>

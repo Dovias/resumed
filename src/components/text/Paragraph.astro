@@ -26,14 +26,12 @@ const {importance, "class": className, ...props} = Astro.props;
   @use "../../style/configuration/breakpoint";
   @use "../../style/configuration/font";
 
-  $_paragraph_font_size_names: (
-    "high": "large",
-    "medium": "medium",
-    "low": "small"
-  );
-
   .paragraph {
     &-high {
+      font-size: font.size("very large");
+    }
+
+    &-medium {
       font-size: font.size("large");
     }
 
@@ -43,13 +41,13 @@ const {importance, "class": className, ...props} = Astro.props;
 
     @media (min-width: breakpoint.size("medium")) {
       &-high {
-        font-size: font.size("medium");
+        font-size: font.size("large");
       }
     }
 
     @media (min-width: breakpoint.size("large")) {
       &-high {
-        font-size: font.size("large");
+        font-size: font.size("very large");
       }
     }
   }

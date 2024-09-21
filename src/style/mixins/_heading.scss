@@ -1,0 +1,28 @@
+@use "../configuration/font";
+
+@use "../utilities/maps";
+
+$_heading_css_properties: (
+  "large": (
+    "font-size": font.size("largest"),
+    "font-weight": font.weight("bold")
+  ),
+  "medium": (
+    "font-size": font.size("extra very large"),
+    "font-weight": font.weight("semibold")
+  ),
+  "small": (
+    "font-size": font.size("large"),
+    "font-weight": font.weight("semibold")
+  )
+);
+
+@mixin heading($heading_size_name) {
+  @each $css_property_name, $css_property_value in maps.get-or-error(
+    $_heading_css_properties,
+    "Failed to get heading size named: '#{$heading_size_name}'",
+    $heading_size_name
+  ) {
+    #{$css_property_name}: #{$css_property_value};
+  }
+}
