@@ -34,8 +34,7 @@ if (importance === "high") {
 <style lang="scss" is:global>
   @use "sass:map";
 
-  @use "../../style/mixins/heading" as *;
-  @use "../../style/mixins/panel" as *;
+  @use "../../style/mixins/panel/heading";
 
   @each $importance_name, $heading_size_name in (
     "high": "large",
@@ -48,14 +47,7 @@ if (importance === "high") {
     ) {
       @each $accent_name in ("primary", "secondary") {
         .heading-panel-#{$importance-name}-#{$emphasis_name}-#{$accent_name} {
-          @include heading($heading_size_name);
-          @include panel(
-            $padding_size_name: "medium",
-            $border_radius_name: "large",
-            $shadow_offset_size_name: $shadow_offset_size_name,
-            $color_variant_name: $accent_name,
-            $color_name: "accent"
-          );
+          @include heading.panel($heading_size_name, $shadow_offset_size_name, $accent_name);
         }
       }
     }

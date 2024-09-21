@@ -1,7 +1,7 @@
-@use "../configuration/padding";
-@use "../configuration/border";
-@use "../configuration/shadow";
-@use "../configuration/color";
+@use "../../configuration/padding";
+@use "../../configuration/border";
+@use "../../configuration/shadow";
+@use "../../configuration/color";
 
 @mixin panel($padding_size_name, $border_radius_name, $shadow_offset_size_name, $color_variant_name, $color_name, $color_text: true) {
   padding: padding.size($padding_size_name);
