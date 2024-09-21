@@ -1,20 +1,22 @@
 ---
 import type {Profile} from "../../profile";
 
-import ProfileArticle, {type Props as ProfileArticleProps} from "./ProfileArticle.astro";
+import ArticlePanel, {type Props as ArticlePanelProps} from "../panel/ArticlePanel.astro";
 import VCardQRCode from "../vcard/VCardQRCode.astro";
 import Paragraph from "../text/Paragraph.astro";
+import HeadingPanel from "../panel/HeadingPanel.astro";
 
 export type AttributeProps = Pick<Profile, "names"> & Pick<Profile["contact"], "label" | "qr"> & {
   "links": Profile["contact"]["entries"][keyof Profile["contact"]["entries"]][];
 };
 
-export type Props = Omit<ProfileArticleProps, "accent"> & AttributeProps;
+export type Props = AttributeProps & Omit<ArticlePanelProps, "importance" | "emphasis">;
 
-const {names, links, qr, ...props} = Astro.props;
+const {label, names, links, qr, ...props} = Astro.props;
 ---
 
-<ProfileArticle accent="secondary" {...props}>
+<ArticlePanel importance="low" emphasis="high" {...props}>
+  <HeadingPanel importance="low" emphasis="low" accent="secondary">{label}</HeadingPanel>
   <div class="profile-contact">
     {qr.enabled &&
       <div class="profile-contact__qr">
@@ -53,7 +55,7 @@ const {names, links, qr, ...props} = Astro.props;
       })}
     </div>
   </div>
-</ProfileArticle>
+</ArticlePanel>
 
 <style lang="scss" is:global>
   @use "../../style/configuration/breakpoint";

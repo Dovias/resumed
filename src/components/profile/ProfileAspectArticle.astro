@@ -2,30 +2,32 @@
 import type {RecordValue} from "../../types";
 import type {Profile} from "../../profile";
 
-import ProfileArticle, {type Props as ProfileArticleProps, type AttributeProps as ProfileArticleAttributeProps} from "./ProfileArticle.astro";
+import ArticlePanel, {type Props as ArticlePanelProps} from "../panel/ArticlePanel.astro";
 import Paragraph from "../text/Paragraph.astro";
+import HeadingPanel from "../panel/HeadingPanel.astro";
 
-export type AttributeProps = Omit<ProfileArticleAttributeProps, "accent"> & Pick<RecordValue<Profile["aspects"]>, "label"> & {
+export type AttributeProps = Pick<RecordValue<Profile["aspects"]>, "label"> & {
   "entries": RecordValue<RecordValue<Profile["aspects"]>["entries"]>[];
 };
-export type Props = AttributeProps & Omit<ProfileArticleProps, "accent">;
+export type Props = AttributeProps & Omit<ArticlePanelProps, "importance" | "emphasis">;
 
-const {entries, ...props} = Astro.props;
+const {label, entries, ...props} = Astro.props;
 ---
 
-<ProfileArticle accent="primary" {...props}>
+<ArticlePanel importance="low" emphasis="high" {...props}>
+  <HeadingPanel importance="low" emphasis="low" accent="primary">{label}</HeadingPanel>
   <div class="profile-aspect">
     {entries.map(({label, icon}) =>
-      <div class="profile-aspect__card">
+      <article class="profile-aspect__card">
         <picture>
           <source srcset={icon.path} />
           <img alt={icon.description} height="22"/>
         </picture>
         <Paragraph importance="low">{label}</Paragraph>
-      </div>
+      </article>
     )}
   </div>
-</ProfileArticle>
+</ArticlePanel>
 
 <style lang="scss" is:global>
   @use "../../style/configuration/padding";

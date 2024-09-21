@@ -1,0 +1,64 @@
+---
+import type {HTMLTag, Polymorphic} from "astro/types";
+
+import type {Accent, Emphasis, Importance} from "../../types";
+
+export type AttributeProps = {
+  "importance": Importance;
+  "emphasis": Exclude<Emphasis, "medium">;
+  "accent": Accent;
+};
+
+type _Props = Omit<Polymorphic<AttributeProps & {
+  "as": "h1" | "h2" | "h3";
+}>, "as">;
+
+export type Props = _Props;
+
+const {importance, emphasis, accent, "class": className, ...props} = Astro.props;
+
+let Tag: HTMLTag;
+if (importance === "high") {
+  Tag = "h1";
+} else if (importance == "medium") {
+  Tag = "h2";
+} else {
+  Tag = "h3";
+}
+---
+
+<Tag class:list={[`heading-panel-${importance}-${emphasis}-${accent}`, className]} {...props}>
+  <slot />
+</Tag>
+
+<style lang="scss" is:global>
+  @use "sass:map";
+
+  @use "../../style/mixins/heading" as *;
+  @use "../../style/mixins/panel" as *;
+
+  @each $importance_name, $heading_size_name in (
+    "high": "large",
+    "medium": "medium",
+    "low": "small"
+  ) {
+    @each $emphasis_name, $shadow_offset_size_name in (
+      "high": "large",
+      "low": "small"
+    ) {
+      @each $accent_name in ("primary", "secondary") {
+        .heading-panel-#{$importance-name}-#{$emphasis_name}-#{$accent_name} {
+          @include heading($heading_size_name);
+          @include panel(
+            $padding_size_name: "medium",
+            $border_radius_name: "large",
+            $shadow_offset_size_name: $shadow_offset_size_name,
+            $color_variant_name: $accent_name,
+            $color_name: "accent"
+          );
+        }
+      }
+    }
+  }
+</style>
+

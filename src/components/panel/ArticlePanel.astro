@@ -1,0 +1,45 @@
+---
+import type {Polymorphic} from "astro/types";
+import type {Importance} from "../../types";
+
+export type AttributeProps = {
+  "importance": Exclude<Importance, "medium">;
+  "emphasis": Exclude<Importance, "medium">;
+};
+
+type _Props = Omit<Polymorphic<AttributeProps & {
+  "as": "article";
+}>, "as">;
+
+export type Props = _Props;
+
+const {importance, emphasis, "class": className, ...props} = Astro.props;
+---
+
+<article class:list={[`article-panel-${importance}-${emphasis}`, className]} {...props}>
+  <slot />
+</article>
+
+<style lang="scss" is:global>
+  @use "../../style/mixins/panel" as *;
+
+  @each $importance_name, $color_variant_name in (
+    "high": "secondary",
+    "low": "primary"
+  ) {
+    @each $emphasis_name, $shadow_offset_size_name in (
+      "high": "large",
+      "low": "small"
+    ) {
+      .article-panel-#{$importance-name}-#{$emphasis-name} {
+        @include panel(
+          $padding_size_name: "medium",
+          $border_radius_name: "large",
+          $shadow_offset_size_name: $shadow_offset_size_name,
+          $color_variant_name: $color_variant_name,
+          $color_name: "foreground"
+        );
+      }
+    }
+  }
+</style>
