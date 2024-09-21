@@ -1,16 +1,24 @@
 ---
+import type {Polymorphic} from "astro/types";
+
 import type {LocaleName} from "../locale";
 
-export interface Props {
+export type AttributeProps = {
   "locale": LocaleName;
   "title": string;
-}
+};
 
-const {locale, title} = Astro.props;
+type _Props = Omit<Polymorphic<AttributeProps & {
+  "as": "html";
+}>, "as" | "lang">;
+
+export type Props = _Props;
+
+const {locale, title, ...props} = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang={locale}>
+<html lang={locale} {...props}>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

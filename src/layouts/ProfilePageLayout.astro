@@ -1,5 +1,5 @@
 ---
-import PageLayout from "./PageLayout.astro";
+import PageLayout, {type Props as PageLayoutProps} from "./PageLayout.astro";
 
 import type {LocaleMetadata, LocaleName} from "../locale";
 import type {Profile} from "../profile";
@@ -9,13 +9,15 @@ import ProfilePicture from "../components/profile/ProfilePicture.astro";
 import ProfileLabel from "../components/profile/ProfileLabel.astro";
 import ProfileAspectArticle from "../components/profile/ProfileAspectArticle.astro";
 
-export interface Props {
+export type AttributeProps = {
   "profile": Profile;
   "locale": {
     "name": LocaleName;
     "metadatas": [LocaleMetadata, ...LocaleMetadata[]];
   };
-}
+};
+
+export type Props = AttributeProps & Omit<PageLayoutProps, "locale">;
 
 const {profile, locale} = Astro.props;
 const {names, picture, contact, aspects, ...restProfile} = profile;
