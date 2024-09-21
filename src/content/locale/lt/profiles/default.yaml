@@ -16,14 +16,15 @@ timelines:
     label: Profesinė patirtis
     entries:
       example:
-        label: Įrašo pavadinimas
-        type: Įrašo tipas
-        location: Įrašo vieta
-        description: Įrašo aprašymas
+        label: Profesinės patirties įrašo pavadinimas
+        highlights:
+          label: Profesinės patirties įrašo savybių pavadinimas
+          entries:
+            - "Profesinės patirties įrašo savybė nr. 1"
+            - "Profesinės patirties įrašo savybė nr. 2"
+            - "Profesinės patirties įrašo savybė nr. 3"
   education:
     label: Išsilavinimas
     entries:
       example:
-        label: Įrašo pavadinimas
-        type: Įrašo tipas
-        location: Įrašo vieta
+        label: Profesinės patirties įrašo pavadinimas

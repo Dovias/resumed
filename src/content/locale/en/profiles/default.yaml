@@ -16,14 +16,15 @@ timelines:
     label: Professional Experience
     entries:
       example:
-        label: Entry Name
-        type: Entry Type
-        location: Entry Location
-        description: Entry Description
+        label: Experience Timeline Entry Label
+        highlights:
+          label: Experience Timeline Entry Highlight Label
+          entries:
+            - "Timeline Entry Highlight no. 1"
+            - "Timeline Entry Highlight no. 2"
+            - "Timeline Entry Highlight no. 3"
   education:
     label: Education
     entries:
       example:
-        label: Entry Name
-        type: Entry Type
-        location: Entry Location
+        label: Education Timeline Entry Label (Bachelor's degree)

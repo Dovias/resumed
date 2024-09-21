@@ -12,13 +12,16 @@ export const profilesContentCollection = "profiles" as const satisfies keyof Dat
 
 export type ContentProfilePath = Split<keyof DataEntryMap[typeof profilesContentCollection], "/">;
 
+
 const nonEmptyStringSchema = z.string().min(1);
+const nonEmptyStringNonEmptyArraySchema = nonEmptyStringSchema.array().nonempty();
+
 const nullishNonEmptyStringSchema = nonEmptyStringSchema.nullish();
 const defaultBooleanSchema = z.boolean().default(true);
 const dateSchema = z.date();
 
 export const profileSchema = z.object({
-  "names": z.string().array().nonempty(),
+  "names": nonEmptyStringNonEmptyArraySchema,
   "role": nonEmptyStringSchema,
   "picture": z.object({
     "path": nonEmptyStringSchema,
@@ -47,10 +50,11 @@ export const profileSchema = z.object({
   "timelines": z.record(z.object({
     "label": nonEmptyStringSchema,
     "entries": z.record(z.object({
-      "label": nullishNonEmptyStringSchema,
-      "type": nonEmptyStringSchema,
-      "location": nonEmptyStringSchema,
-      "description": nullishNonEmptyStringSchema,
+      "label": nonEmptyStringSchema,
+      "highlights": z.object({
+        "label": nonEmptyStringSchema,
+        "entries": nonEmptyStringNonEmptyArraySchema
+      }).nullish(),
       "timespan": z.object({
         "from": dateSchema,
         "to": dateSchema.nullish()
