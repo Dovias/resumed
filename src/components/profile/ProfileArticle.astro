@@ -14,9 +14,9 @@ type _Props = Omit<Polymorphic<AttributeProps & {
 
 export type Props = _Props;
 
-const {accent, label, ...props} = Astro.props;
+const {accent, label, "class": className, ...props} = Astro.props;
 ---
-<article class="profile-article" {...props}>
+<article class:list={["profile-article", className]} {...props}>
   <h2 class={`profile-article__header-${accent}`}>{label}</h2>
   <slot />
 </article>
