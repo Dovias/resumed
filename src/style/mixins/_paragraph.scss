@@ -1,0 +1,21 @@
+@use "sass:map";
+
+@use "../configuration/font";
+
+@use "../utilities/maps";
+
+$_paragraph_font_sizes: (
+  "large": font.size("very large"),
+  "medium": font.size("large"),
+  "small": font.size("small")
+);
+
+@mixin paragraph($paragraph_size_name) {
+  @each $paragraph_font_size in maps.get-or-error(
+    $_paragraph_font_sizes,
+    "Failed to get paragraph size named: '#{$paragraph_size_name}'",
+    $paragraph_size_name
+  ) {
+    font-size: $paragraph_font_size;
+  }
+}

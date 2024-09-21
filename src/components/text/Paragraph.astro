@@ -24,30 +24,16 @@ const {importance, "class": className, ...props} = Astro.props;
   @use "sass:map";
 
   @use "../../style/configuration/breakpoint";
-  @use "../../style/configuration/font";
+  @use "../../style/mixins/paragraph" as *;
 
   .paragraph {
-    &-high {
-      font-size: font.size("very large");
-    }
-
-    &-medium {
-      font-size: font.size("large");
-    }
-
-    &-low {
-      font-size: font.size("small");
-    }
-
-    @media (min-width: breakpoint.size("medium")) {
-      &-high {
-        font-size: font.size("large");
-      }
-    }
-
-    @media (min-width: breakpoint.size("large")) {
-      &-high {
-        font-size: font.size("very large");
+    @each $importance_name, $paragraph_size_name in (
+      "high": "large",
+      "medium": "medium",
+      "low": "small"
+    ) {
+      &-#{$importance_name} {
+        @include paragraph($paragraph_size_name);
       }
     }
   }
