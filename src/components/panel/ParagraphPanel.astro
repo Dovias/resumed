@@ -1,0 +1,47 @@
+---
+import type {Polymorphic} from "astro/types";
+
+import type {Importance, Emphasis, Accent} from "../../types";
+
+export type AttributeProps = {
+  "importance": Importance;
+  "emphasis": Exclude<Emphasis, "medium">;
+  "accent": Accent;
+};
+
+type _Props = Omit<Polymorphic<AttributeProps & {
+  "as": "p";
+}>, "as">;
+
+export type Props = _Props;
+
+const {importance, emphasis, accent, "class": className, ...props} = Astro.props;
+---
+
+<p class:list={[`paragraph-panel-${importance}-${emphasis}-${accent}`, className]} {...props}>
+  <slot />
+</p>
+
+<style lang="scss" is:global>
+  @use "sass:map";
+
+  @use "../../style/mixins/panel/paragraph";
+
+  @each $importance_name, $paragraph_size_name in (
+    "high": "large",
+    "medium": "medium",
+    "low": "small"
+  ) {
+    @each $emphasis_name, $shadow_offset_size_name in (
+      "high": "large",
+      "low": "small"
+    ) {
+      @each $accent_name in ("primary", "secondary") {
+        .paragraph-panel-#{$importance_name}-#{$emphasis_name}-#{$accent_name} {
+          @include paragraph.panel($paragraph_size_name, $shadow_offset_size_name, $accent_name);
+        }
+      }
+    }
+  }
+</style>
+

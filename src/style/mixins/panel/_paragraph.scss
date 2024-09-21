@@ -1,0 +1,13 @@
+@use "../paragraph" as *;
+@use "./panel" as super;
+
+@mixin panel($paragraph_size_name, $shadow_offset_size_name, $accent_name) {
+  @include paragraph($paragraph_size_name);
+  @include super.panel(
+    $padding_size_name: "medium",
+    $border_radius_name: "large",
+    $shadow_offset_size_name: $shadow_offset_size_name,
+    $color_variant_name: $accent_name,
+    $color_name: "accent"
+  );
+}
