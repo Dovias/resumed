@@ -4,10 +4,8 @@ import type {Polymorphic} from "astro/types";
 import type {RecordValue} from "../../types";
 import type {Profile} from "../../profile";
 
-import HeadingPanel from "../panel/HeadingPanel.astro";
 import ArticlePanel from "../panel/ArticlePanel.astro";
 import Heading from "../text/Heading.astro";
-import ParagraphPanel from "../panel/ParagraphPanel.astro";
 import Paragraph from "../text/Paragraph.astro";
 
 export type AttributeProps = Pick<RecordValue<Profile["timelines"]>, "label"> & {
