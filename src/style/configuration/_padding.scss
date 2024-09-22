@@ -8,7 +8,9 @@ $_padding_sizes: (
   "medium": 0.5em,
   "large": 1em,
   "extra large": 1.5em,
-  "very large": 2em
+  "very large": 2em,
+  "extra very large": 4em,
+  "largest": 6em
 );
 
 @function size($padding_size_name_path) {

@@ -22,24 +22,17 @@ const dateSchema = z.date();
 
 export const profileSchema = z.object({
   "names": nonEmptyStringNonEmptyArraySchema,
-  "role": nonEmptyStringSchema,
+  "description": nonEmptyStringSchema,
   "picture": z.object({
     "path": nonEmptyStringSchema,
     "description": nullishNonEmptyStringSchema
   }).readonly(),
-  "contact": z.object({
-    "label": nonEmptyStringSchema,
-    "entries": z.record(z.object({
-      "label": nullishNonEmptyStringSchema,
-      "url": nonEmptyStringSchema.url().transform(url => new URL(url)),
-      "newInstance": defaultBooleanSchema,
-      "icon": iconSchema.readonly()
-    })).readonly(),
-    "qr": z.object({
-      "enabled": defaultBooleanSchema,
-      "description": nonEmptyStringSchema
-    }).readonly()
-  }),
+  "contacts": z.record(z.object({
+    "label": nullishNonEmptyStringSchema,
+    "url": nonEmptyStringSchema.url().transform(url => new URL(url)),
+    "newInstance": defaultBooleanSchema,
+    "icon": iconSchema.readonly()
+  })).readonly(),
   "aspects": z.record(z.object({
     "label": nonEmptyStringSchema,
     "entries": z.record(z.object({

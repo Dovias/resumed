@@ -26,16 +26,20 @@ const {locale, title, ...props} = Astro.props;
   </head>
   <body>
     <div class="page">
-      <slot />
+      <div class="page__content">
+        <slot />
+      </div>
     </div>
   </body>
 </html>
 
 <style lang="scss" is:global>
-  @use "../style/configuration/font"; 
+  @use "../style//configuration/breakpoint";
+  @use "../style/configuration/padding"; 
   @use "../style/configuration/color" with (
     $css_variable_selector: ".page"
   );
+  @use "../style/configuration/font"; 
 
   @use "../style/mixins/selection" as *;
   
@@ -44,13 +48,21 @@ const {locale, title, ...props} = Astro.props;
   .page {
     min-height: 100vh;
 
-    background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+PGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMi41IiBmaWxsLW9wYWNpdHk9Ii4xNSIvPjwvc3ZnPg==") color.variable("background");
+    background: color.variable("background");
 
     font-family: font.family(), "ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     color: color.variable("text", "background");
 
     & ::selection {
       @include selection;
+    }
+
+    &__content {
+      max-width: breakpoint.size("extra-large");
+      padding: padding.size("largest");
+
+      overflow: auto;
+      margin: auto;
     }
   }
 </style>

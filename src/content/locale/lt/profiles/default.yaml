@@ -1,8 +1,4 @@
-role: Pareigos
-contact:
-  label: Susisiekimas
-  qr:
-    description: Skenuokite šį QR kodą išmaniuoju įrenginiu, norėdami greitai gauti visą suskaitmenintą konktaktinę informaciją
+description: Profilio trumpas aprašymas
 aspects:
   communication:
     label: Komunikacija

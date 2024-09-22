@@ -5,10 +5,8 @@ import type {LocaleName, LocaleMetadata} from "../locale";
 import type {Profile} from "../profile";
 
 import ProfileTimelineArticle from "../components/profile/ProfileTimelineArticle.astro";
-import ProfileContactArticle from "../components/profile/ProfileContactArticle.astro";
 import ProfileAspectArticle from "../components/profile/ProfileAspectArticle.astro";
-import ProfilePicture from "../components/profile/ProfilePicture.astro";
-import ProfileLabel from "../components/profile/ProfileLabel.astro";
+import ProfileHeader from "../components/profile/ProfileHeader.astro";
 
 export type AttributeProps = {
   "profile": Profile;
@@ -20,112 +18,21 @@ export type AttributeProps = {
 export type Props = AttributeProps & Omit<PageLayoutProps, "locale" | "title">;
 
 const {profile, locale} = Astro.props;
-const {names, picture, contact, timelines, aspects, ...restProfile} = profile;
+const {names, description, picture, contacts, timelines, aspects} = profile;
 ---
 
 <PageLayout locale={locale.name} title={names.join(" ")}>
-  <div class="profile">
-    <section class="profile__section-right-top">
-      <ProfilePicture path={picture.path} description={picture.description} />
-    </section>
-    <section class="profile__section-left">
-      <header>
-        <ProfileLabel {names} role={restProfile.role} />
-      </header>
-      <main>
-        {Object.values(timelines)
-          .map(({label, entries}) =>
-            <ProfileTimelineArticle entries={Object.values(entries)} {label} />
-          )
-        }
-      </main>
-    </section>
-    <section class="profile__section-right-bottom">
-      <ProfileContactArticle label={contact.label} {names} qr={contact.qr} links={Object.values(contact.entries)} />
-      {Object.values(aspects)
-        .map(({label, entries}) =>
-          <ProfileAspectArticle entries={Object.values(entries)} {label} />
-        )
-      }
-    </section>
-  </div>
+  <ProfileHeader {names} {description} {picture} contacts={Object.values(contacts)} />
+  <main>
+    {Object.values(timelines)
+      .map(({label, entries}) =>
+        <ProfileTimelineArticle entries={Object.values(entries)} {label} />
+      )
+    }
+    {Object.values(aspects)
+      .map(({label, entries}) =>
+        <ProfileAspectArticle entries={Object.values(entries)} {label} />
+      )
+    }
+  </main>
 </PageLayout>
-
-<style lang="scss" is:global>
-  @use "../style/configuration/color";
-  @use "../style/configuration/breakpoint";
-
-  @use "../style/utilities/reset";
-
-  .profile {
-    display: grid;
-    justify-content: center;
-    gap: 1rem;
-
-    max-width: breakpoint.size("extra-large");
-    padding: 4rem;
-
-    overflow: auto;
-    margin: auto;
-
-    &__section {
-      &-right {
-        &-top {
-          max-width: 18rem;
-          justify-self: center;
-
-          margin-bottom: 1.5rem;
-        }
-
-        &-bottom {
-          display: grid;
-          gap: 1.5rem;
-        }
-      }
-    }
-
-    @media (min-width: breakpoint.size("medium")) {
-      & {
-        grid-template-columns: 1fr auto;
-    
-        &__section {
-          &-left {
-            grid-row: span 3 / span 3;
-
-            margin-right: 4rem;
-          }
-
-          &-right {
-            &-top {
-              order: 2;
-              max-width: 15rem;
-            }
-
-            &-bottom {
-              order: 3;
-              max-width: 15rem;
-            }
-          }
-        }
-      }
-    }
-
-    @media (min-width: breakpoint.size("large")) {
-      &__section {
-        &-left {
-          margin-right: 4rem;
-        }
-
-        &-right {
-          &-top {
-            max-width: 16rem;
-          }
-
-          &-bottom {
-            max-width: 18rem;
-          }
-        }
-      }
-    }
-  }
-</style>

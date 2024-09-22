@@ -1,0 +1,36 @@
+---
+import type {Polymorphic} from "astro/types";
+
+export type AttributeProps = {
+  "width": number;
+  "height": number;
+};
+
+type IntrinsicProps = Omit<Polymorphic<{
+  "as": "img";
+}>, "as">;
+
+export type Props = AttributeProps & Omit<IntrinsicProps, "width" | "height">;
+
+const {"class": className, ...props} = Astro.props;
+---
+
+<img class:list={["image-panel", className]} {...props} />
+
+<style lang="scss" is:global>
+  @use "../../style/mixins/panel" as *;
+
+  .image-panel {
+    @include panel(
+        $padding_size_name: "medium",
+        $border_radius_name: "full",
+        $shadow_offset_size_name: "large",
+        $color_variant_name: "primary",
+        $color_name: "accent",
+        $color_text: false
+      );
+
+      width: auto;
+      height: 100%;
+  }
+</style>

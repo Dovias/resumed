@@ -1,0 +1,116 @@
+---
+import type {RecordValue} from "../../types";
+import type {Polymorphic} from "astro/types";
+import type {Profile} from "../../profile";
+
+import ImagePanel from "../panel/ImagePanel.astro";
+import Paragraph from "../text/Paragraph.astro";
+import Heading from "../text/Heading.astro";
+
+export type AttributeProps = Pick<Profile, "names" | "description" | "picture"> & {
+  "contacts": RecordValue<Profile["contacts"]>[];
+};
+
+type _Props = Omit<Polymorphic<AttributeProps & {
+  "as": "header";
+}>, "as">;
+
+export type Props = _Props;
+
+const {names, description, picture, contacts} = Astro.props;
+---
+<header class="profile-header">
+  <div class="profile-header__left">
+    <Heading importance="high">{names.join(" ")}</Heading>
+    <Paragraph importance="high">{description}</Paragraph>
+    <ul class="profile-header__contacts">
+      {contacts.map(({newInstance, icon, url, label}) => {
+        let target, rel;
+        if (newInstance) {
+          target = "_blank";
+          rel = "noopener noreferrer";
+        }
+
+        const href = url.toString();
+        if (label == undefined) {
+          label = href.substring(url.protocol.length);
+          if (label.startsWith("//")) {
+            label = label.substring(2);
+          }
+        }
+
+        return (
+          <li class="profile-header__contacts__item">
+            <article class="profile-header__contacts__item__link">
+              <picture class="profile-header__contacts__item__link__icon">
+                <source srcset={icon.path} />
+                <img alt={icon.description} width="24" class="profile-header__contacts__item__link__icon__image"/>
+              </picture>
+              <a class="profile-header__contacts__item__link__anchor" {href} {target} {rel}>{label}</a>
+            </article>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+  <div class="profile-header__right">
+    <picture class="profile-header__picture">
+      <source srcset={picture.path} />
+      <ImagePanel width={128} height={128} alt={picture.description} />
+    </picture>
+  </div>
+</header>
+
+<style lang="scss" is:global>
+  @use "../../style/configuration/margin";
+
+  .profile-header {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    justify-content: space-between;
+    gap: 2rem;
+
+    &__picture {
+      display: block;
+      height: 16rem;
+    }
+
+    &__left {
+      flex: 1;
+    }
+
+    &__contacts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(12rem, max-content));
+      gap: 1rem;
+
+      margin: margin.size("medium") 0;
+
+      list-style: none;
+
+      &__item {
+        &__link {
+          overflow: hidden;
+
+          text-wrap: nowrap;
+          text-overflow: ellipsis;
+
+          &__icon {
+            display: inline-block;
+            vertical-align: middle;
+
+            &__image {
+              display: block;
+            }
+          }
+
+          &__anchor {
+            margin-left: margin.size("small");
+
+            color: inherit;
+          }
+        }
+      }
+    }
+  }
+</style>
