@@ -1,0 +1,141 @@
+---
+import type {Polymorphic} from "astro/types";
+
+import type {RecordValue} from "../../types";
+import type {Profile} from "../../profile";
+
+import HeadingPanel from "../panel/HeadingPanel.astro";
+import ArticlePanel from "../panel/ArticlePanel.astro";
+import Heading from "../text/Heading.astro";
+import ParagraphPanel from "../panel/ParagraphPanel.astro";
+import Paragraph from "../text/Paragraph.astro";
+
+export type AttributeProps = Pick<RecordValue<Profile["timelines"]>, "label"> & {
+  "entries": RecordValue<RecordValue<Profile["timelines"]>["entries"]>[];
+};
+
+type _Props = Omit<Polymorphic<AttributeProps & {
+  "as": "article";
+}>, "as">;
+
+export type Props = _Props;
+
+const {label, entries, "class": className, ...props} = Astro.props;
+
+function formatDate (date: Date) {
+  const isoDateString = date.toISOString().split("T")[0]!;
+  return isoDateString.substring(0, isoDateString.length - 3)
+    .replaceAll("-", ".");
+}
+---
+
+<article class:list={["profile-timeline", className]} {...props}>
+  <Heading importance="medium">{label}</Heading>
+  <ol>
+    {entries.sort(({"timespan": timespanA}, {"timespan": timespanB}) => {
+      let dateA = timespanA.from;
+      let dateB = timespanB.from;
+      if (dateA == dateB) {
+        const currentDate = new Date();
+        dateA = timespanA.to || currentDate;
+        dateB = timespanB.to || currentDate;
+      }
+
+      if (dateA > dateB) {
+        return 1;
+      } else if (dateA < dateB) {
+        return -1;
+      } else {
+        return 0;
+      }
+    }).map(({label, timespan, highlights}) =>
+      <li class="profile-timeline__entry">
+        <h2 class="profile-timeline__entry__label">{label}</h2>
+        <p class="profile-timeline__entry__timespan">{`${formatDate(timespan.from)} - ${timespan.to ? formatDate(timespan.to) : "CURRENT"}`}</p>
+        {highlights &&
+          <ArticlePanel importance="low" emphasis="high">
+            <Heading importance="low">{highlights.label}</Heading>
+            <ul class="profile-timeline__entry__list">
+              {highlights.entries.map(entry => <li class="profile-timeline__entry__list__item"><Paragraph importance="medium">{entry}</Paragraph></li>)}
+            </ul>
+          </ArticlePanel>
+        }
+      </li>
+    )}
+  </ol>
+</article>
+
+<style lang="scss" is:global>
+  @use "../../style/configuration/margin";
+  @use "../../style/configuration/padding";
+  @use "../../style/configuration/border";
+  @use "../../style/configuration/color";
+
+  @use "../../style/mixins/panel/paragraph";
+  @use "../../style/mixins/panel/heading";
+  @use "../../style/mixins/panel" as *;
+
+  .profile-timeline {
+    position: relative;
+
+    margin: margin.size("very large") 0;
+    padding: 0 0 padding.size("medium") padding.size("very large");
+    border-left: border.size("large") dashed color.variable("contour");
+
+    &__entry {
+      margin: margin.size("large") 0;
+
+      list-style: none;
+
+      &::before {
+        @include panel(
+          $padding_size_name: "small",
+          $border_radius_name: "medium",
+          $shadow_offset_size_name: "small",
+          $color_variant_name: "secondary",
+          $color_name: "foreground"
+        );
+
+        position: absolute;
+        left: -0.8rem;
+
+        width: 1.25rem;
+        height: 1.25rem;
+
+        margin-top: 0.9rem;
+
+        content: '';
+      }
+
+      &__list {
+        margin-left: margin.size("large")
+      }
+
+      &__label {
+        @include heading.panel(
+          $heading_size_name: "small",
+          $shadow_offset_size_name: "large",
+          $accent_name: "primary"
+        );
+
+        margin-right: 0.5em;
+        margin-bottom: 0.5em;
+
+        display: inline-block;
+      }
+
+      &__timespan {
+        @include paragraph.panel(
+          $paragraph_size_name: "medium",
+          $shadow_offset_size_name: "large",
+          $accent_name: "secondary"
+        );
+
+        margin-bottom: 0.5em;
+
+        display: inline-block;
+      }
+    }
+  }
+</style>
+

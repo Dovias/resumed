@@ -15,16 +15,34 @@ timelines:
   experience:
     label: Professional Experience
     entries:
-      example:
+      entry1:
         label: Experience Timeline Entry Label
         highlights:
           label: Experience Timeline Entry Highlight Label
           entries:
-            - "Timeline Entry Highlight no. 1"
-            - "Timeline Entry Highlight no. 2"
-            - "Timeline Entry Highlight no. 3"
+            - Timeline Entry Highlight no. 1
+            - Timeline Entry Highlight no. 2
+            - Timeline Entry Highlight no. 3
+      entry2:
+        label: Experience Timeline Entry Label
+        highlights:
+          label: Experience Timeline Entry Highlight Label
+          entries:
+            - Timeline Entry Highlight no. 1
+            - Timeline Entry Highlight no. 2
+            - Timeline Entry Highlight no. 3
+      entry3:
+        label: Experience Timeline Entry Label
+        highlights:
+          label: Experience Timeline Entry Highlight Label
+          entries:
+            - Timeline Entry Highlight no. 1
+            - Timeline Entry Highlight no. 2
+            - Timeline Entry Highlight no. 3
   education:
     label: Education
     entries:
-      example:
-        label: Education Timeline Entry Label (Bachelor's degree)
+      entry1:
+        label: Education Timeline Entry Label
+      entry2:
+        label: Education Timeline Entry Label

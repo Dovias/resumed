@@ -15,16 +15,34 @@ timelines:
   experience:
     label: Profesinė patirtis
     entries:
-      example:
+      entry1:
         label: Profesinės patirties įrašo pavadinimas
         highlights:
           label: Profesinės patirties įrašo savybių pavadinimas
           entries:
-            - "Profesinės patirties įrašo savybė nr. 1"
-            - "Profesinės patirties įrašo savybė nr. 2"
-            - "Profesinės patirties įrašo savybė nr. 3"
+            - Profesinės patirties įrašo savybė nr. 1
+            - Profesinės patirties įrašo savybė nr. 2
+            - Profesinės patirties įrašo savybė nr. 3
+      entry2:
+        label: Profesinės patirties įrašo pavadinimas
+        highlights:
+          label: Profesinės patirties įrašo savybių pavadinimas
+          entries:
+            - Profesinės patirties įrašo savybė nr. 1
+            - Profesinės patirties įrašo savybė nr. 2
+            - Profesinės patirties įrašo savybė nr. 3
+      entry3:
+        label: Profesinės patirties įrašo pavadinimas
+        highlights:
+          label: Profesinės patirties įrašo savybių pavadinimas
+          entries:
+            - Profesinės patirties įrašo savybė nr. 1
+            - Profesinės patirties įrašo savybė nr. 2
+            - Profesinės patirties įrašo savybė nr. 3
   education:
     label: Išsilavinimas
     entries:
-      example:
+      entry1:
+        label: Profesinės patirties įrašo pavadinimas
+      entry2:
         label: Profesinės patirties įrašo pavadinimas

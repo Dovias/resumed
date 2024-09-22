@@ -4,7 +4,9 @@ $_margin_sizes: (
   "none": 0,
   "small": 0.5em,
   "medium": 1em,
-  "large": 1.5em
+  "large": 1.5em,
+  "extra large": 2em,
+  "very large": 2.5em
 );
 
 @function size($margin_size_name_path...) {
